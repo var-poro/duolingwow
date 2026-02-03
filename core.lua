@@ -158,12 +158,12 @@ local function ProcessMessage(message)
 
   local rebuilt = {}
   local lastIndex = 1
-  for linkStart, linkEnd in message:gmatch("()(|H.-|h.-|h)()") do
+  for linkStart, linkText, linkEnd in message:gmatch("()(|H.-|h.-|h)()") do
     if linkStart > lastIndex then
       local before = message:sub(lastIndex, linkStart - 1)
       table.insert(rebuilt, ReplaceAbbreviations(before))
     end
-    table.insert(rebuilt, message:sub(linkStart, linkEnd - 1))
+    table.insert(rebuilt, linkText)
     lastIndex = linkEnd
   end
   if lastIndex <= #message then
