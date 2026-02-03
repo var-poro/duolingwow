@@ -69,9 +69,13 @@ end
 
 local function SetLastTooltipLineSmall(tooltip)
   local numLines = tooltip:NumLines()
-  local line = _G[tooltip:GetName() .. "TextLeft" .. numLines]
-  if line then
-    line:SetFontObject(GameFontDisableSmall)
+  local left = _G[tooltip:GetName() .. "TextLeft" .. numLines]
+  if left then
+    left:SetFontObject(GameFontDisableSmall)
+  end
+  local right = _G[tooltip:GetName() .. "TextRight" .. numLines]
+  if right then
+    right:SetFontObject(GameFontDisableSmall)
   end
 end
 
@@ -104,10 +108,12 @@ local function AddTooltipEntry(tooltip, entry, abbr)
     end
   end
   if entry.level then
-    tooltip:AddLine(string.format("|cff89b4faLvl. %s|r", entry.level), 0.85, 0.85, 0.9, true)
+    tooltip:AddDoubleLine(string.format("|cff89b4faLvl. %s|r", entry.level), "|cffffffffDuolingwow|r", 0.85, 0.85, 0.9, 1, 1, 1)
+    SetLastTooltipLineSmall(tooltip)
+  else
+    tooltip:AddLine("|cffffffffDuolingwow|r", 1, 1, 1, true)
+    SetLastTooltipLineSmall(tooltip)
   end
-  tooltip:AddLine("|cffffffffDuolingwow|r", 1, 1, 1, true)
-  SetLastTooltipLineSmall(tooltip)
 end
 
 local function GetAbbreviationEntries(abbr)
@@ -281,6 +287,12 @@ local function PrintHelp()
 end
 
 local function HandleSlashCommand(input)
+  if not L then
+    L = DL:GetStrings()
+  end
+  if not DuolingwowDB then
+    DuolingwowDB = DeepCopyDefaults(GetDefaultDB(), DuolingwowDB or {})
+  end
   local args = {}
   for token in string.gmatch(input or "", "%S+") do
     table.insert(args, token)
