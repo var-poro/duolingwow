@@ -2,12 +2,19 @@ local ADDON_NAME, DL = ...
 
 local L = nil
 
-local DEFAULT_DB = {
-  enabledLanguages = {
-    EN = true,
-    FR = false,
-  },
-}
+local function GetDefaultEnabledLanguages()
+  local locale = GetLocale()
+  if locale == "frFR" then
+    return { EN = false, FR = true }
+  end
+  return { EN = true, FR = false }
+end
+
+local function GetDefaultDB()
+  return {
+    enabledLanguages = GetDefaultEnabledLanguages(),
+  }
+end
 
 local CHAT_EVENTS = {
   "CHAT_MSG_SAY",
@@ -43,7 +50,7 @@ end
 local function GetEnabledLanguages()
   local enabled = {}
   for _, lang in ipairs(DL:GetAvailableLanguages()) do
-    if DuoLingWoWDB.enabledLanguages[lang.code] then
+    if DuolingwowDB.enabledLanguages[lang.code] then
       table.insert(enabled, lang.code)
     end
   end
@@ -51,7 +58,7 @@ local function GetEnabledLanguages()
 end
 
 local function GetLinkColor()
-  local color = DuoLingWoWDB.linkColor or { r = 1, g = 0.82, b = 0 }
+  local color = DuolingwowDB.linkColor or { r = 1, g = 0.82, b = 0 }
   return color.r, color.g, color.b
 end
 
@@ -88,8 +95,8 @@ local function AddTooltipEntry(tooltip, entry, abbr)
   local factionIcons = GetFactionIcons(entry.faction)
   local nameLine = string.format("|cffffff00%s|r |cffffffff(%s)|r", entry.name, abbr)
   tooltip:AddLine(nameLine)
-  if entry.zone or entry.continent then
-    local zone = entry.zone or entry.continent
+  if entry.zone then
+    local zone = entry.zone
     if factionIcons ~= "" then
       tooltip:AddLine(string.format("|cffffffff%s|r %s", zone, factionIcons), 1, 1, 1, true)
     else
@@ -99,7 +106,7 @@ local function AddTooltipEntry(tooltip, entry, abbr)
   if entry.level then
     tooltip:AddLine(string.format("|cff89b4faLvl. %s|r", entry.level), 0.85, 0.85, 0.9, true)
   end
-  tooltip:AddLine("|cffffffffDuolingWoW|r", 1, 1, 1, true)
+  tooltip:AddLine("|cffffffffDuolingwow|r", 1, 1, 1, true)
   SetLastTooltipLineSmall(tooltip)
 end
 
@@ -201,7 +208,11 @@ end
 
 local function Initialize()
   L = DL:GetStrings()
-  DuoLingWoWDB = DeepCopyDefaults(DEFAULT_DB, DuoLingWoWDB or {})
+  if not DuolingwowDB and DuoLingWoWDB then
+    DuolingwowDB = DuoLingWoWDB
+    DuoLingWoWDB = nil
+  end
+  DuolingwowDB = DeepCopyDefaults(GetDefaultDB(), DuolingwowDB or {})
   DL.AbbrLookup = {}
   for _, lang in ipairs(DL:GetAvailableLanguages()) do
     local dict = DL.Dictionary[lang.code]
