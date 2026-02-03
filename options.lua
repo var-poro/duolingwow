@@ -86,6 +86,7 @@ local function CreateOptionsPanel()
       local cr, cg, cb = ColorPickerFrame:GetColorRGB()
       DuoLingWoWDB.linkColor = { r = cr, g = cg, b = cb }
     end
+    ColorPickerFrame.swatchFunc = ColorPickerFrame.func
     ColorPickerFrame.cancelFunc = function()
       local prev = ColorPickerFrame.previousValues
       if prev then

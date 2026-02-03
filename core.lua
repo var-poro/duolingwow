@@ -170,6 +170,7 @@ local function OnItemRef(linkData)
   local entries = GetAbbreviationEntries(normalized)
   ItemRefTooltip:SetOwner(UIParent, "ANCHOR_PRESERVE")
   ItemRefTooltip:ClearLines()
+  ItemRefTooltip:SetText("|cffffd166DuoLingWoW|r")
 
   if #entries == 0 then
     ItemRefTooltip:AddLine(L.TOOLTIP_EMPTY, 1, 0.5, 0.5)
