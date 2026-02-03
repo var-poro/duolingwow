@@ -77,6 +77,11 @@ local function SetLastTooltipLineFonts(tooltip, leftFont, rightFont)
   if right and rightFont then
     right:SetFontObject(rightFont)
   end
+  if right then
+    right:ClearAllPoints()
+    right:SetPoint("RIGHT", tooltip, "RIGHT", 0, 0)
+    right:SetJustifyH("RIGHT")
+  end
 end
 
 local function GetFactionIcons(faction)
