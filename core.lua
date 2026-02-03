@@ -97,8 +97,13 @@ end
 
 local function AddTooltipEntry(tooltip, entry, abbr)
   local factionIcons = GetFactionIcons(entry.faction)
-  local nameLine = string.format("|cffffff00%s|r |cffffffff(%s)|r", entry.name, abbr)
-  tooltip:AddLine(nameLine)
+  tooltip:AddDoubleLine(
+    string.format("|cffffff00%s|r", entry.name),
+    string.format("|cffffffff(%s)|r", abbr),
+    1, 1, 0,
+    1, 1, 1
+  )
+  SetLastTooltipLineFonts(tooltip, GameFontNormalLarge, GameFontDisableSmall)
   if entry.zone then
     local zone = entry.zone
     if factionIcons ~= "" then
@@ -109,7 +114,7 @@ local function AddTooltipEntry(tooltip, entry, abbr)
   end
   if entry.level then
     tooltip:AddDoubleLine(string.format("|cffffff00lvl. %s|r", entry.level), "|cffffffffDuolingwow|r", 1, 1, 0, 1, 1, 1)
-    SetLastTooltipLineFonts(tooltip, GameFontNormalLarge, GameFontDisableSmall)
+    SetLastTooltipLineFonts(tooltip, GameFontHighlight, GameFontDisableSmall)
   else
     tooltip:AddLine("|cffffffffDuolingwow|r", 1, 1, 1, true)
     SetLastTooltipLineFonts(tooltip, GameFontDisableSmall, GameFontDisableSmall)
