@@ -5,13 +5,23 @@ local DEFAULT_DB = {
     EN = true,
     FR = false,
   },
+  linkColor = {
+    r = 1,
+    g = 0.82,
+    b = 0,
+  },
 }
 
 local function EnsureDB()
   if not DuoLingWoWDB then
     DuoLingWoWDB = DEFAULT_DB
-  elseif not DuoLingWoWDB.enabledLanguages then
-    DuoLingWoWDB.enabledLanguages = DEFAULT_DB.enabledLanguages
+  else
+    if not DuoLingWoWDB.enabledLanguages then
+      DuoLingWoWDB.enabledLanguages = DEFAULT_DB.enabledLanguages
+    end
+    if not DuoLingWoWDB.linkColor then
+      DuoLingWoWDB.linkColor = DEFAULT_DB.linkColor
+    end
   end
 end
 
@@ -60,8 +70,34 @@ local function CreateOptionsPanel()
     last = checkbox
   end
 
+  local colorHeader = panel:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+  colorHeader:SetPoint("TOPLEFT", last, "BOTTOMLEFT", 0, -16)
+  colorHeader:SetText(L.OPTIONS_COLOR_HEADER)
+
+  local colorPicker = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
+  colorPicker:SetSize(180, 22)
+  colorPicker:SetPoint("TOPLEFT", colorHeader, "BOTTOMLEFT", 0, -8)
+  colorPicker:SetText(L.OPTIONS_COLOR_PICKER)
+  colorPicker:SetScript("OnClick", function()
+    local r, g, b = DuoLingWoWDB.linkColor.r, DuoLingWoWDB.linkColor.g, DuoLingWoWDB.linkColor.b
+    ColorPickerFrame.hasOpacity = false
+    ColorPickerFrame.previousValues = { r = r, g = g, b = b }
+    ColorPickerFrame.func = function()
+      local cr, cg, cb = ColorPickerFrame:GetColorRGB()
+      DuoLingWoWDB.linkColor = { r = cr, g = cg, b = cb }
+    end
+    ColorPickerFrame.cancelFunc = function()
+      local prev = ColorPickerFrame.previousValues
+      if prev then
+        DuoLingWoWDB.linkColor = { r = prev.r, g = prev.g, b = prev.b }
+      end
+    end
+    ColorPickerFrame:SetColorRGB(r, g, b)
+    ColorPickerFrame:Show()
+  end)
+
   local creditsHeader = panel:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-  creditsHeader:SetPoint("TOPLEFT", last, "BOTTOMLEFT", 0, -16)
+  creditsHeader:SetPoint("TOPLEFT", colorPicker, "BOTTOMLEFT", 0, -16)
   creditsHeader:SetText(L.OPTIONS_CREDITS_HEADER)
 
   local credits = panel:CreateFontString(nil, "ARTWORK", "GameFontHighlight")

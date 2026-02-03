@@ -50,6 +50,24 @@ local function GetEnabledLanguages()
   return enabled
 end
 
+local function GetLinkColor()
+  local color = DuoLingWoWDB.linkColor or { r = 1, g = 0.82, b = 0 }
+  return color.r, color.g, color.b
+end
+
+local function ColorizeLinkText(text)
+  local r, g, b = GetLinkColor()
+  return string.format("|cff%02x%02x%02x%s|r", r * 255, g * 255, b * 255, text)
+end
+
+local function SetLastTooltipLineSmall(tooltip)
+  local numLines = tooltip:NumLines()
+  local line = _G[tooltip:GetName() .. "TextLeft" .. numLines]
+  if line then
+    line:SetFontObject(GameFontDisableSmall)
+  end
+end
+
 local function GetFactionIcons(faction)
   local alliance = "|TInterface\\PVPFrame\\PVP-Currency-Alliance:14:14:0:0|t"
   local horde = "|TInterface\\PVPFrame\\PVP-Currency-Horde:14:14:0:0|t"
@@ -69,18 +87,20 @@ end
 local function AddTooltipEntry(tooltip, entry, abbr)
   local factionIcons = GetFactionIcons(entry.faction)
   local nameLine = string.format("|cffffd166%s|r |cffffffff(%s)|r", entry.name, abbr)
-  if factionIcons ~= "" then
-    nameLine = string.format("%s %s", factionIcons, nameLine)
-  end
   tooltip:AddLine(nameLine)
   if entry.zone or entry.continent then
     local zone = entry.zone or entry.continent
-    tooltip:AddLine(string.format("|cffffffff%s|r", zone), 1, 1, 1, true)
+    if factionIcons ~= "" then
+      tooltip:AddLine(string.format("|cffffffff%s|r %s", zone, factionIcons), 1, 1, 1, true)
+    else
+      tooltip:AddLine(string.format("|cffffffff%s|r", zone), 1, 1, 1, true)
+    end
   end
   if entry.level then
     tooltip:AddLine(string.format("|cff89b4faLvl. %s|r", entry.level), 0.85, 0.85, 0.9, true)
   end
   tooltip:AddLine("|cffffffffDuolingWoW|r", 1, 1, 1, true)
+  SetLastTooltipLineSmall(tooltip)
 end
 
 local function GetAbbreviationEntries(abbr)
@@ -100,7 +120,7 @@ local function ReplaceAbbreviations(segment)
     local key = word:upper()
     if DL.AbbrLookup and DL.AbbrLookup[key] then
       local abbr = DL.AbbrLookup[key]
-      return string.format("|Hdlwow:%s|h|cff00d1b2[%s]|r|h", abbr, word)
+      return string.format("|Hdlwow:%s|h%s|h", abbr, ColorizeLinkText(string.format("[%s]", word)))
     end
     return word
   end)
