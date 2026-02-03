@@ -50,15 +50,16 @@ local function GetEnabledLanguages()
   return enabled
 end
 
-local function BuildTooltipLine(langCode, entry)
-  local parts = { entry.name }
+local function AddTooltipEntry(tooltip, langCode, entry)
+  tooltip:AddLine(string.format("|cff89b4fa%s|r", langCode))
+  tooltip:AddLine(string.format("|cffffffff%s|r", entry.name), 1, 1, 1, true)
   if entry.level then
-    table.insert(parts, string.format("(lvl %s)", entry.level))
+    tooltip:AddLine(string.format("|cffb4befeLevel:|r %s", entry.level), 0.85, 0.85, 0.9, true)
   end
   if entry.continent then
-    table.insert(parts, entry.continent)
+    tooltip:AddLine(string.format("|cffb4befeContinent:|r %s", entry.continent), 0.85, 0.85, 0.9, true)
   end
-  return string.format("%s: %s", langCode, table.concat(parts, ", "))
+  tooltip:AddLine(" ")
 end
 
 local function GetAbbreviationEntries(abbr)
@@ -130,13 +131,13 @@ local function OnHyperlinkEnter(_, linkData)
   local normalized = abbr:upper()
   local entries = GetAbbreviationEntries(normalized)
   GameTooltip:SetOwner(UIParent, "ANCHOR_CURSOR")
-  GameTooltip:SetText(string.format("%s: %s", L.TOOLTIP_TITLE, normalized))
+  GameTooltip:SetText(string.format("|cffffd166%s|r |cffffffff%s|r", L.TOOLTIP_TITLE, normalized))
 
   if #entries == 0 then
     GameTooltip:AddLine(L.TOOLTIP_EMPTY, 1, 0.5, 0.5)
   else
     for _, entry in ipairs(entries) do
-      GameTooltip:AddLine(BuildTooltipLine(entry.lang, entry.data), 0.9, 0.9, 0.9, true)
+      AddTooltipEntry(GameTooltip, entry.lang, entry.data)
     end
   end
 
@@ -159,13 +160,13 @@ local function OnItemRef(linkData)
   local normalized = abbr:upper()
   local entries = GetAbbreviationEntries(normalized)
   ItemRefTooltip:SetOwner(UIParent, "ANCHOR_PRESERVE")
-  ItemRefTooltip:SetText(string.format("%s: %s", L.TOOLTIP_TITLE, normalized))
+  ItemRefTooltip:SetText(string.format("|cffffd166%s|r |cffffffff%s|r", L.TOOLTIP_TITLE, normalized))
 
   if #entries == 0 then
     ItemRefTooltip:AddLine(L.TOOLTIP_EMPTY, 1, 0.5, 0.5)
   else
     for _, entry in ipairs(entries) do
-      ItemRefTooltip:AddLine(BuildTooltipLine(entry.lang, entry.data), 0.9, 0.9, 0.9, true)
+      AddTooltipEntry(ItemRefTooltip, entry.lang, entry.data)
     end
   end
 
@@ -190,17 +191,26 @@ local function RegisterItemRefHook()
 end
 
 local function RegisterHyperlinkHooks()
+  local hooked = false
   if type(FloatingChatFrame_OnHyperlinkEnter) == "function" then
     hooksecurefunc("FloatingChatFrame_OnHyperlinkEnter", OnHyperlinkEnter)
-  elseif type(ChatFrame_OnHyperlinkEnter) == "function" then
+    hooked = true
+  end
+  if type(ChatFrame_OnHyperlinkEnter) == "function" then
     hooksecurefunc("ChatFrame_OnHyperlinkEnter", OnHyperlinkEnter)
+    hooked = true
   end
 
   if type(FloatingChatFrame_OnHyperlinkLeave) == "function" then
     hooksecurefunc("FloatingChatFrame_OnHyperlinkLeave", OnHyperlinkLeave)
-  elseif type(ChatFrame_OnHyperlinkLeave) == "function" then
-    hooksecurefunc("ChatFrame_OnHyperlinkLeave", OnHyperlinkLeave)
+    hooked = true
   end
+  if type(ChatFrame_OnHyperlinkLeave) == "function" then
+    hooksecurefunc("ChatFrame_OnHyperlinkLeave", OnHyperlinkLeave)
+    hooked = true
+  end
+
+  return hooked
 end
 
 local function Initialize()
@@ -226,9 +236,13 @@ end
 
 local frame = CreateFrame("Frame")
 frame:RegisterEvent("ADDON_LOADED")
+frame:RegisterEvent("PLAYER_LOGIN")
 frame:SetScript("OnEvent", function(_, event, addonName)
-  if addonName == ADDON_NAME then
+  if event == "ADDON_LOADED" and addonName == ADDON_NAME then
     Initialize()
+  elseif event == "PLAYER_LOGIN" then
+    RegisterHyperlinkHooks()
+    RegisterItemRefHook()
   end
 end)
 
