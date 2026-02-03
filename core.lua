@@ -77,11 +77,6 @@ local function SetLastTooltipLineFonts(tooltip, leftFont, rightFont)
   if right and rightFont then
     right:SetFontObject(rightFont)
   end
-  if right then
-    right:ClearAllPoints()
-    right:SetPoint("RIGHT", tooltip, "RIGHT", 0, 0)
-    right:SetJustifyH("RIGHT")
-  end
 end
 
 local function GetFactionIcons(faction)
@@ -105,6 +100,7 @@ local function AddTooltipEntry(tooltip, entry, abbr)
   if tooltip.SetPadding then
     tooltip:SetPadding(0, 0)
   end
+  tooltip:SetMinimumWidth(180)
   tooltip:AddDoubleLine(
     string.format("|cffffff00%s|r", entry.name),
     string.format("|cffffffff(%s)|r", abbr),
@@ -112,6 +108,13 @@ local function AddTooltipEntry(tooltip, entry, abbr)
     1, 1, 1
   )
   SetLastTooltipLineFonts(tooltip, GameFontNormalLarge, GameFontHighlight)
+  local titleIndex = tooltip:NumLines()
+  local abbrText = _G[tooltip:GetName() .. "TextRight" .. titleIndex]
+  if abbrText then
+    abbrText:ClearAllPoints()
+    abbrText:SetPoint("RIGHT", tooltip, "RIGHT", -6, 0)
+    abbrText:SetJustifyH("RIGHT")
+  end
   if entry.zone then
     local zone = entry.zone
     if factionIcons ~= "" then
