@@ -230,6 +230,106 @@ local function Initialize()
   RegisterItemRefHook()
 end
 
+local function NormalizeLanguage(lang)
+  if not lang or lang == "" then
+    return nil
+  end
+  return lang:upper()
+end
+
+local function GetEnabledLanguageList()
+  local enabled = {}
+  for _, lang in ipairs(DL:GetAvailableLanguages()) do
+    if DuolingwowDB.enabledLanguages[lang.code] then
+      table.insert(enabled, lang.code)
+    end
+  end
+  return enabled
+end
+
+local function GetLinkColorHex()
+  local r, g, b = GetLinkColor()
+  return string.format("%02X%02X%02X", r * 255, g * 255, b * 255)
+end
+
+local function SetLinkColorFromHex(hex)
+  if not hex then
+    return false
+  end
+  local sanitized = hex:gsub("#", ""):upper()
+  if not sanitized:match("^[0-9A-F]{6}$") then
+    return false
+  end
+  local r = tonumber(sanitized:sub(1, 2), 16) / 255
+  local g = tonumber(sanitized:sub(3, 4), 16) / 255
+  local b = tonumber(sanitized:sub(5, 6), 16) / 255
+  DuolingwowDB.linkColor = { r = r, g = g, b = b }
+  return true, sanitized
+end
+
+local function Print(msg)
+  DEFAULT_CHAT_FRAME:AddMessage(msg)
+end
+
+local function PrintHelp()
+  Print(L.COMMAND_PREFIX)
+  Print(L.COMMAND_HELP)
+  Print(L.COMMAND_ENABLE)
+  Print(L.COMMAND_DISABLE)
+  Print(L.COMMAND_COLOR)
+  Print(L.COMMAND_STATUS)
+end
+
+local function HandleSlashCommand(input)
+  local args = {}
+  for token in string.gmatch(input or "", "%S+") do
+    table.insert(args, token)
+  end
+
+  local command = (args[1] or "help"):lower()
+  if command == "help" then
+    PrintHelp()
+    return
+  end
+
+  if command == "enable" or command == "disable" then
+    local lang = NormalizeLanguage(args[2])
+    local found = false
+    for _, info in ipairs(DL:GetAvailableLanguages()) do
+      if info.code == lang then
+        found = true
+        DuolingwowDB.enabledLanguages[lang] = (command == "enable")
+        local status = (command == "enable") and "enabled" or "disabled"
+        Print(string.format(L.COMMAND_LANG_UPDATED, lang, status))
+        return
+      end
+    end
+    if not found then
+      Print(string.format(L.COMMAND_LANG_UNKNOWN, lang or ""))
+    end
+    return
+  end
+
+  if command == "color" then
+    local ok, hex = SetLinkColorFromHex(args[2])
+    if ok then
+      Print(string.format(L.COMMAND_COLOR_UPDATED, hex))
+    else
+      Print(L.COMMAND_COLOR)
+    end
+    return
+  end
+
+  if command == "status" then
+    local enabled = table.concat(GetEnabledLanguageList(), ", ")
+    local hex = GetLinkColorHex()
+    Print(string.format(L.COMMAND_STATUS_LINE, enabled ~= "" and enabled or "-", hex))
+    return
+  end
+
+  Print(L.COMMAND_UNKNOWN)
+end
+
 local frame = CreateFrame("Frame")
 frame:RegisterEvent("ADDON_LOADED")
 frame:SetScript("OnEvent", function(_, event, addonName)
@@ -239,3 +339,6 @@ frame:SetScript("OnEvent", function(_, event, addonName)
 end)
 
 DL.GetEnabledLanguages = GetEnabledLanguages
+
+SLASH_DUOLINGWOW1 = "/dl"
+SlashCmdList.DUOLINGWOW = HandleSlashCommand
