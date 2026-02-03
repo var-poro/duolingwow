@@ -50,16 +50,37 @@ local function GetEnabledLanguages()
   return enabled
 end
 
-local function AddTooltipEntry(tooltip, langCode, entry)
-  tooltip:AddLine(string.format("|cff89b4fa%s|r", langCode))
-  tooltip:AddLine(string.format("|cffffffff%s|r", entry.name), 1, 1, 1, true)
+local function GetFactionIcons(faction)
+  local alliance = "|TInterface\\PVPFrame\\PVP-Currency-Alliance:14:14:0:0|t"
+  local horde = "|TInterface\\PVPFrame\\PVP-Currency-Horde:14:14:0:0|t"
+
+  if faction == "Alliance" then
+    return alliance
+  end
+  if faction == "Horde" then
+    return horde
+  end
+  if faction == "Both" then
+    return string.format("%s %s", alliance, horde)
+  end
+  return ""
+end
+
+local function AddTooltipEntry(tooltip, entry, abbr)
+  tooltip:AddLine(string.format("|cffffd166%s|r |cffffffff(%s)|r", entry.name, abbr))
+  if entry.zone or entry.continent then
+    local zone = entry.zone or entry.continent
+    local factionIcons = GetFactionIcons(entry.faction)
+    if factionIcons ~= "" then
+      tooltip:AddLine(string.format("|cffffffff%s|r %s", zone, factionIcons), 1, 1, 1, true)
+    else
+      tooltip:AddLine(string.format("|cffffffff%s|r", zone), 1, 1, 1, true)
+    end
+  end
   if entry.level then
-    tooltip:AddLine(string.format("|cffb4befeLevel:|r %s", entry.level), 0.85, 0.85, 0.9, true)
+    tooltip:AddLine(string.format("|cff89b4faLvl. %s|r", entry.level), 0.85, 0.85, 0.9, true)
   end
-  if entry.continent then
-    tooltip:AddLine(string.format("|cffb4befeContinent:|r %s", entry.continent), 0.85, 0.85, 0.9, true)
-  end
-  tooltip:AddLine(" ")
+  tooltip:AddLine("|cffffffffDuolingWoW|r", 1, 1, 1, true)
 end
 
 local function GetAbbreviationEntries(abbr)
@@ -119,38 +140,6 @@ local function ChatFilter(self, event, message, author, ...)
   return false, message, author, ...
 end
 
-local function OnHyperlinkEnter(_, linkData)
-  if not linkData then
-    return
-  end
-  local linkType, abbr = string.split(":", linkData)
-  if linkType ~= "dlwow" or not abbr then
-    return
-  end
-
-  local normalized = abbr:upper()
-  local entries = GetAbbreviationEntries(normalized)
-  GameTooltip:SetOwner(UIParent, "ANCHOR_CURSOR")
-  GameTooltip:SetText(string.format("|cffffd166%s|r |cffffffff%s|r", L.TOOLTIP_TITLE, normalized))
-
-  if #entries == 0 then
-    GameTooltip:AddLine(L.TOOLTIP_EMPTY, 1, 0.5, 0.5)
-  else
-    for _, entry in ipairs(entries) do
-      AddTooltipEntry(GameTooltip, entry.lang, entry.data)
-    end
-  end
-
-  GameTooltip:Show()
-end
-
-local function OnHyperlinkLeave(_, linkData)
-  local linkType = string.match(linkData or "", "^(.-):")
-  if linkType == "dlwow" then
-    GameTooltip:Hide()
-  end
-end
-
 local function OnItemRef(linkData)
   local linkType, abbr = string.split(":", linkData)
   if linkType ~= "dlwow" or not abbr then
@@ -160,13 +149,13 @@ local function OnItemRef(linkData)
   local normalized = abbr:upper()
   local entries = GetAbbreviationEntries(normalized)
   ItemRefTooltip:SetOwner(UIParent, "ANCHOR_PRESERVE")
-  ItemRefTooltip:SetText(string.format("|cffffd166%s|r |cffffffff%s|r", L.TOOLTIP_TITLE, normalized))
+  ItemRefTooltip:SetText(L.TOOLTIP_TITLE)
 
   if #entries == 0 then
     ItemRefTooltip:AddLine(L.TOOLTIP_EMPTY, 1, 0.5, 0.5)
   else
     for _, entry in ipairs(entries) do
-      AddTooltipEntry(ItemRefTooltip, entry.lang, entry.data)
+      AddTooltipEntry(ItemRefTooltip, entry.data, normalized)
     end
   end
 
@@ -190,29 +179,6 @@ local function RegisterItemRefHook()
   end
 end
 
-local function RegisterHyperlinkHooks()
-  local hooked = false
-  if type(FloatingChatFrame_OnHyperlinkEnter) == "function" then
-    hooksecurefunc("FloatingChatFrame_OnHyperlinkEnter", OnHyperlinkEnter)
-    hooked = true
-  end
-  if type(ChatFrame_OnHyperlinkEnter) == "function" then
-    hooksecurefunc("ChatFrame_OnHyperlinkEnter", OnHyperlinkEnter)
-    hooked = true
-  end
-
-  if type(FloatingChatFrame_OnHyperlinkLeave) == "function" then
-    hooksecurefunc("FloatingChatFrame_OnHyperlinkLeave", OnHyperlinkLeave)
-    hooked = true
-  end
-  if type(ChatFrame_OnHyperlinkLeave) == "function" then
-    hooksecurefunc("ChatFrame_OnHyperlinkLeave", OnHyperlinkLeave)
-    hooked = true
-  end
-
-  return hooked
-end
-
 local function Initialize()
   L = DL:GetStrings()
   DuoLingWoWDB = DeepCopyDefaults(DEFAULT_DB, DuoLingWoWDB or {})
@@ -230,19 +196,14 @@ local function Initialize()
     ChatFrame_AddMessageEventFilter(event, ChatFilter)
   end
 
-  RegisterHyperlinkHooks()
   RegisterItemRefHook()
 end
 
 local frame = CreateFrame("Frame")
 frame:RegisterEvent("ADDON_LOADED")
-frame:RegisterEvent("PLAYER_LOGIN")
 frame:SetScript("OnEvent", function(_, event, addonName)
   if event == "ADDON_LOADED" and addonName == ADDON_NAME then
     Initialize()
-  elseif event == "PLAYER_LOGIN" then
-    RegisterHyperlinkHooks()
-    RegisterItemRefHook()
   end
 end)
 

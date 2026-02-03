@@ -5,34 +5,40 @@ DL.Dictionary = {
     STV = {
       name = "Stranglethorn Vale",
       level = "30-50",
-      continent = "Eastern Kingdoms",
+      zone = "Eastern Kingdoms",
+      faction = "Both",
     },
     IF = {
       name = "Ironforge",
       level = "1-60",
-      continent = "Eastern Kingdoms",
+      zone = "Eastern Kingdoms",
+      faction = "Alliance",
     },
     SW = {
       name = "Stormwind",
       level = "1-60",
-      continent = "Eastern Kingdoms",
+      zone = "Eastern Kingdoms",
+      faction = "Alliance",
     },
   },
   FR = {
     STV = {
       name = "Vallée de Strangleronce",
       level = "30-50",
-      continent = "Royaumes de l'Est",
+      zone = "Royaumes de l'Est",
+      faction = "Both",
     },
     IF = {
       name = "Forgefer",
       level = "1-60",
-      continent = "Royaumes de l'Est",
+      zone = "Royaumes de l'Est",
+      faction = "Alliance",
     },
     SW = {
       name = "Hurlevent",
       level = "1-60",
-      continent = "Royaumes de l'Est",
+      zone = "Royaumes de l'Est",
+      faction = "Alliance",
     },
   },
 }

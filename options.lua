@@ -35,6 +35,7 @@ local function CreateOptionsPanel()
   local L = DL:GetStrings()
   local panel = CreateFrame("Frame")
   panel.name = L.ADDON_NAME
+  panel.parent = "Chat"
 
   local title = panel:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
   title:SetPoint("TOPLEFT", 16, -16)
@@ -81,8 +82,9 @@ end
 
 local function RegisterOptions(panel)
   if Settings and Settings.RegisterCanvasLayoutCategory then
-    local category = Settings.RegisterCanvasLayoutCategory(panel, panel.name)
-    Settings.RegisterAddOnCategory(category)
+    local parentCategory = Settings.GetCategory and Settings.GetCategory("Chat")
+    local category = Settings.RegisterCanvasLayoutCategory(panel, panel.name, parentCategory)
+    Settings.RegisterAddOnCategory(category, parentCategory)
   else
     InterfaceOptions_AddCategory(panel)
   end
