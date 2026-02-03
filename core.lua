@@ -121,6 +121,9 @@ local function ChatFilter(self, event, message, author, ...)
 end
 
 local function OnHyperlinkEnter(_, linkData)
+  if not linkData then
+    return
+  end
   local linkType, abbr = string.split(":", linkData)
   if linkType ~= "dlwow" or not abbr then
     return
@@ -148,6 +151,20 @@ local function OnHyperlinkLeave(_, linkData)
   end
 end
 
+local function RegisterHyperlinkHooks()
+  if type(FloatingChatFrame_OnHyperlinkEnter) == "function" then
+    hooksecurefunc("FloatingChatFrame_OnHyperlinkEnter", OnHyperlinkEnter)
+  elseif type(ChatFrame_OnHyperlinkEnter) == "function" then
+    hooksecurefunc("ChatFrame_OnHyperlinkEnter", OnHyperlinkEnter)
+  end
+
+  if type(FloatingChatFrame_OnHyperlinkLeave) == "function" then
+    hooksecurefunc("FloatingChatFrame_OnHyperlinkLeave", OnHyperlinkLeave)
+  elseif type(ChatFrame_OnHyperlinkLeave) == "function" then
+    hooksecurefunc("ChatFrame_OnHyperlinkLeave", OnHyperlinkLeave)
+  end
+end
+
 local function Initialize()
   L = DL:GetStrings()
   DuoLingWoWDB = DeepCopyDefaults(DEFAULT_DB, DuoLingWoWDB or {})
@@ -156,8 +173,7 @@ local function Initialize()
     ChatFrame_AddMessageEventFilter(event, ChatFilter)
   end
 
-  hooksecurefunc("ChatFrame_OnHyperlinkEnter", OnHyperlinkEnter)
-  hooksecurefunc("ChatFrame_OnHyperlinkLeave", OnHyperlinkLeave)
+  RegisterHyperlinkHooks()
 end
 
 local frame = CreateFrame("Frame")

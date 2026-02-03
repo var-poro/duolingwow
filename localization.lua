@@ -33,9 +33,5 @@ function DL:GetAvailableLanguages()
 end
 
 function DL:GetStrings()
-  local locale = GetLocale()
-  if locale == "frFR" then
-    return self.Locale.FR
-  end
   return self.Locale.EN
 end
