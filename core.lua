@@ -86,7 +86,7 @@ end
 
 local function AddTooltipEntry(tooltip, entry, abbr)
   local factionIcons = GetFactionIcons(entry.faction)
-  local nameLine = string.format("|cffffd166%s|r |cffffffff(%s)|r", entry.name, abbr)
+  local nameLine = string.format("|cffffff00%s|r |cffffffff(%s)|r", entry.name, abbr)
   tooltip:AddLine(nameLine)
   if entry.zone or entry.continent then
     local zone = entry.zone or entry.continent
@@ -170,7 +170,6 @@ local function OnItemRef(linkData)
   local entries = GetAbbreviationEntries(normalized)
   ItemRefTooltip:SetOwner(UIParent, "ANCHOR_PRESERVE")
   ItemRefTooltip:ClearLines()
-  ItemRefTooltip:SetText("|cffffd166DuoLingWoW|r")
 
   if #entries == 0 then
     ItemRefTooltip:AddLine(L.TOOLTIP_EMPTY, 1, 0.5, 0.5)

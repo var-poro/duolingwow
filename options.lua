@@ -127,22 +127,5 @@ local function RegisterOptions(panel)
   end
 end
 
-local function OpenOptions()
-  if Settings and Settings.OpenToCategory then
-    local category = Settings.GetCategory and Settings.GetCategory("DuoLingWoW")
-    if category and category.ID then
-      Settings.OpenToCategory(category.ID)
-    else
-      Settings.OpenToCategory("DuoLingWoW")
-    end
-  else
-    InterfaceOptionsFrame_OpenToCategory(panel)
-    InterfaceOptionsFrame_OpenToCategory(panel)
-  end
-end
-
-SLASH_DUOLINGWOW1 = "/dl"
-SlashCmdList.DUOLINGWOW = OpenOptions
-
 local panel = CreateOptionsPanel()
 RegisterOptions(panel)
