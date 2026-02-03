@@ -62,28 +62,26 @@ local function BuildTooltipLine(langCode, entry)
 end
 
 local function GetAbbreviationEntries(abbr)
+  local normalized = abbr and abbr:upper() or abbr
   local entries = {}
   for _, langCode in ipairs(GetEnabledLanguages()) do
     local langDict = DL.Dictionary[langCode]
-    if langDict and langDict[abbr] then
-      table.insert(entries, { lang = langCode, data = langDict[abbr] })
+    if langDict and normalized and langDict[normalized] then
+      table.insert(entries, { lang = langCode, data = langDict[normalized] })
     end
   end
   return entries
 end
 
 local function ReplaceAbbreviations(segment)
-  for langCode, dict in pairs(DL.Dictionary) do
-    if DuoLingWoWDB.enabledLanguages[langCode] then
-      for abbr in pairs(dict) do
-        local pattern = string.format("%%f[%%w]%s%%f[%%W]", abbr)
-        segment = segment:gsub(pattern, function()
-          return string.format("|Hdlwow:%s|h|cff00d1b2[%s]|r|h", abbr, abbr)
-        end)
-      end
+  return segment:gsub("%f[%w]([%w]+)%f[%W]", function(word)
+    local key = word:upper()
+    if DL.AbbrLookup and DL.AbbrLookup[key] then
+      local abbr = DL.AbbrLookup[key]
+      return string.format("|Hdlwow:%s|h|cff00d1b2[%s]|r|h", abbr, word)
     end
-  end
-  return segment
+    return word
+  end)
 end
 
 local function ProcessMessage(message)
@@ -129,9 +127,10 @@ local function OnHyperlinkEnter(_, linkData)
     return
   end
 
-  local entries = GetAbbreviationEntries(abbr)
+  local normalized = abbr:upper()
+  local entries = GetAbbreviationEntries(normalized)
   GameTooltip:SetOwner(UIParent, "ANCHOR_CURSOR")
-  GameTooltip:SetText(string.format("%s: %s", L.TOOLTIP_TITLE, abbr))
+  GameTooltip:SetText(string.format("%s: %s", L.TOOLTIP_TITLE, normalized))
 
   if #entries == 0 then
     GameTooltip:AddLine(L.TOOLTIP_EMPTY, 1, 0.5, 0.5)
@@ -148,6 +147,45 @@ local function OnHyperlinkLeave(_, linkData)
   local linkType = string.match(linkData or "", "^(.-):")
   if linkType == "dlwow" then
     GameTooltip:Hide()
+  end
+end
+
+local function OnItemRef(linkData)
+  local linkType, abbr = string.split(":", linkData)
+  if linkType ~= "dlwow" or not abbr then
+    return false
+  end
+
+  local normalized = abbr:upper()
+  local entries = GetAbbreviationEntries(normalized)
+  ItemRefTooltip:SetOwner(UIParent, "ANCHOR_PRESERVE")
+  ItemRefTooltip:SetText(string.format("%s: %s", L.TOOLTIP_TITLE, normalized))
+
+  if #entries == 0 then
+    ItemRefTooltip:AddLine(L.TOOLTIP_EMPTY, 1, 0.5, 0.5)
+  else
+    for _, entry in ipairs(entries) do
+      ItemRefTooltip:AddLine(BuildTooltipLine(entry.lang, entry.data), 0.9, 0.9, 0.9, true)
+    end
+  end
+
+  ItemRefTooltip:Show()
+  return true
+end
+
+local function RegisterItemRefHook()
+  if type(SetItemRef) ~= "function" then
+    return
+  end
+
+  if not DL.OriginalSetItemRef then
+    DL.OriginalSetItemRef = SetItemRef
+    SetItemRef = function(linkData, text, button, chatFrame)
+      if OnItemRef(linkData) then
+        return
+      end
+      return DL.OriginalSetItemRef(linkData, text, button, chatFrame)
+    end
   end
 end
 
@@ -168,12 +206,22 @@ end
 local function Initialize()
   L = DL:GetStrings()
   DuoLingWoWDB = DeepCopyDefaults(DEFAULT_DB, DuoLingWoWDB or {})
+  DL.AbbrLookup = {}
+  for _, lang in ipairs(DL:GetAvailableLanguages()) do
+    local dict = DL.Dictionary[lang.code]
+    if dict then
+      for abbr in pairs(dict) do
+        DL.AbbrLookup[abbr:upper()] = abbr
+      end
+    end
+  end
 
   for _, event in ipairs(CHAT_EVENTS) do
     ChatFrame_AddMessageEventFilter(event, ChatFilter)
   end
 
   RegisterHyperlinkHooks()
+  RegisterItemRefHook()
 end
 
 local frame = CreateFrame("Frame")
