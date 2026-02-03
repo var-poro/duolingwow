@@ -97,7 +97,9 @@ end
 
 local function AddTooltipEntry(tooltip, entry, abbr)
   local factionIcons = GetFactionIcons(entry.faction)
-  tooltip:SetMinimumWidth(0)
+  if tooltip.SetPadding then
+    tooltip:SetPadding(0, 0)
+  end
   tooltip:AddDoubleLine(
     string.format("|cffffff00%s|r", entry.name),
     string.format("|cffffffff(%s)|r", abbr),
