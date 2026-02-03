@@ -67,15 +67,15 @@ local function GetFactionIcons(faction)
 end
 
 local function AddTooltipEntry(tooltip, entry, abbr)
-  tooltip:AddLine(string.format("|cffffd166%s|r |cffffffff(%s)|r", entry.name, abbr))
+  local factionIcons = GetFactionIcons(entry.faction)
+  local nameLine = string.format("|cffffd166%s|r |cffffffff(%s)|r", entry.name, abbr)
+  if factionIcons ~= "" then
+    nameLine = string.format("%s %s", factionIcons, nameLine)
+  end
+  tooltip:AddLine(nameLine)
   if entry.zone or entry.continent then
     local zone = entry.zone or entry.continent
-    local factionIcons = GetFactionIcons(entry.faction)
-    if factionIcons ~= "" then
-      tooltip:AddLine(string.format("|cffffffff%s|r %s", zone, factionIcons), 1, 1, 1, true)
-    else
-      tooltip:AddLine(string.format("|cffffffff%s|r", zone), 1, 1, 1, true)
-    end
+    tooltip:AddLine(string.format("|cffffffff%s|r", zone), 1, 1, 1, true)
   end
   if entry.level then
     tooltip:AddLine(string.format("|cff89b4faLvl. %s|r", entry.level), 0.85, 0.85, 0.9, true)
@@ -149,7 +149,7 @@ local function OnItemRef(linkData)
   local normalized = abbr:upper()
   local entries = GetAbbreviationEntries(normalized)
   ItemRefTooltip:SetOwner(UIParent, "ANCHOR_PRESERVE")
-  ItemRefTooltip:SetText(L.TOOLTIP_TITLE)
+  ItemRefTooltip:ClearLines()
 
   if #entries == 0 then
     ItemRefTooltip:AddLine(L.TOOLTIP_EMPTY, 1, 0.5, 0.5)

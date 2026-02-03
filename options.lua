@@ -92,10 +92,15 @@ end
 
 local function OpenOptions()
   if Settings and Settings.OpenToCategory then
-    Settings.OpenToCategory("DuoLingWoW")
+    local category = Settings.GetCategory and Settings.GetCategory("DuoLingWoW")
+    if category and category.ID then
+      Settings.OpenToCategory(category.ID)
+    else
+      Settings.OpenToCategory("DuoLingWoW")
+    end
   else
-    InterfaceOptionsFrame_OpenToCategory("DuoLingWoW")
-    InterfaceOptionsFrame_OpenToCategory("DuoLingWoW")
+    InterfaceOptionsFrame_OpenToCategory(panel)
+    InterfaceOptionsFrame_OpenToCategory(panel)
   end
 end
 
