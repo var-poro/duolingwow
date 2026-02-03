@@ -73,13 +73,25 @@ local function CreateOptionsPanel()
   langHeader:SetText(L.OPTIONS_LANG_HEADER)
 
   local last = langHeader
+  panel.checkboxes = {}
   for _, lang in ipairs(DL:GetAvailableLanguages()) do
     local checkbox = CreateCheckbox(panel, lang.name, DuolingwowDB.enabledLanguages[lang.code], function(isEnabled)
       ToggleLanguage(lang.code, isEnabled)
     end)
     checkbox:SetPoint("TOPLEFT", last, "BOTTOMLEFT", 0, -8)
     last = checkbox
+    panel.checkboxes[lang.code] = checkbox
   end
+
+  panel:SetScript("OnShow", function()
+    EnsureDB()
+    for _, lang in ipairs(DL:GetAvailableLanguages()) do
+      local checkbox = panel.checkboxes[lang.code]
+      if checkbox then
+        checkbox:SetChecked(DuolingwowDB.enabledLanguages[lang.code])
+      end
+    end
+  end)
 
   local colorHeader = panel:CreateFontString(nil, "ARTWORK", "GameFontNormal")
   colorHeader:SetPoint("TOPLEFT", last, "BOTTOMLEFT", 0, -16)
