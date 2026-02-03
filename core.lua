@@ -112,7 +112,7 @@ local function AddTooltipEntry(tooltip, entry, abbr)
   local abbrText = _G[tooltip:GetName() .. "TextRight" .. titleIndex]
   if abbrText then
     abbrText:ClearAllPoints()
-    abbrText:SetPoint("RIGHT", tooltip, "RIGHT", -6, 0)
+    abbrText:SetPoint("RIGHT", tooltip, "RIGHT", -15, 0)
     abbrText:SetJustifyH("RIGHT")
   end
   if entry.zone then
