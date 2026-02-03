@@ -67,15 +67,15 @@ local function ColorizeLinkText(text)
   return string.format("|cff%02x%02x%02x%s|r", r * 255, g * 255, b * 255, text)
 end
 
-local function SetLastTooltipLineSmall(tooltip)
+local function SetLastTooltipLineFonts(tooltip, leftFont, rightFont)
   local numLines = tooltip:NumLines()
   local left = _G[tooltip:GetName() .. "TextLeft" .. numLines]
-  if left then
-    left:SetFontObject(GameFontDisableSmall)
+  if left and leftFont then
+    left:SetFontObject(leftFont)
   end
   local right = _G[tooltip:GetName() .. "TextRight" .. numLines]
-  if right then
-    right:SetFontObject(GameFontDisableSmall)
+  if right and rightFont then
+    right:SetFontObject(rightFont)
   end
 end
 
@@ -108,11 +108,11 @@ local function AddTooltipEntry(tooltip, entry, abbr)
     end
   end
   if entry.level then
-    tooltip:AddDoubleLine(string.format("|cff89b4faLvl. %s|r", entry.level), "|cffffffffDuolingwow|r", 0.85, 0.85, 0.9, 1, 1, 1)
-    SetLastTooltipLineSmall(tooltip)
+    tooltip:AddDoubleLine(string.format("|cffffff00lvl. %s|r", entry.level), "|cffffffffDuolingwow|r", 1, 1, 0, 1, 1, 1)
+    SetLastTooltipLineFonts(tooltip, GameFontNormalLarge, GameFontDisableSmall)
   else
     tooltip:AddLine("|cffffffffDuolingwow|r", 1, 1, 1, true)
-    SetLastTooltipLineSmall(tooltip)
+    SetLastTooltipLineFonts(tooltip, GameFontDisableSmall, GameFontDisableSmall)
   end
 end
 
@@ -262,7 +262,7 @@ local function SetLinkColorFromHex(hex)
   if not hex then
     return false
   end
-  local sanitized = hex:gsub("#", ""):upper()
+  local sanitized = hex:gsub("^#", ""):gsub("^0x", ""):upper()
   if not sanitized:match("^[0-9A-F]{6}$") then
     return false
   end
