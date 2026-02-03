@@ -97,14 +97,14 @@ end
 
 local function AddTooltipEntry(tooltip, entry, abbr)
   local factionIcons = GetFactionIcons(entry.faction)
-  tooltip:SetMinimumWidth(220)
+  tooltip:SetMinimumWidth(0)
   tooltip:AddDoubleLine(
     string.format("|cffffff00%s|r", entry.name),
     string.format("|cffffffff(%s)|r", abbr),
     1, 1, 0,
     1, 1, 1
   )
-  SetLastTooltipLineFonts(tooltip, GameFontNormalLarge, GameFontHighlightSmall)
+  SetLastTooltipLineFonts(tooltip, GameFontNormalLarge, GameFontHighlight)
   if entry.zone then
     local zone = entry.zone
     if factionIcons ~= "" then
@@ -115,10 +115,10 @@ local function AddTooltipEntry(tooltip, entry, abbr)
   end
   if entry.level then
     tooltip:AddDoubleLine(string.format("|cffffff00lvl. %s|r", entry.level), "|cffffffffDuolingwow|r", 1, 1, 0, 1, 1, 1)
-    SetLastTooltipLineFonts(tooltip, GameFontHighlight, GameFontHighlightSmall)
+    SetLastTooltipLineFonts(tooltip, GameFontHighlight, GameFontDisableSmall)
   else
     tooltip:AddLine("|cffffffffDuolingwow|r", 1, 1, 1, true)
-    SetLastTooltipLineFonts(tooltip, GameFontHighlightSmall, GameFontHighlightSmall)
+    SetLastTooltipLineFonts(tooltip, GameFontDisableSmall, GameFontDisableSmall)
   end
 end
 
@@ -259,26 +259,6 @@ local function GetEnabledLanguageList()
   return enabled
 end
 
-local function GetLinkColorHex()
-  local r, g, b = GetLinkColor()
-  return string.format("%02X%02X%02X", r * 255, g * 255, b * 255)
-end
-
-local function SetLinkColorFromHex(hex)
-  if not hex then
-    return false
-  end
-  local sanitized = hex:gsub("^#", ""):gsub("^0x", ""):upper()
-  if not sanitized:match("^[0-9A-F]{6}$") then
-    return false
-  end
-  local r = tonumber(sanitized:sub(1, 2), 16) / 255
-  local g = tonumber(sanitized:sub(3, 4), 16) / 255
-  local b = tonumber(sanitized:sub(5, 6), 16) / 255
-  DuolingwowDB.linkColor = { r = r, g = g, b = b }
-  return true, sanitized
-end
-
 local function Print(msg)
   DEFAULT_CHAT_FRAME:AddMessage(msg)
 end
@@ -288,7 +268,6 @@ local function PrintHelp()
   Print(L.COMMAND_HELP)
   Print(L.COMMAND_ENABLE)
   Print(L.COMMAND_DISABLE)
-  Print(L.COMMAND_COLOR)
   Print(L.COMMAND_STATUS)
 end
 
@@ -328,20 +307,9 @@ local function HandleSlashCommand(input)
     return
   end
 
-  if command == "color" then
-    local ok, hex = SetLinkColorFromHex(args[2])
-    if ok then
-      Print(string.format(L.COMMAND_COLOR_UPDATED, hex))
-    else
-      Print(L.COMMAND_COLOR)
-    end
-    return
-  end
-
   if command == "status" then
     local enabled = table.concat(GetEnabledLanguageList(), ", ")
-    local hex = GetLinkColorHex()
-    Print(string.format(L.COMMAND_STATUS_LINE, enabled ~= "" and enabled or "-", hex))
+    Print(string.format(L.COMMAND_STATUS_LINE, enabled ~= "" and enabled or "-"))
     return
   end
 
