@@ -323,7 +323,10 @@ local function CreateOptionsPanel()
   local function UpdateColorPreview()
     EnsureDB()
     local c = DuolingwowDB.linkColor
-    colorPreview:SetColorTexture(c.r, c.g, c.b)
+    local r = (c and c.r ~= nil) and c.r or 1
+    local g = (c and c.g ~= nil) and c.g or 0.82
+    local b = (c and c.b ~= nil) and c.b or 0
+    colorPreview:SetColorTexture(r, g, b)
   end
 
   local function RefreshAllDropdownDisplays()
@@ -342,7 +345,10 @@ local function CreateOptionsPanel()
     RefreshAllDropdownDisplays()
     UpdateColorPreview()
     if C_Timer and C_Timer.After then
-      C_Timer.After(0, RefreshAllDropdownDisplays)
+      C_Timer.After(0, function()
+        RefreshAllDropdownDisplays()
+        UpdateColorPreview()
+      end)
     end
   end)
 
