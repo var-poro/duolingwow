@@ -1555,6 +1555,14 @@ DL.Dictionary.DE = {
     zoneType = "CITY",
     faction = "Horde",
   },
+  Orgri = {
+    name = "Orgrimmar",
+    level = "1-70",
+    zone = "Kalimdor",
+    extension = "Vanilla",
+    zoneType = "CITY",
+    faction = "Horde",
+  },
   OG = {
     name = "Orgrimmar",
     level = "1-70",
@@ -1581,6 +1589,14 @@ DL.Dictionary.DE = {
     zoneType = "CITY",
     faction = "Horde",
   },
+  Under = {
+    name = "Unterstadt",
+    level = "1-70",
+    zone = "Östliche Königreiche",
+    extension = "Vanilla",
+    zoneType = "CITY",
+    faction = "Horde",
+  },
   Unter = {
     name = "Unterstadt",
     level = "1-70",
@@ -1591,6 +1607,16 @@ DL.Dictionary.DE = {
   },
   Undercity = {
     name = "Unterstadt",
+    level = "1-70",
+    zone = "Östliche Königreiche",
+    extension = "Vanilla",
+    zoneType = "CITY",
+    faction = "Horde",
+  },
+  
+  -- Stonard
+  Stonard = {
+    name = "Steinard",
     level = "1-70",
     zone = "Östliche Königreiche",
     extension = "Vanilla",
@@ -2600,4 +2626,3 @@ DL.Dictionary.DE = {
     faction = "Both",
   },
 }
-
