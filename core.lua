@@ -90,7 +90,7 @@ local function GetFactionIcons(faction)
     return horde
   end
   if faction == "Both" then
-    return string.format("%s %s", alliance, horde)
+    return string.format("%s%s", alliance, horde)
   end
   return ""
 end
@@ -98,9 +98,9 @@ end
 local function AddTooltipEntry(tooltip, entry, abbr)
   local factionIcons = GetFactionIcons(entry.faction)
   if tooltip.SetPadding then
-    tooltip:SetPadding(0, 0)
+    tooltip:SetPadding(20, 00)
   end
-  tooltip:SetMinimumWidth(180)
+  tooltip:SetMinimumWidth(160)
   tooltip:AddDoubleLine(
     string.format("|cffffff00%s|r", entry.name),
     string.format("|cffffffff(%s)|r", abbr),
@@ -112,7 +112,6 @@ local function AddTooltipEntry(tooltip, entry, abbr)
   local abbrText = _G[tooltip:GetName() .. "TextRight" .. titleIndex]
   if abbrText then
     abbrText:ClearAllPoints()
-    abbrText:SetPoint("RIGHT", tooltip, "RIGHT", -15, 0)
     abbrText:SetJustifyH("RIGHT")
   end
   if entry.zone then
