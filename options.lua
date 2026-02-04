@@ -8,9 +8,27 @@ local function GetDefaultEnabledLanguages()
   return { EN = true, FR = false }
 end
 
+local function GetDefaultEnabledExtensions()
+  local enabled = {}
+  for _, ext in ipairs(DL:GetAvailableExtensions()) do
+    enabled[ext.code] = true
+  end
+  return enabled
+end
+
+local function GetDefaultEnabledZoneTypes()
+  local enabled = {}
+  for _, zoneType in ipairs(DL:GetAvailableZoneTypes()) do
+    enabled[zoneType.code] = true
+  end
+  return enabled
+end
+
 local function GetDefaultDB()
   return {
     enabledLanguages = GetDefaultEnabledLanguages(),
+    enabledExtensions = GetDefaultEnabledExtensions(),
+    enabledZoneTypes = GetDefaultEnabledZoneTypes(),
     linkColor = {
       r = 1,
       g = 0.82,
@@ -29,6 +47,12 @@ local function EnsureDB()
   else
     if not DuolingwowDB.enabledLanguages then
       DuolingwowDB.enabledLanguages = GetDefaultEnabledLanguages()
+    end
+    if not DuolingwowDB.enabledExtensions then
+      DuolingwowDB.enabledExtensions = GetDefaultEnabledExtensions()
+    end
+    if not DuolingwowDB.enabledZoneTypes then
+      DuolingwowDB.enabledZoneTypes = GetDefaultEnabledZoneTypes()
     end
     if not DuolingwowDB.linkColor then
       DuolingwowDB.linkColor = GetDefaultDB().linkColor
@@ -126,8 +150,136 @@ local function CreateOptionsPanel()
   end)
   UpdateLangDropdownDisplay()
 
+  local extensionHeader = panel:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+  extensionHeader:SetPoint("TOPLEFT", langDropdown, "BOTTOMLEFT", 0, -16)
+  extensionHeader:SetText(L.OPTIONS_EXTENSION_HEADER)
+
+  local function GetExtensionDropdownLabel()
+    EnsureDB()
+    local names = {}
+    for _, ext in ipairs(DL:GetAvailableExtensions()) do
+      if DuolingwowDB.enabledExtensions[ext.code] then
+        table.insert(names, ext.name)
+      end
+    end
+    return #names > 0 and table.concat(names, ", ") or ""
+  end
+
+  local extensionDropdown = CreateFrame("Button", nil, panel, "UIDropDownMenuTemplate")
+  extensionDropdown:SetPoint("TOPLEFT", extensionHeader, "BOTTOMLEFT", 0, -8)
+
+  local function UpdateExtensionDropdownDisplay()
+    local label = GetExtensionDropdownLabel()
+    if label == "" then
+      label = " "
+    end
+    local caption = extensionDropdown.Caption or extensionDropdown.Text
+    if not caption and extensionDropdown:GetName() then
+      caption = _G[extensionDropdown:GetName() .. "Caption"] or _G[extensionDropdown:GetName() .. "Text"]
+    end
+    if not caption then
+      for i = 1, extensionDropdown:GetNumChildren() do
+        local child = select(i, extensionDropdown:GetChildren())
+        if child and child.SetText and child:GetObjectType() == "FontString" then
+          caption = child
+          break
+        end
+      end
+    end
+    if caption and caption.SetText then
+      caption:SetText(label)
+    end
+  end
+
+  local function MultiSelectExtension_Init()
+    for _, ext in ipairs(DL:GetAvailableExtensions()) do
+      local opt = {
+        text = ext.name,
+        value = ext.code,
+        checked = DuolingwowDB.enabledExtensions[ext.code],
+        func = function()
+          EnsureDB()
+          DuolingwowDB.enabledExtensions[ext.code] = not DuolingwowDB.enabledExtensions[ext.code]
+          UIDropDownMenu_Refresh(extensionDropdown)
+          UpdateExtensionDropdownDisplay()
+        end,
+      }
+      UIDropDownMenu_AddButton(opt)
+    end
+  end
+
+  UIDropDownMenu_Initialize(extensionDropdown, MultiSelectExtension_Init)
+  extensionDropdown:SetScript("OnClick", function()
+    ToggleDropDownMenu(1, nil, extensionDropdown, "cursor", 0, 0)
+  end)
+  UpdateExtensionDropdownDisplay()
+
+  local typeHeader = panel:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+  typeHeader:SetPoint("TOPLEFT", extensionDropdown, "BOTTOMLEFT", 0, -16)
+  typeHeader:SetText(L.OPTIONS_TYPE_HEADER)
+
+  local function GetTypeDropdownLabel()
+    EnsureDB()
+    local names = {}
+    for _, zoneType in ipairs(DL:GetAvailableZoneTypes()) do
+      if DuolingwowDB.enabledZoneTypes[zoneType.code] then
+        table.insert(names, zoneType.name)
+      end
+    end
+    return #names > 0 and table.concat(names, ", ") or ""
+  end
+
+  local typeDropdown = CreateFrame("Button", nil, panel, "UIDropDownMenuTemplate")
+  typeDropdown:SetPoint("TOPLEFT", typeHeader, "BOTTOMLEFT", 0, -8)
+
+  local function UpdateTypeDropdownDisplay()
+    local label = GetTypeDropdownLabel()
+    if label == "" then
+      label = " "
+    end
+    local caption = typeDropdown.Caption or typeDropdown.Text
+    if not caption and typeDropdown:GetName() then
+      caption = _G[typeDropdown:GetName() .. "Caption"] or _G[typeDropdown:GetName() .. "Text"]
+    end
+    if not caption then
+      for i = 1, typeDropdown:GetNumChildren() do
+        local child = select(i, typeDropdown:GetChildren())
+        if child and child.SetText and child:GetObjectType() == "FontString" then
+          caption = child
+          break
+        end
+      end
+    end
+    if caption and caption.SetText then
+      caption:SetText(label)
+    end
+  end
+
+  local function MultiSelectType_Init()
+    for _, zoneType in ipairs(DL:GetAvailableZoneTypes()) do
+      local opt = {
+        text = zoneType.name,
+        value = zoneType.code,
+        checked = DuolingwowDB.enabledZoneTypes[zoneType.code],
+        func = function()
+          EnsureDB()
+          DuolingwowDB.enabledZoneTypes[zoneType.code] = not DuolingwowDB.enabledZoneTypes[zoneType.code]
+          UIDropDownMenu_Refresh(typeDropdown)
+          UpdateTypeDropdownDisplay()
+        end,
+      }
+      UIDropDownMenu_AddButton(opt)
+    end
+  end
+
+  UIDropDownMenu_Initialize(typeDropdown, MultiSelectType_Init)
+  typeDropdown:SetScript("OnClick", function()
+    ToggleDropDownMenu(1, nil, typeDropdown, "cursor", 0, 0)
+  end)
+  UpdateTypeDropdownDisplay()
+
   local colorHeader = panel:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-  colorHeader:SetPoint("TOPLEFT", langDropdown, "BOTTOMLEFT", 0, -16)
+  colorHeader:SetPoint("TOPLEFT", typeDropdown, "BOTTOMLEFT", 0, -16)
   colorHeader:SetText(L.OPTIONS_COLOR_HEADER)
 
   local colorPreview = panel:CreateTexture(nil, "ARTWORK")
@@ -145,6 +297,14 @@ local function CreateOptionsPanel()
     UpdateLangDropdownDisplay()
     if UIDropDownMenu_Refresh then
       UIDropDownMenu_Refresh(langDropdown)
+    end
+    UpdateExtensionDropdownDisplay()
+    if UIDropDownMenu_Refresh then
+      UIDropDownMenu_Refresh(extensionDropdown)
+    end
+    UpdateTypeDropdownDisplay()
+    if UIDropDownMenu_Refresh then
+      UIDropDownMenu_Refresh(typeDropdown)
     end
     UpdateColorPreview()
   end)

@@ -6,6 +6,8 @@ DL.Locale = {
     OPTIONS_TITLE = "Duolingwow Options",
     OPTIONS_DESC = "Select languages to show in abbreviation tooltips.",
     OPTIONS_LANG_HEADER = "Languages",
+    OPTIONS_EXTENSION_HEADER = "Extensions",
+    OPTIONS_TYPE_HEADER = "Zone types",
     OPTIONS_CREDITS_HEADER = "Credits",
     OPTIONS_CREDITS = "Author: Poro",
     OPTIONS_GITHUB = "GitHub: https://github.com/poro/duolingwow",
@@ -13,21 +15,41 @@ DL.Locale = {
     OPTIONS_COLOR_PICKER = "Choose link color",
     TOOLTIP_TITLE = "Duolingwow",
     TOOLTIP_EMPTY = "No entry for enabled languages.",
+    TOOLTIP_EXTENSION = "Extension:",
+    TOOLTIP_TYPE = "Type:",
+    EXTENSION_VANILLA = "Vanilla",
+    EXTENSION_TBC = "Burning Crusade",
+    ZONE_TYPE_RAID = "Raid",
+    ZONE_TYPE_DUNGEON = "Dungeon",
+    ZONE_TYPE_ZONE = "Zone",
+    ZONE_TYPE_BATTLEGROUND = "Battleground",
     COMMAND_PREFIX = "Duolingwow commands:",
     COMMAND_HELP = "/dl help - show this help",
     COMMAND_ENABLE = "/dl enable <lang> - enable a language (EN/FR)",
     COMMAND_DISABLE = "/dl disable <lang> - disable a language (EN/FR)",
-    COMMAND_STATUS = "/dl status - show enabled languages",
+    COMMAND_EXTENSION_ENABLE = "/dl extension enable <extension> - enable an extension (Vanilla/TBC)",
+    COMMAND_EXTENSION_DISABLE = "/dl extension disable <extension> - disable an extension (Vanilla/TBC)",
+    COMMAND_TYPE_ENABLE = "/dl type enable <type> - enable a zone type (Raid/Dungeon/Zone/Battleground)",
+    COMMAND_TYPE_DISABLE = "/dl type disable <type> - disable a zone type (Raid/Dungeon/Zone/Battleground)",
+    COMMAND_STATUS = "/dl status - show enabled filters",
     COMMAND_UNKNOWN = "Unknown command. Use /dl help.",
     COMMAND_LANG_UNKNOWN = "Unknown language: %s",
     COMMAND_LANG_UPDATED = "%s language is now %s.",
+    COMMAND_EXTENSION_UNKNOWN = "Unknown extension: %s",
+    COMMAND_EXTENSION_UPDATED = "%s extension is now %s.",
+    COMMAND_TYPE_UNKNOWN = "Unknown zone type: %s",
+    COMMAND_TYPE_UPDATED = "%s zone type is now %s.",
     COMMAND_STATUS_LINE = "Enabled languages: %s.",
+    COMMAND_STATUS_EXTENSIONS_LINE = "Enabled extensions: %s.",
+    COMMAND_STATUS_TYPES_LINE = "Enabled zone types: %s.",
   },
   FR = {
     ADDON_NAME = "Duolingwow",
     OPTIONS_TITLE = "Options Duolingwow",
     OPTIONS_DESC = "Sélectionnez les langues à afficher dans les tooltips.",
     OPTIONS_LANG_HEADER = "Langues",
+    OPTIONS_EXTENSION_HEADER = "Extensions",
+    OPTIONS_TYPE_HEADER = "Types de zone",
     OPTIONS_CREDITS_HEADER = "Crédits",
     OPTIONS_CREDITS = "Auteur : Poro",
     OPTIONS_GITHUB = "GitHub : https://github.com/poro/duolingwow",
@@ -35,15 +57,33 @@ DL.Locale = {
     OPTIONS_COLOR_PICKER = "Choisir la couleur",
     TOOLTIP_TITLE = "Duolingwow",
     TOOLTIP_EMPTY = "Aucune entrée pour les langues activées.",
+    TOOLTIP_EXTENSION = "Extension :",
+    TOOLTIP_TYPE = "Type :",
+    EXTENSION_VANILLA = "Vanilla",
+    EXTENSION_TBC = "Burning Crusade",
+    ZONE_TYPE_RAID = "Raid",
+    ZONE_TYPE_DUNGEON = "Donjon",
+    ZONE_TYPE_ZONE = "Zone",
+    ZONE_TYPE_BATTLEGROUND = "Champ de bataille",
     COMMAND_PREFIX = "Commandes Duolingwow :",
     COMMAND_HELP = "/dl help - afficher cette aide",
     COMMAND_ENABLE = "/dl enable <lang> - activer une langue (EN/FR)",
     COMMAND_DISABLE = "/dl disable <lang> - désactiver une langue (EN/FR)",
-    COMMAND_STATUS = "/dl status - afficher langues activées",
+    COMMAND_EXTENSION_ENABLE = "/dl extension enable <extension> - activer une extension (Vanilla/TBC)",
+    COMMAND_EXTENSION_DISABLE = "/dl extension disable <extension> - désactiver une extension (Vanilla/TBC)",
+    COMMAND_TYPE_ENABLE = "/dl type enable <type> - activer un type de zone (Raid/Donjon/Zone/Champ de bataille)",
+    COMMAND_TYPE_DISABLE = "/dl type disable <type> - désactiver un type de zone (Raid/Donjon/Zone/Champ de bataille)",
+    COMMAND_STATUS = "/dl status - afficher les filtres activés",
     COMMAND_UNKNOWN = "Commande inconnue. Utilisez /dl help.",
     COMMAND_LANG_UNKNOWN = "Langue inconnue : %s",
     COMMAND_LANG_UPDATED = "Langue %s %s.",
+    COMMAND_EXTENSION_UNKNOWN = "Extension inconnue : %s",
+    COMMAND_EXTENSION_UPDATED = "Extension %s %s.",
+    COMMAND_TYPE_UNKNOWN = "Type de zone inconnu : %s",
+    COMMAND_TYPE_UPDATED = "Type de zone %s %s.",
     COMMAND_STATUS_LINE = "Langues activées : %s.",
+    COMMAND_STATUS_EXTENSIONS_LINE = "Extensions activées : %s.",
+    COMMAND_STATUS_TYPES_LINE = "Types de zone activés : %s.",
   },
 }
 
@@ -54,6 +94,28 @@ function DL:GetAvailableLanguages()
   }
 end
 
+function DL:GetAvailableExtensions()
+  local L = self:GetStrings()
+  return {
+    { code = "VANILLA", name = L.EXTENSION_VANILLA },
+    { code = "TBC", name = L.EXTENSION_TBC },
+  }
+end
+
+function DL:GetAvailableZoneTypes()
+  local L = self:GetStrings()
+  return {
+    { code = "RAID", name = L.ZONE_TYPE_RAID },
+    { code = "DUNGEON", name = L.ZONE_TYPE_DUNGEON },
+    { code = "ZONE", name = L.ZONE_TYPE_ZONE },
+    { code = "BATTLEGROUND", name = L.ZONE_TYPE_BATTLEGROUND },
+  }
+end
+
 function DL:GetStrings()
+  local locale = GetLocale()
+  if locale == "frFR" then
+    return self.Locale.FR
+  end
   return self.Locale.EN
 end
