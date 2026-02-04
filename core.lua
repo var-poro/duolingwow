@@ -163,7 +163,7 @@ local function NormalizeExtensionToCode(raw)
     return nil
   end
   local u = (raw):upper()
-  if u == "VANILLA" then
+  if u == "VANILLA" or u == "CLASSIC" then
     return "VANILLA"
   end
   if u == "TBC" or u:find("BURNING") or u:find("CRUSADE") then
@@ -227,6 +227,25 @@ local function AddTooltipEntry(tooltip, entry, abbr, langCode)
   end
 end
 
+local function IsEntryAllowedByFilters(data)
+  if not DuolingwowDB or not data then
+    return true
+  end
+  if data.extension then
+    local extCode = NormalizeExtensionToCode(data.extension)
+    if extCode and not DuolingwowDB.enabledExtensions[extCode] then
+      return false
+    end
+  end
+  if data.zoneType then
+    local typeCode = (data.zoneType):upper()
+    if not DuolingwowDB.enabledZoneTypes[typeCode] then
+      return false
+    end
+  end
+  return true
+end
+
 local function GetAbbreviationEntries(abbr)
   local normalized = abbr and abbr:upper() or abbr
   if not normalized or normalized == "" or not DuolingwowDB then
@@ -237,7 +256,7 @@ local function GetAbbreviationEntries(abbr)
   for _, langCode in ipairs(GetEnabledLanguages()) do
     local langDict = DL.Dictionary[langCode]
     local data = langDict and (langDict[dictKey] or langDict[normalized])
-    if data and data.name then
+    if data and data.name and IsEntryAllowedByFilters(data) then
       table.insert(entries, { lang = langCode, data = data })
     end
   end
@@ -249,7 +268,10 @@ local function ReplaceAbbreviations(segment)
     local key = word:upper()
     if DL.AbbrLookup and DL.AbbrLookup[key] then
       local abbr = DL.AbbrLookup[key]
-      return string.format("|Hdlwow:%s|h%s|h", abbr, ColorizeLinkText(string.format("[%s]", word)))
+      local entries = GetAbbreviationEntries(abbr)
+      if #entries > 0 then
+        return string.format("|Hdlwow:%s|h%s|h", abbr, ColorizeLinkText(string.format("[%s]", word)))
+      end
     end
     return word
   end)
@@ -441,20 +463,26 @@ local function HandleSlashCommand(input)
     return
   end
 
-  if command == "enable" or command == "disable" then
-    local lang = NormalizeLanguage(args[2])
+  if command == "lang" then
+    local action = (args[2] or ""):lower()
+    local rawLang = args[3] or ""
+    if action ~= "enable" and action ~= "disable" then
+      Print(L.COMMAND_UNKNOWN)
+      return
+    end
+    local lang = NormalizeLanguage(rawLang)
     local found = false
     for _, info in ipairs(DL:GetAvailableLanguages()) do
       if info.code == lang then
         found = true
-        DuolingwowDB.enabledLanguages[lang] = (command == "enable")
-        local status = (command == "enable") and "enabled" or "disabled"
+        DuolingwowDB.enabledLanguages[lang] = (action == "enable")
+        local status = (action == "enable") and "enabled" or "disabled"
         Print(string.format(L.COMMAND_LANG_UPDATED, lang, status))
         return
       end
     end
     if not found then
-      Print(string.format(L.COMMAND_LANG_UNKNOWN, lang or ""))
+      Print(string.format(L.COMMAND_LANG_UNKNOWN, rawLang or ""))
     end
     return
   end
@@ -469,9 +497,22 @@ local function HandleSlashCommand(input)
     local normalized = NormalizeOption(rawValue)
     local isEnabled = (action == "enable")
     if command == "extension" then
-      local matched = UpdateOptionSetting(DL:GetAvailableExtensions(), normalized, function(code)
-        DuolingwowDB.enabledExtensions[code] = isEnabled
-      end)
+      local extensionCode = NormalizeExtensionToCode(rawValue)
+      local matched = nil
+      if extensionCode then
+        for _, info in ipairs(DL:GetAvailableExtensions()) do
+          if info.code == extensionCode then
+            DuolingwowDB.enabledExtensions[extensionCode] = isEnabled
+            matched = info.name
+            break
+          end
+        end
+      end
+      if not matched then
+        matched = UpdateOptionSetting(DL:GetAvailableExtensions(), normalized, function(code)
+          DuolingwowDB.enabledExtensions[code] = isEnabled
+        end)
+      end
       if matched then
         local status = isEnabled and "enabled" or "disabled"
         Print(string.format(L.COMMAND_EXTENSION_UPDATED, matched, status))
