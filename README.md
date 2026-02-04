@@ -26,16 +26,41 @@ World of Warcraft addon that detects common chat abbreviations (zones, dungeons,
 
 ## Commands
 
+All commands use the prefix `/dl`. Unknown commands print the help.
+
 | Command | Description |
 |---------|-------------|
-| `/dl help` | Show command help |
-| `/dl status` | Show enabled languages, extensions and zone types |
-| `/dl lang enable EN` | Enable English in tooltips |
-| `/dl lang disable FR` | Disable French |
-| `/dl extension enable TBC` | Enable The Burning Crusade (accepts TBC, The Burning Crusade, Burning Crusade) |
-| `/dl extension disable Vanilla` | Disable Vanilla (accepts Vanilla, Classic) |
-| `/dl type enable Raid` | Enable Raid zone type |
-| `/dl type disable Battleground` | Disable Battleground zone type |
+| `/dl help` | Print all available commands in chat. |
+| `/dl status` | Print currently enabled languages, extensions and zone types. |
+
+**Languages** — control which languages appear in tooltips:
+
+| Command | Description |
+|---------|-------------|
+| `/dl lang enable <lang>` | Enable a language in tooltips. |
+| `/dl lang disable <lang>` | Disable a language in tooltips. |
+
+Accepted values for `<lang>`: **EN**, **FR**, **DE** (case-insensitive).
+
+**Extensions** — control which expansions are shown (Vanilla, The Burning Crusade):
+
+| Command | Description |
+|---------|-------------|
+| `/dl extension enable <extension>` | Enable an extension; its abbreviations are shown and clickable. |
+| `/dl extension disable <extension>` | Disable an extension; its abbreviations are hidden and not clickable. |
+
+Accepted values for `<extension>`:
+- **Vanilla** (alias: Classic)
+- **TBC** / **The Burning Crusade** / **Burning Crusade** (any string containing "Burning" or "Crusade" is accepted)
+
+**Zone types** — control which kinds of zones are shown (Raid, Dungeon, Zone, Battleground, City, Arena):
+
+| Command | Description |
+|---------|-------------|
+| `/dl type enable <type>` | Enable a zone type. |
+| `/dl type disable <type>` | Disable a zone type. |
+
+Accepted values for `<type>`: **Raid**, **Dungeon**, **Zone**, **Battleground**, **City**, **Arena**. You can use the English name or the name in your game language (e.g. Donjon, Schlachtfeld).
 
 ## Included abbreviations
 
