@@ -1,14 +1,14 @@
 local ADDON_NAME, DL = ...
 
 DL.Dictionary = DL.Dictionary or {}
-DL.Dictionary.FR = {
+DL.Dictionary.DE = {
   -- ============================================================================
   -- DUNGEONS - VANILLA
   -- ============================================================================
   
   -- Ragefire Chasm
   RFC = {
-    name = "Gouffre de Ragefeu",
+    name = "Flammenschlund",
     level = "13-18",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -18,7 +18,7 @@ DL.Dictionary.FR = {
   
   -- Wailing Caverns
   WC = {
-    name = "Cavernes des Lamentations",
+    name = "Höhlen des Wehklagens",
     level = "17-24",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -28,25 +28,25 @@ DL.Dictionary.FR = {
   
   -- Deadmines
   DM = {
-    name = "Les Mortemines",
+    name = "Die Todesminen",
     level = "17-26",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Alliance",
   },
   VC = {
-    name = "Les Mortemines",
+    name = "Die Todesminen",
     level = "17-26",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Alliance",
   },
   Deadmines = {
-    name = "Les Mortemines",
+    name = "Die Todesminen",
     level = "17-26",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Alliance",
@@ -54,9 +54,9 @@ DL.Dictionary.FR = {
   
   -- Shadowfang Keep
   SFK = {
-    name = "Donjon d'Ombrecroc",
+    name = "Burg Schattenfang",
     level = "22-30",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
@@ -64,7 +64,7 @@ DL.Dictionary.FR = {
   
   -- Blackfathom Deeps
   BFD = {
-    name = "Profondeurs de Brassenoire",
+    name = "Tiefschwarze Grotte",
     level = "24-32",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -74,25 +74,25 @@ DL.Dictionary.FR = {
   
   -- The Stockade
   Stocks = {
-    name = "La Prison",
+    name = "Das Verlies",
     level = "24-32",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Alliance",
   },
   Stock = {
-    name = "La Prison",
+    name = "Das Verlies",
     level = "24-32",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Alliance",
   },
   Stockade = {
-    name = "La Prison",
+    name = "Das Verlies",
     level = "24-32",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Alliance",
@@ -102,7 +102,7 @@ DL.Dictionary.FR = {
   Gnomer = {
     name = "Gnomeregan",
     level = "29-38",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
@@ -110,7 +110,7 @@ DL.Dictionary.FR = {
   Gnome = {
     name = "Gnomeregan",
     level = "29-38",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
@@ -118,7 +118,7 @@ DL.Dictionary.FR = {
   Gnomeregan = {
     name = "Gnomeregan",
     level = "29-38",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
@@ -126,7 +126,7 @@ DL.Dictionary.FR = {
   
   -- Razorfen Kraul
   RFK = {
-    name = "Kraul des Tussebois",
+    name = "Kral der Klingenhauer",
     level = "29-38",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -136,97 +136,97 @@ DL.Dictionary.FR = {
   
   -- Scarlet Monastery
   SM = {
-    name = "Monastère écarlate",
+    name = "Scharlachrotes Kloster",
     level = "26-45",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   GY = {
-    name = "Monastère écarlate : Cimetière",
+    name = "Scharlachrotes Kloster: Friedhof",
     level = "26-32",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   SMGY = {
-    name = "Monastère écarlate : Cimetière",
+    name = "Scharlachrotes Kloster: Friedhof",
     level = "26-32",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   Lib = {
-    name = "Monastère écarlate : Bibliothèque",
+    name = "Scharlachrotes Kloster: Bibliothek",
     level = "29-39",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   SMLib = {
-    name = "Monastère écarlate : Bibliothèque",
+    name = "Scharlachrotes Kloster: Bibliothek",
     level = "29-39",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   Library = {
-    name = "Monastère écarlate : Bibliothèque",
+    name = "Scharlachrotes Kloster: Bibliothek",
     level = "29-39",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   Arm = {
-    name = "Monastère écarlate : Armerie",
+    name = "Scharlachrotes Kloster: Waffenkammer",
     level = "32-42",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   SMArm = {
-    name = "Monastère écarlate : Armerie",
+    name = "Scharlachrotes Kloster: Waffenkammer",
     level = "32-42",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   Armory = {
-    name = "Monastère écarlate : Armerie",
+    name = "Scharlachrotes Kloster: Waffenkammer",
     level = "32-42",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   Cath = {
-    name = "Monastère écarlate : Cathédrale",
+    name = "Scharlachrotes Kloster: Kathedrale",
     level = "35-45",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   SMCath = {
-    name = "Monastère écarlate : Cathédrale",
+    name = "Scharlachrotes Kloster: Kathedrale",
     level = "35-45",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   Cathedral = {
-    name = "Monastère écarlate : Cathédrale",
+    name = "Scharlachrotes Kloster: Kathedrale",
     level = "35-45",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
@@ -234,7 +234,7 @@ DL.Dictionary.FR = {
   
   -- Razorfen Downs
   RFD = {
-    name = "Souilles des Tussebois",
+    name = "Hügel der Klingenhauer",
     level = "37-46",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -246,7 +246,7 @@ DL.Dictionary.FR = {
   Ulda = {
     name = "Uldaman",
     level = "41-51",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
@@ -254,7 +254,7 @@ DL.Dictionary.FR = {
   Uldaman = {
     name = "Uldaman",
     level = "41-51",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
@@ -288,7 +288,7 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   Purple = {
-    name = "Maraudon : Violet",
+    name = "Maraudon: Lila",
     level = "46-52",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -296,7 +296,7 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   Orange = {
-    name = "Maraudon : Orange",
+    name = "Maraudon: Orange",
     level = "46-52",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -304,7 +304,7 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   Princess = {
-    name = "Maraudon : Princesse",
+    name = "Maraudon: Prinzessin",
     level = "48-55",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -314,17 +314,17 @@ DL.Dictionary.FR = {
   
   -- Temple of Atal'Hakkar (Sunken Temple)
   ST = {
-    name = "Temple d'Atal'Hakkar",
+    name = "Tempel von Atal'Hakkar",
     level = "50-56",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   Sunken = {
-    name = "Temple d'Atal'Hakkar",
+    name = "Tempel von Atal'Hakkar",
     level = "50-56",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
@@ -332,41 +332,41 @@ DL.Dictionary.FR = {
   
   -- Blackrock Depths
   BRD = {
-    name = "Profondeurs de Rochenoire",
+    name = "Schwarzfelstiefen",
     level = "52-60",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   Arena = {
-    name = "Profondeurs de Rochenoire : Arène",
+    name = "Schwarzfelstiefen: Arena",
     level = "52-55",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   Angerforge = {
-    name = "Profondeurs de Rochenoire : Forge-Furie",
+    name = "Schwarzfelstiefen: Zorneshitze",
     level = "54-57",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   Emperor = {
-    name = "Profondeurs de Rochenoire : Empereur",
+    name = "Schwarzfelstiefen: Kaiser",
     level = "56-60",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   Emp = {
-    name = "Profondeurs de Rochenoire : Empereur",
+    name = "Schwarzfelstiefen: Kaiser",
     level = "56-60",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
@@ -374,17 +374,17 @@ DL.Dictionary.FR = {
   
   -- Lower Blackrock Spire
   LBRS = {
-    name = "Pic Rochenoire inférieur",
+    name = "Untere Schwarzfelsspitze",
     level = "55-60",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   Lower = {
-    name = "Pic Rochenoire inférieur",
+    name = "Untere Schwarzfelsspitze",
     level = "55-60",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
@@ -392,17 +392,17 @@ DL.Dictionary.FR = {
   
   -- Upper Blackrock Spire
   UBRS = {
-    name = "Pic Rochenoire supérieur",
+    name = "Obere Schwarzfelsspitze",
     level = "55-60",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   Upper = {
-    name = "Pic Rochenoire supérieur",
+    name = "Obere Schwarzfelsspitze",
     level = "55-60",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
@@ -410,9 +410,9 @@ DL.Dictionary.FR = {
   
   -- Blackrock Spire (generic)
   BRS = {
-    name = "Pic Rochenoire",
+    name = "Schwarzfelsspitze",
     level = "55-60",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
@@ -420,7 +420,7 @@ DL.Dictionary.FR = {
   
   -- Dire Maul
   DireMaul = {
-    name = "Hache-Tripes",
+    name = "Düsterbruch",
     level = "55-60",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -428,7 +428,7 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   DME = {
-    name = "Hache-Tripes est",
+    name = "Düsterbruch Ost",
     level = "55-60",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -436,7 +436,7 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   East = {
-    name = "Hache-Tripes est",
+    name = "Düsterbruch Ost",
     level = "55-60",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -444,7 +444,7 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   DMW = {
-    name = "Hache-Tripes ouest",
+    name = "Düsterbruch West",
     level = "55-60",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -452,7 +452,7 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   West = {
-    name = "Hache-Tripes ouest",
+    name = "Düsterbruch West",
     level = "55-60",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -460,7 +460,7 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   DMN = {
-    name = "Hache-Tripes nord",
+    name = "Düsterbruch Nord",
     level = "55-60",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -468,7 +468,7 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   North = {
-    name = "Hache-Tripes nord",
+    name = "Düsterbruch Nord",
     level = "55-60",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -476,7 +476,7 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   Tribute = {
-    name = "Hache-Tripes nord : Hommage",
+    name = "Düsterbruch Nord: Tribut",
     level = "55-60",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -484,7 +484,7 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   Trib = {
-    name = "Hache-Tripes nord : Hommage",
+    name = "Düsterbruch Nord: Tribut",
     level = "55-60",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -496,7 +496,7 @@ DL.Dictionary.FR = {
   Strat = {
     name = "Stratholme",
     level = "58-60",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
@@ -504,7 +504,7 @@ DL.Dictionary.FR = {
   Strath = {
     name = "Stratholme",
     level = "58-60",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
@@ -512,63 +512,63 @@ DL.Dictionary.FR = {
   Stratholme = {
     name = "Stratholme",
     level = "58-60",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   StratLive = {
-    name = "Stratholme : Vivant",
+    name = "Stratholme: Lebendig",
     level = "58-60",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   Live = {
-    name = "Stratholme : Vivant",
+    name = "Stratholme: Lebendig",
     level = "58-60",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   Scarlet = {
-    name = "Stratholme : Vivant",
+    name = "Stratholme: Lebendig",
     level = "58-60",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   StratUD = {
-    name = "Stratholme : Mort-vivant",
+    name = "Stratholme: Untote",
     level = "58-60",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   UD = {
-    name = "Stratholme : Mort-vivant",
+    name = "Stratholme: Untote",
     level = "58-60",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   Undead = {
-    name = "Stratholme : Mort-vivant",
+    name = "Stratholme: Untote",
     level = "58-60",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   Baron = {
-    name = "Stratholme : Mort-vivant",
+    name = "Stratholme: Untote",
     level = "58-60",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
@@ -578,7 +578,7 @@ DL.Dictionary.FR = {
   Scholo = {
     name = "Scholomance",
     level = "58-60",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
@@ -586,7 +586,7 @@ DL.Dictionary.FR = {
   Schol = {
     name = "Scholomance",
     level = "58-60",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
@@ -594,7 +594,7 @@ DL.Dictionary.FR = {
   Scholomance = {
     name = "Scholomance",
     level = "58-60",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
@@ -606,33 +606,33 @@ DL.Dictionary.FR = {
   
   -- Hellfire Ramparts
   Ramps = {
-    name = "Remparts des Flammes infernales",
+    name = "Höllenfeuerbollwerk",
     level = "58-62",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   Ramp = {
-    name = "Remparts des Flammes infernales",
+    name = "Höllenfeuerbollwerk",
     level = "58-62",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   HFR = {
-    name = "Remparts des Flammes infernales",
+    name = "Höllenfeuerbollwerk",
     level = "58-62",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   Ramparts = {
-    name = "Remparts des Flammes infernales",
+    name = "Höllenfeuerbollwerk",
     level = "58-62",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
@@ -640,17 +640,17 @@ DL.Dictionary.FR = {
   
   -- Blood Furnace
   BF = {
-    name = "La Fournaise du sang",
+    name = "Der Blutkessel",
     level = "59-63",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   Furnace = {
-    name = "La Fournaise du sang",
+    name = "Der Blutkessel",
     level = "59-63",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
@@ -658,17 +658,17 @@ DL.Dictionary.FR = {
   
   -- Slave Pens
   SP = {
-    name = "Les enclos aux esclaves",
+    name = "Die Sklavenunterkünfte",
     level = "60-64",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   Pens = {
-    name = "Les enclos aux esclaves",
+    name = "Die Sklavenunterkünfte",
     level = "60-64",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
@@ -676,17 +676,17 @@ DL.Dictionary.FR = {
   
   -- Underbog
   UB = {
-    name = "La Basse-tourbière",
+    name = "Der Untere Sumpf",
     level = "61-65",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   Underbog = {
-    name = "La Basse-tourbière",
+    name = "Der Untere Sumpf",
     level = "61-65",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
@@ -694,25 +694,25 @@ DL.Dictionary.FR = {
   
   -- Mana-Tombs
   MT = {
-    name = "Tombes-mana",
+    name = "Managruft",
     level = "62-66",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   Tombs = {
-    name = "Tombes-mana",
+    name = "Managruft",
     level = "62-66",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   ManaTombs = {
-    name = "Tombes-mana",
+    name = "Managruft",
     level = "62-66",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
@@ -720,17 +720,17 @@ DL.Dictionary.FR = {
   
   -- Auchenai Crypts
   AC = {
-    name = "Cryptes Auchenaï",
+    name = "Auchenaikrypten",
     level = "63-67",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   Crypts = {
-    name = "Cryptes Auchenaï",
+    name = "Auchenaikrypten",
     level = "63-67",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
@@ -738,7 +738,7 @@ DL.Dictionary.FR = {
   
   -- Old Hillsbrad Foothills
   OHB = {
-    name = "Contreforts de Hautebrande d'antan",
+    name = "Vorgebirge des Hügellands",
     level = "64-68",
     zone = "Kalimdor",
     extension = "The Burning Crusade",
@@ -746,7 +746,7 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   OHF = {
-    name = "Contreforts de Hautebrande d'antan",
+    name = "Vorgebirge des Hügellands",
     level = "64-68",
     zone = "Kalimdor",
     extension = "The Burning Crusade",
@@ -754,7 +754,7 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   Escape = {
-    name = "Contreforts de Hautebrande d'antan",
+    name = "Vorgebirge des Hügellands",
     level = "64-68",
     zone = "Kalimdor",
     extension = "The Burning Crusade",
@@ -762,7 +762,7 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   Durnholde = {
-    name = "Contreforts de Hautebrande d'antan",
+    name = "Vorgebirge des Hügellands",
     level = "64-68",
     zone = "Kalimdor",
     extension = "The Burning Crusade",
@@ -770,7 +770,7 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   OldHillsbrad = {
-    name = "Contreforts de Hautebrande d'antan",
+    name = "Vorgebirge des Hügellands",
     level = "64-68",
     zone = "Kalimdor",
     extension = "The Burning Crusade",
@@ -780,25 +780,25 @@ DL.Dictionary.FR = {
   
   -- Sethekk Halls
   Seth = {
-    name = "Salles des Sethekk",
+    name = "Sethekkhallen",
     level = "65-69",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   SET = {
-    name = "Salles des Sethekk",
+    name = "Sethekkhallen",
     level = "65-69",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   Sethekk = {
-    name = "Salles des Sethekk",
+    name = "Sethekkhallen",
     level = "65-69",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
@@ -806,17 +806,17 @@ DL.Dictionary.FR = {
   
   -- The Steamvault
   SV = {
-    name = "Le Caveau de la Vapeur",
+    name = "Die Dampfkammer",
     level = "67-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   Steamvault = {
-    name = "Le Caveau de la Vapeur",
+    name = "Die Dampfkammer",
     level = "67-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
@@ -824,41 +824,41 @@ DL.Dictionary.FR = {
   
   -- Shadow Labyrinth
   SL = {
-    name = "Labyrinthe des Ombres",
+    name = "Schattenlabyrinth",
     level = "67-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   Slabs = {
-    name = "Labyrinthe des Ombres",
+    name = "Schattenlabyrinth",
     level = "67-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   SLabs = {
-    name = "Labyrinthe des Ombres",
+    name = "Schattenlabyrinth",
     level = "67-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   Labs = {
-    name = "Labyrinthe des Ombres",
+    name = "Schattenlabyrinth",
     level = "67-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   Shadow = {
-    name = "Labyrinthe des Ombres",
+    name = "Schattenlabyrinth",
     level = "67-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
@@ -866,17 +866,17 @@ DL.Dictionary.FR = {
   
   -- Shattered Halls
   SH = {
-    name = "Les Salles brisées",
+    name = "Die zerschmetterten Hallen",
     level = "67-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   Shattered = {
-    name = "Les Salles brisées",
+    name = "Die zerschmetterten Hallen",
     level = "67-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
@@ -884,25 +884,25 @@ DL.Dictionary.FR = {
   
   -- The Mechanar
   Mech = {
-    name = "Le Mécanar",
+    name = "Die Mechanar",
     level = "67-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   MECH = {
-    name = "Le Mécanar",
+    name = "Die Mechanar",
     level = "67-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   Mechanar = {
-    name = "Le Mécanar",
+    name = "Die Mechanar",
     level = "67-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
@@ -910,25 +910,25 @@ DL.Dictionary.FR = {
   
   -- The Botanica
   Bot = {
-    name = "La Botanica",
+    name = "Die Botanika",
     level = "67-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   BOT = {
-    name = "La Botanica",
+    name = "Die Botanika",
     level = "67-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   Botanica = {
-    name = "La Botanica",
+    name = "Die Botanika",
     level = "67-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
@@ -936,25 +936,25 @@ DL.Dictionary.FR = {
   
   -- The Arcatraz
   Arc = {
-    name = "L'Arcatraz",
+    name = "Die Arkatraz",
     level = "68-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   ARC = {
-    name = "L'Arcatraz",
+    name = "Die Arkatraz",
     level = "68-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   Arcatraz = {
-    name = "L'Arcatraz",
+    name = "Die Arkatraz",
     level = "68-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
@@ -962,7 +962,7 @@ DL.Dictionary.FR = {
   
   -- Black Morass
   BM = {
-    name = "Le Marécage noir",
+    name = "Der Schwarze Morast",
     level = "68-70",
     zone = "Kalimdor",
     extension = "The Burning Crusade",
@@ -970,7 +970,7 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   Morass = {
-    name = "Le Marécage noir",
+    name = "Der Schwarze Morast",
     level = "68-70",
     zone = "Kalimdor",
     extension = "The Burning Crusade",
@@ -980,33 +980,33 @@ DL.Dictionary.FR = {
   
   -- Magisters' Terrace
   MgT = {
-    name = "Terrasse des Magistères",
+    name = "Terrasse der Magister",
     level = "70",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   MrT = {
-    name = "Terrasse des Magistères",
+    name = "Terrasse der Magister",
     level = "70",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   Magisters = {
-    name = "Terrasse des Magistères",
+    name = "Terrasse der Magister",
     level = "70",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
   },
   Terrace = {
-    name = "Terrasse des Magistères",
+    name = "Terrasse der Magister",
     level = "70",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
@@ -1018,9 +1018,9 @@ DL.Dictionary.FR = {
   
   -- Molten Core
   MC = {
-    name = "Cœur du Magma",
+    name = "Geschmolzener Kern",
     level = "60",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "RAID",
     faction = "Both",
@@ -1028,7 +1028,7 @@ DL.Dictionary.FR = {
   
   -- Onyxia's Lair
   Ony = {
-    name = "Repaire d'Onyxia",
+    name = "Onyxias Hort",
     level = "60",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -1036,7 +1036,7 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   Oni = {
-    name = "Repaire d'Onyxia",
+    name = "Onyxias Hort",
     level = "60",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -1044,7 +1044,7 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   ONY = {
-    name = "Repaire d'Onyxia",
+    name = "Onyxias Hort",
     level = "60",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -1052,7 +1052,7 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   Onyxia = {
-    name = "Repaire d'Onyxia",
+    name = "Onyxias Hort",
     level = "60",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -1062,9 +1062,9 @@ DL.Dictionary.FR = {
   
   -- Blackwing Lair
   BWL = {
-    name = "Repaire de l'Aile noire",
+    name = "Pechschwingenhort",
     level = "60",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "RAID",
     faction = "Both",
@@ -1074,7 +1074,7 @@ DL.Dictionary.FR = {
   ZG = {
     name = "Zul'Gurub",
     level = "60",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "RAID",
     faction = "Both",
@@ -1082,7 +1082,7 @@ DL.Dictionary.FR = {
   
   -- Ruins of Ahn'Qiraj
   AQ20 = {
-    name = "Ruines d'Ahn'Qiraj",
+    name = "Ruinen von Ahn'Qiraj",
     level = "60",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -1092,7 +1092,7 @@ DL.Dictionary.FR = {
   
   -- Temple of Ahn'Qiraj
   AQ40 = {
-    name = "Temple d'Ahn'Qiraj",
+    name = "Tempel von Ahn'Qiraj",
     level = "60",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -1104,7 +1104,7 @@ DL.Dictionary.FR = {
   Naxx = {
     name = "Naxxramas",
     level = "60",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "RAID",
     faction = "Both",
@@ -1112,7 +1112,7 @@ DL.Dictionary.FR = {
   Naxxramas = {
     name = "Naxxramas",
     level = "60",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "RAID",
     faction = "Both",
@@ -1126,7 +1126,7 @@ DL.Dictionary.FR = {
   Kara = {
     name = "Karazhan",
     level = "70",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "The Burning Crusade",
     zoneType = "RAID",
     faction = "Both",
@@ -1134,7 +1134,7 @@ DL.Dictionary.FR = {
   KZ = {
     name = "Karazhan",
     level = "70",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "The Burning Crusade",
     zoneType = "RAID",
     faction = "Both",
@@ -1142,7 +1142,7 @@ DL.Dictionary.FR = {
   Karazhan = {
     name = "Karazhan",
     level = "70",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "The Burning Crusade",
     zoneType = "RAID",
     faction = "Both",
@@ -1150,25 +1150,25 @@ DL.Dictionary.FR = {
   
   -- Gruul's Lair
   Gruul = {
-    name = "Repaire de Gruul",
+    name = "Gruuls Unterschlupf",
     level = "70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "RAID",
     faction = "Both",
   },
   GL = {
-    name = "Repaire de Gruul",
+    name = "Gruuls Unterschlupf",
     level = "70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "RAID",
     faction = "Both",
   },
   Gruuls = {
-    name = "Repaire de Gruul",
+    name = "Gruuls Unterschlupf",
     level = "70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "RAID",
     faction = "Both",
@@ -1176,33 +1176,33 @@ DL.Dictionary.FR = {
   
   -- Magtheridon's Lair
   Mag = {
-    name = "Repaire de Magtheridon",
+    name = "Magtheridons Kammer",
     level = "70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "RAID",
     faction = "Both",
   },
   Mags = {
-    name = "Repaire de Magtheridon",
+    name = "Magtheridons Kammer",
     level = "70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "RAID",
     faction = "Both",
   },
   ML = {
-    name = "Repaire de Magtheridon",
+    name = "Magtheridons Kammer",
     level = "70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "RAID",
     faction = "Both",
   },
   Magtheridon = {
-    name = "Repaire de Magtheridon",
+    name = "Magtheridons Kammer",
     level = "70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "RAID",
     faction = "Both",
@@ -1210,17 +1210,17 @@ DL.Dictionary.FR = {
   
   -- Serpentshrine Cavern
   SSC = {
-    name = "Caverne du sanctuaire du Serpent",
+    name = "Schlangenschrein",
     level = "70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "RAID",
     faction = "Both",
   },
   Serpentshrine = {
-    name = "Caverne du sanctuaire du Serpent",
+    name = "Schlangenschrein",
     level = "70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "RAID",
     faction = "Both",
@@ -1228,17 +1228,17 @@ DL.Dictionary.FR = {
   
   -- Tempest Keep: The Eye
   TK = {
-    name = "Donjon de la Tempête : l'Œil",
+    name = "Festung der Stürme: Das Auge",
     level = "70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "RAID",
     faction = "Both",
   },
   Eye = {
-    name = "Donjon de la Tempête : l'Œil",
+    name = "Festung der Stürme: Das Auge",
     level = "70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "RAID",
     faction = "Both",
@@ -1246,7 +1246,7 @@ DL.Dictionary.FR = {
   
   -- Hyjal Summit
   Hyjal = {
-    name = "Sommet d'Hyjal",
+    name = "Hyjalgipfel",
     level = "70",
     zone = "Kalimdor",
     extension = "The Burning Crusade",
@@ -1254,7 +1254,7 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   MH = {
-    name = "Sommet d'Hyjal",
+    name = "Hyjalgipfel",
     level = "70",
     zone = "Kalimdor",
     extension = "The Burning Crusade",
@@ -1262,7 +1262,7 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   Mount = {
-    name = "Sommet d'Hyjal",
+    name = "Hyjalgipfel",
     level = "70",
     zone = "Kalimdor",
     extension = "The Burning Crusade",
@@ -1270,7 +1270,7 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   MountHyjal = {
-    name = "Sommet d'Hyjal",
+    name = "Hyjalgipfel",
     level = "70",
     zone = "Kalimdor",
     extension = "The Burning Crusade",
@@ -1280,25 +1280,25 @@ DL.Dictionary.FR = {
   
   -- Black Temple
   BT = {
-    name = "Temple noir",
+    name = "Schwarzer Tempel",
     level = "70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "RAID",
     faction = "Both",
   },
   Temple = {
-    name = "Temple noir",
+    name = "Schwarzer Tempel",
     level = "70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "RAID",
     faction = "Both",
   },
   BlackTemple = {
-    name = "Temple noir",
+    name = "Schwarzer Tempel",
     level = "70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "RAID",
     faction = "Both",
@@ -1308,7 +1308,7 @@ DL.Dictionary.FR = {
   ZA = {
     name = "Zul'Aman",
     level = "70",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "The Burning Crusade",
     zoneType = "RAID",
     faction = "Both",
@@ -1316,17 +1316,17 @@ DL.Dictionary.FR = {
   
   -- Sunwell Plateau
   SWP = {
-    name = "Plateau du Puits de soleil",
+    name = "Sonnenbrunnenplateau",
     level = "70",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "The Burning Crusade",
     zoneType = "RAID",
     faction = "Both",
   },
   Sunwell = {
-    name = "Plateau du Puits de soleil",
+    name = "Sonnenbrunnenplateau",
     level = "70",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "The Burning Crusade",
     zoneType = "RAID",
     faction = "Both",
@@ -1338,7 +1338,7 @@ DL.Dictionary.FR = {
   
   -- Warsong Gulch
   WSG = {
-    name = "Goulet des Chanteguerres",
+    name = "Schlucht der Kriegshymnen",
     level = "10-70",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -1346,7 +1346,7 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   Warsong = {
-    name = "Goulet des Chanteguerres",
+    name = "Schlucht der Kriegshymnen",
     level = "10-70",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -1354,7 +1354,7 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   Gulch = {
-    name = "Goulet des Chanteguerres",
+    name = "Schlucht der Kriegshymnen",
     level = "10-70",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -1364,17 +1364,17 @@ DL.Dictionary.FR = {
   
   -- Arathi Basin
   AB = {
-    name = "Bassin d'Arathi",
+    name = "Arathibecken",
     level = "20-70",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "BATTLEGROUND",
     faction = "Both",
   },
   Basin = {
-    name = "Bassin d'Arathi",
+    name = "Arathibecken",
     level = "20-70",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "BATTLEGROUND",
     faction = "Both",
@@ -1382,17 +1382,17 @@ DL.Dictionary.FR = {
   
   -- Alterac Valley
   AV = {
-    name = "Vallée d'Alterac",
+    name = "Alteractal",
     level = "51-70",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "BATTLEGROUND",
     faction = "Both",
   },
   Valley = {
-    name = "Vallée d'Alterac",
+    name = "Alteractal",
     level = "51-70",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "BATTLEGROUND",
     faction = "Both",
@@ -1400,33 +1400,33 @@ DL.Dictionary.FR = {
   
   -- Eye of the Storm
   EOTS = {
-    name = "Œil du cyclone",
+    name = "Auge des Sturms",
     level = "61-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "BATTLEGROUND",
     faction = "Both",
   },
   EotS = {
-    name = "Œil du cyclone",
+    name = "Auge des Sturms",
     level = "61-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "BATTLEGROUND",
     faction = "Both",
   },
   Eye = {
-    name = "Œil du cyclone",
+    name = "Auge des Sturms",
     level = "61-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "BATTLEGROUND",
     faction = "Both",
   },
   Storm = {
-    name = "Œil du cyclone",
+    name = "Auge des Sturms",
     level = "61-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "BATTLEGROUND",
     faction = "Both",
@@ -1438,9 +1438,9 @@ DL.Dictionary.FR = {
   
   -- Nagrand Arena
   NagrandArena = {
-    name = "Arène de Nagrand",
+    name = "Nagrandarena",
     level = "70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "ARENA",
     faction = "Both",
@@ -1448,9 +1448,9 @@ DL.Dictionary.FR = {
   
   -- Blade's Edge Arena
   BEA = {
-    name = "Arène des Tranchantes",
+    name = "Arena des Schergrats",
     level = "70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "ARENA",
     faction = "Both",
@@ -1458,9 +1458,9 @@ DL.Dictionary.FR = {
   
   -- Ruins of Lordaeron
   RoL = {
-    name = "Ruines de Lordaeron",
+    name = "Ruinen von Lordaeron",
     level = "70",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "The Burning Crusade",
     zoneType = "ARENA",
     faction = "Both",
@@ -1472,17 +1472,17 @@ DL.Dictionary.FR = {
   
   -- Stormwind
   SW = {
-    name = "Ville de Hurlevent",
+    name = "Sturmwind",
     level = "1-70",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "CITY",
     faction = "Alliance",
   },
   Stormwind = {
-    name = "Ville de Hurlevent",
+    name = "Sturmwind",
     level = "1-70",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "CITY",
     faction = "Alliance",
@@ -1490,9 +1490,9 @@ DL.Dictionary.FR = {
   
   -- Ironforge
   IF = {
-    name = "Forgefer",
+    name = "Eisenschmiede",
     level = "1-70",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "CITY",
     faction = "Alliance",
@@ -1526,7 +1526,7 @@ DL.Dictionary.FR = {
   
   -- The Exodar
   Exo = {
-    name = "L'Exodar",
+    name = "Die Exodar",
     level = "1-70",
     zone = "Kalimdor",
     extension = "The Burning Crusade",
@@ -1534,7 +1534,7 @@ DL.Dictionary.FR = {
     faction = "Alliance",
   },
   Exodar = {
-    name = "L'Exodar",
+    name = "Die Exodar",
     level = "1-70",
     zone = "Kalimdor",
     extension = "The Burning Crusade",
@@ -1574,25 +1574,25 @@ DL.Dictionary.FR = {
   
   -- Undercity
   UC = {
-    name = "Fossoyeuse",
+    name = "Unterstadt",
     level = "1-70",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "CITY",
     faction = "Horde",
   },
   Unter = {
-    name = "Fossoyeuse",
+    name = "Unterstadt",
     level = "1-70",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "CITY",
     faction = "Horde",
   },
   Undercity = {
-    name = "Fossoyeuse",
+    name = "Unterstadt",
     level = "1-70",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "CITY",
     faction = "Horde",
@@ -1600,7 +1600,7 @@ DL.Dictionary.FR = {
   
   -- Thunder Bluff
   TB = {
-    name = "Les Pitons du Tonnerre",
+    name = "Donnerfels",
     level = "1-70",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -1608,7 +1608,7 @@ DL.Dictionary.FR = {
     faction = "Horde",
   },
   Thunder = {
-    name = "Les Pitons du Tonnerre",
+    name = "Donnerfels",
     level = "1-70",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -1616,7 +1616,7 @@ DL.Dictionary.FR = {
     faction = "Horde",
   },
   ThunderBluff = {
-    name = "Les Pitons du Tonnerre",
+    name = "Donnerfels",
     level = "1-70",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -1626,25 +1626,25 @@ DL.Dictionary.FR = {
   
   -- Silvermoon City
   SMC = {
-    name = "Lune-d'Argent",
+    name = "Silbermond",
     level = "1-70",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "The Burning Crusade",
     zoneType = "CITY",
     faction = "Horde",
   },
   Silver = {
-    name = "Lune-d'Argent",
+    name = "Silbermond",
     level = "1-70",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "The Burning Crusade",
     zoneType = "CITY",
     faction = "Horde",
   },
   Silvermoon = {
-    name = "Lune-d'Argent",
+    name = "Silbermond",
     level = "1-70",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "The Burning Crusade",
     zoneType = "CITY",
     faction = "Horde",
@@ -1658,7 +1658,7 @@ DL.Dictionary.FR = {
   Shatt = {
     name = "Shattrath",
     level = "1-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "CITY",
     faction = "Both",
@@ -1666,7 +1666,7 @@ DL.Dictionary.FR = {
   Shat = {
     name = "Shattrath",
     level = "1-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "CITY",
     faction = "Both",
@@ -1674,7 +1674,7 @@ DL.Dictionary.FR = {
   Shattrath = {
     name = "Shattrath",
     level = "1-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "CITY",
     faction = "Both",
@@ -1682,9 +1682,9 @@ DL.Dictionary.FR = {
   
   -- Booty Bay
   BB = {
-    name = "Baie du Butin",
+    name = "Beutebucht",
     level = "1-70",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "CITY",
     faction = "Both",
@@ -1720,7 +1720,7 @@ DL.Dictionary.FR = {
   
   -- Everlook
   Everlook = {
-    name = "Longuetête",
+    name = "Everlook",
     level = "1-70",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -1730,7 +1730,7 @@ DL.Dictionary.FR = {
   
   -- Cenarion Hold
   CH = {
-    name = "Fort Cénarien",
+    name = "Burg Cenarius",
     level = "1-70",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -1740,9 +1740,9 @@ DL.Dictionary.FR = {
   
   -- Area 52
   Area52 = {
-    name = "Zone 52",
+    name = "Area 52",
     level = "1-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "CITY",
     faction = "Both",
@@ -1754,9 +1754,9 @@ DL.Dictionary.FR = {
   
   -- Blackrock Mountain
   BRM = {
-    name = "Mont Rochenoire",
+    name = "Der Schwarzfels",
     level = "52-60",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Both",
@@ -1764,7 +1764,7 @@ DL.Dictionary.FR = {
   
   -- Caverns of Time
   COT = {
-    name = "Grottes du temps",
+    name = "Höhlen der Zeit",
     level = "64-70",
     zone = "Kalimdor",
     extension = "The Burning Crusade",
@@ -1772,7 +1772,7 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   CoT = {
-    name = "Grottes du temps",
+    name = "Höhlen der Zeit",
     level = "64-70",
     zone = "Kalimdor",
     extension = "The Burning Crusade",
@@ -1782,17 +1782,17 @@ DL.Dictionary.FR = {
   
   -- Coilfang Reservoir
   CR = {
-    name = "Réservoir de Glissecroc",
+    name = "Reservoir der Skitterflosse",
     level = "60-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "ZONE",
     faction = "Both",
   },
   Coilfang = {
-    name = "Réservoir de Glissecroc",
+    name = "Reservoir der Skitterflosse",
     level = "60-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "ZONE",
     faction = "Both",
@@ -1802,7 +1802,7 @@ DL.Dictionary.FR = {
   AUCH = {
     name = "Auchindoun",
     level = "62-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "ZONE",
     faction = "Both",
@@ -1810,7 +1810,7 @@ DL.Dictionary.FR = {
   Auch = {
     name = "Auchindoun",
     level = "62-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "ZONE",
     faction = "Both",
@@ -1818,7 +1818,7 @@ DL.Dictionary.FR = {
   Auchindoun = {
     name = "Auchindoun",
     level = "62-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "ZONE",
     faction = "Both",
@@ -1826,9 +1826,9 @@ DL.Dictionary.FR = {
   
   -- Hellfire Citadel
   HC = {
-    name = "Citadelle des Flammes infernales",
+    name = "Höllenfeuerzitadelle",
     level = "58-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "ZONE",
     faction = "Both",
@@ -1836,9 +1836,9 @@ DL.Dictionary.FR = {
   
   -- Tempest Keep (complex)
   TempestKeep = {
-    name = "Donjon de la Tempête",
+    name = "Festung der Stürme",
     level = "67-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "ZONE",
     faction = "Both",
@@ -1850,9 +1850,9 @@ DL.Dictionary.FR = {
   
   -- Elwynn Forest
   Elwynn = {
-    name = "Forêt d'Elwynn",
+    name = "Wald von Elwynn",
     level = "1-10",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Alliance",
@@ -1862,7 +1862,7 @@ DL.Dictionary.FR = {
   DunMorogh = {
     name = "Dun Morogh",
     level = "1-10",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Alliance",
@@ -1870,9 +1870,9 @@ DL.Dictionary.FR = {
   
   -- Tirisfal Glades
   Tirisfal = {
-    name = "Clairières de Tirisfal",
+    name = "Tirisfal",
     level = "1-10",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Horde",
@@ -1880,9 +1880,9 @@ DL.Dictionary.FR = {
   
   -- Westfall
   Westfall = {
-    name = "Marche de l'Ouest",
+    name = "Westfall",
     level = "10-20",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Alliance",
@@ -1892,7 +1892,7 @@ DL.Dictionary.FR = {
   Loch = {
     name = "Loch Modan",
     level = "10-20",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Alliance",
@@ -1900,7 +1900,7 @@ DL.Dictionary.FR = {
   LochModan = {
     name = "Loch Modan",
     level = "10-20",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Alliance",
@@ -1908,9 +1908,9 @@ DL.Dictionary.FR = {
   
   -- Silverpine Forest
   Silverpine = {
-    name = "Forêt des Pins argentés",
+    name = "Silberwald",
     level = "10-20",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Horde",
@@ -1918,9 +1918,9 @@ DL.Dictionary.FR = {
   
   -- Redridge Mountains
   Redridge = {
-    name = "Montagnes de Crête-de-l'Orge",
+    name = "Rotkammgebirge",
     level = "15-25",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Alliance",
@@ -1928,9 +1928,9 @@ DL.Dictionary.FR = {
   
   -- Duskwood
   Duskwood = {
-    name = "Bois de la Pénombre",
+    name = "Dämmerwald",
     level = "18-30",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Alliance",
@@ -1938,9 +1938,9 @@ DL.Dictionary.FR = {
   
   -- Wetlands
   Wetlands = {
-    name = "Les Paluns",
+    name = "Sumpfland",
     level = "20-30",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Alliance",
@@ -1948,9 +1948,9 @@ DL.Dictionary.FR = {
   
   -- Hillsbrad Foothills
   Hillsbrad = {
-    name = "Contreforts de Hautebrande",
+    name = "Vorgebirge des Hügellands",
     level = "20-30",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Both",
@@ -1958,9 +1958,9 @@ DL.Dictionary.FR = {
   
   -- Alterac Mountains
   Alterac = {
-    name = "Montagnes d'Alterac",
+    name = "Alteracgebirge",
     level = "30-40",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Both",
@@ -1968,9 +1968,9 @@ DL.Dictionary.FR = {
   
   -- Arathi Highlands
   Arathi = {
-    name = "Hautes-terres d'Arathi",
+    name = "Arathihochland",
     level = "30-40",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Both",
@@ -1978,17 +1978,17 @@ DL.Dictionary.FR = {
   
   -- Stranglethorn Vale
   STV = {
-    name = "Vallée de Strangleronce",
+    name = "Schlingendorntal",
     level = "30-50",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Both",
   },
   Stranglethorn = {
-    name = "Vallée de Strangleronce",
+    name = "Schlingendorntal",
     level = "30-50",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Both",
@@ -1996,9 +1996,9 @@ DL.Dictionary.FR = {
   
   -- Badlands
   Badlands = {
-    name = "Terres ingrates",
+    name = "Ödland",
     level = "35-45",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Both",
@@ -2006,17 +2006,17 @@ DL.Dictionary.FR = {
   
   -- Swamp of Sorrows
   Swamp = {
-    name = "Marais des Chagrins",
+    name = "Sümpfe des Elends",
     level = "35-45",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Both",
   },
   SoS = {
-    name = "Marais des Chagrins",
+    name = "Sümpfe des Elends",
     level = "35-45",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Both",
@@ -2024,17 +2024,17 @@ DL.Dictionary.FR = {
   
   -- The Hinterlands
   Hinterlands = {
-    name = "Les Hinterlands",
+    name = "Hinterland",
     level = "40-50",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Both",
   },
   Hinter = {
-    name = "Les Hinterlands",
+    name = "Hinterland",
     level = "40-50",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Both",
@@ -2042,25 +2042,25 @@ DL.Dictionary.FR = {
   
   -- Searing Gorge
   Searing = {
-    name = "Gorge des Vents brûlants",
+    name = "Sengende Schlucht",
     level = "43-50",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Both",
   },
   Gorge = {
-    name = "Gorge des Vents brûlants",
+    name = "Sengende Schlucht",
     level = "43-50",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Both",
   },
   SearingGorge = {
-    name = "Gorge des Vents brûlants",
+    name = "Sengende Schlucht",
     level = "43-50",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Both",
@@ -2068,17 +2068,17 @@ DL.Dictionary.FR = {
   
   -- Blasted Lands
   Blasted = {
-    name = "Terres foudroyées",
+    name = "Verwüstete Lande",
     level = "45-55",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Both",
   },
   BlastedLands = {
-    name = "Terres foudroyées",
+    name = "Verwüstete Lande",
     level = "45-55",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Both",
@@ -2086,25 +2086,25 @@ DL.Dictionary.FR = {
   
   -- Burning Steppes
   Burning = {
-    name = "Steppes ardentes",
+    name = "Brennende Steppe",
     level = "50-58",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Both",
   },
   Steppes = {
-    name = "Steppes ardentes",
+    name = "Brennende Steppe",
     level = "50-58",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Both",
   },
   BurningSteppes = {
-    name = "Steppes ardentes",
+    name = "Brennende Steppe",
     level = "50-58",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Both",
@@ -2112,33 +2112,33 @@ DL.Dictionary.FR = {
   
   -- Western Plaguelands
   WPL = {
-    name = "Maleterres de l'ouest",
+    name = "Westliche Pestländer",
     level = "51-58",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Both",
   },
   WestPlague = {
-    name = "Maleterres de l'ouest",
+    name = "Westliche Pestländer",
     level = "51-58",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Both",
   },
   Plague = {
-    name = "Maleterres de l'ouest",
+    name = "Westliche Pestländer",
     level = "51-58",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Both",
   },
   Plaguelands = {
-    name = "Maleterres de l'ouest",
+    name = "Westliche Pestländer",
     level = "51-58",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Both",
@@ -2146,17 +2146,17 @@ DL.Dictionary.FR = {
   
   -- Eastern Plaguelands
   EPL = {
-    name = "Maleterres de l'est",
+    name = "Östliche Pestländer",
     level = "53-60",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Both",
   },
   EastPlague = {
-    name = "Maleterres de l'est",
+    name = "Östliche Pestländer",
     level = "53-60",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Both",
@@ -2164,9 +2164,9 @@ DL.Dictionary.FR = {
   
   -- Deadwind Pass
   Deadwind = {
-    name = "Défilé de Deuillevent",
+    name = "Gebirgspass der Totenwinde",
     level = "55-60",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Both",
@@ -2208,7 +2208,7 @@ DL.Dictionary.FR = {
   
   -- Darkshore
   Darkshore = {
-    name = "Sombrivage",
+    name = "Dunkelküste",
     level = "10-20",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -2218,7 +2218,7 @@ DL.Dictionary.FR = {
   
   -- The Barrens
   Barrens = {
-    name = "Les Tarides",
+    name = "Brachland",
     level = "10-33",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -2228,7 +2228,7 @@ DL.Dictionary.FR = {
   
   -- Ashenvale
   Ashenvale = {
-    name = "Orneval",
+    name = "Eschental",
     level = "18-30",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -2238,7 +2238,7 @@ DL.Dictionary.FR = {
   
   -- Stonetalon Mountains
   Stonetalon = {
-    name = "Les Serres-Rocheuses",
+    name = "Steinkrallengebirge",
     level = "15-27",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -2258,7 +2258,7 @@ DL.Dictionary.FR = {
   
   -- Thousand Needles
   Needles = {
-    name = "Mille Aiguilles",
+    name = "Tausend Nadeln",
     level = "25-35",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -2266,7 +2266,7 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   ThousandNeedles = {
-    name = "Mille Aiguilles",
+    name = "Tausend Nadeln",
     level = "25-35",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -2276,7 +2276,7 @@ DL.Dictionary.FR = {
   
   -- Dustwallow Marsh
   Dustwallow = {
-    name = "Marécage d'Âprefange",
+    name = "Düstermarschen",
     level = "35-45",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -2284,7 +2284,7 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   Marsh = {
-    name = "Marécage d'Âprefange",
+    name = "Düstermarschen",
     level = "35-45",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -2314,7 +2314,7 @@ DL.Dictionary.FR = {
   
   -- Un'Goro Crater
   UnGoro = {
-    name = "Cratère d'Un'Goro",
+    name = "Krater von Un'Goro",
     level = "48-55",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -2322,7 +2322,7 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   Ungoro = {
-    name = "Cratère d'Un'Goro",
+    name = "Krater von Un'Goro",
     level = "48-55",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -2330,7 +2330,7 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   Crater = {
-    name = "Cratère d'Un'Goro",
+    name = "Krater von Un'Goro",
     level = "48-55",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -2340,7 +2340,7 @@ DL.Dictionary.FR = {
   
   -- Felwood
   Felwood = {
-    name = "Gangrebois",
+    name = "Teufelswald",
     level = "48-55",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -2370,7 +2370,7 @@ DL.Dictionary.FR = {
   
   -- Winterspring
   Winterspring = {
-    name = "Berceau de l'Hiver",
+    name = "Winterquell",
     level = "55-60",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -2380,7 +2380,7 @@ DL.Dictionary.FR = {
   
   -- Moonglade
   Moonglade = {
-    name = "Reflet de Lune",
+    name = "Mondlichtung",
     level = "1-70",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -2394,9 +2394,9 @@ DL.Dictionary.FR = {
   
   -- Eversong Woods
   Eversong = {
-    name = "Bois des Chants éternels",
+    name = "Immersangwald",
     level = "1-10",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "The Burning Crusade",
     zoneType = "ZONE",
     faction = "Horde",
@@ -2404,9 +2404,9 @@ DL.Dictionary.FR = {
   
   -- Ghostlands
   Ghostlands = {
-    name = "Les Terres fantômes",
+    name = "Ghostlands",
     level = "10-20",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "The Burning Crusade",
     zoneType = "ZONE",
     faction = "Horde",
@@ -2414,25 +2414,25 @@ DL.Dictionary.FR = {
   
   -- Isle of Quel'Danas
   IoQD = {
-    name = "Île de Quel'Danas",
+    name = "Insel von Quel'Danas",
     level = "70",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "The Burning Crusade",
     zoneType = "ZONE",
     faction = "Both",
   },
   QuelDanas = {
-    name = "Île de Quel'Danas",
+    name = "Insel von Quel'Danas",
     level = "70",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "The Burning Crusade",
     zoneType = "ZONE",
     faction = "Both",
   },
   Sunwell = {
-    name = "Île de Quel'Danas",
+    name = "Insel von Quel'Danas",
     level = "70",
-    zone = "Royaumes de l'Est",
+    zone = "Östliche Königreiche",
     extension = "The Burning Crusade",
     zoneType = "ZONE",
     faction = "Both",
@@ -2444,7 +2444,7 @@ DL.Dictionary.FR = {
   
   -- Azuremyst Isle
   Azuremyst = {
-    name = "Île de Brume-Azur",
+    name = "Azurmythosinsel",
     level = "1-10",
     zone = "Kalimdor",
     extension = "The Burning Crusade",
@@ -2454,7 +2454,7 @@ DL.Dictionary.FR = {
   
   -- Bloodmyst Isle
   Bloodmyst = {
-    name = "Île de Brume-Sang",
+    name = "Blutmythosinsel",
     level = "10-20",
     zone = "Kalimdor",
     extension = "The Burning Crusade",
@@ -2468,17 +2468,17 @@ DL.Dictionary.FR = {
   
   -- Hellfire Peninsula
   HFP = {
-    name = "Péninsule des Flammes infernales",
+    name = "Höllenfeuerhalbinsel",
     level = "58-63",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "ZONE",
     faction = "Both",
   },
   Hellfire = {
-    name = "Péninsule des Flammes infernales",
+    name = "Höllenfeuerhalbinsel",
     level = "58-63",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "ZONE",
     faction = "Both",
@@ -2486,17 +2486,17 @@ DL.Dictionary.FR = {
   
   -- Zangarmarsh
   Zangar = {
-    name = "Marécage de Zangar",
+    name = "Zangarmarschen",
     level = "60-64",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "ZONE",
     faction = "Both",
   },
   Zangarmarsh = {
-    name = "Marécage de Zangar",
+    name = "Zangarmarschen",
     level = "60-64",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "ZONE",
     faction = "Both",
@@ -2504,9 +2504,9 @@ DL.Dictionary.FR = {
   
   -- Terokkar Forest
   Terokkar = {
-    name = "Forêt de Terokkar",
+    name = "Wälder von Terokkar",
     level = "62-65",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "ZONE",
     faction = "Both",
@@ -2516,7 +2516,7 @@ DL.Dictionary.FR = {
   Nagrand = {
     name = "Nagrand",
     level = "64-67",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "ZONE",
     faction = "Both",
@@ -2524,33 +2524,33 @@ DL.Dictionary.FR = {
   
   -- Blade's Edge Mountains
   BEM = {
-    name = "Les Tranchantes",
+    name = "Schergrat",
     level = "65-68",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "ZONE",
     faction = "Both",
   },
   Blade = {
-    name = "Les Tranchantes",
+    name = "Schergrat",
     level = "65-68",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "ZONE",
     faction = "Both",
   },
   Blades = {
-    name = "Les Tranchantes",
+    name = "Schergrat",
     level = "65-68",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "ZONE",
     faction = "Both",
   },
   BladesEdge = {
-    name = "Les Tranchantes",
+    name = "Schergrat",
     level = "65-68",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "ZONE",
     faction = "Both",
@@ -2558,25 +2558,25 @@ DL.Dictionary.FR = {
   
   -- Netherstorm
   Netherstorm = {
-    name = "Raz-de-Néant",
+    name = "Nethersturm",
     level = "67-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "ZONE",
     faction = "Both",
   },
   NS = {
-    name = "Raz-de-Néant",
+    name = "Nethersturm",
     level = "67-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "ZONE",
     faction = "Both",
   },
   Nether = {
-    name = "Raz-de-Néant",
+    name = "Nethersturm",
     level = "67-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "ZONE",
     faction = "Both",
@@ -2584,17 +2584,17 @@ DL.Dictionary.FR = {
   
   -- Shadowmoon Valley
   SMV = {
-    name = "Vallée d'Ombrelune",
+    name = "Schattenmondtal",
     level = "67-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "ZONE",
     faction = "Both",
   },
   Shadowmoon = {
-    name = "Vallée d'Ombrelune",
+    name = "Schattenmondtal",
     level = "67-70",
-    zone = "Outreterre",
+    zone = "Scherbenwelt",
     extension = "The Burning Crusade",
     zoneType = "ZONE",
     faction = "Both",

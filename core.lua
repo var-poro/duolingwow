@@ -5,9 +5,12 @@ local L = nil
 local function GetDefaultEnabledLanguages()
   local locale = GetLocale()
   if locale == "frFR" then
-    return { EN = false, FR = true }
+    return { EN = false, FR = true, DE = false }
   end
-  return { EN = true, FR = false }
+  if locale == "deDE" then
+    return { EN = false, FR = false, DE = true }
+  end
+  return { EN = true, FR = false, DE = false }
 end
 
 local function GetDefaultEnabledExtensions()
@@ -66,10 +69,14 @@ local function DeepCopyDefaults(src, dest)
 end
 
 local function GetEnabledLanguages()
+  if not DuolingwowDB or not DuolingwowDB.enabledLanguages then
+    return {}
+  end
   local enabled = {}
   for _, lang in ipairs(DL:GetAvailableLanguages()) do
-    if DuolingwowDB.enabledLanguages[lang.code] then
-      table.insert(enabled, lang.code)
+    local code = lang.code
+    if DuolingwowDB.enabledLanguages[code] or DuolingwowDB.enabledLanguages[code:upper()] then
+      table.insert(enabled, code)
     end
   end
   return enabled
@@ -133,8 +140,8 @@ local function GetFactionIcons(faction)
   return ""
 end
 
-local function GetExtensionName(code)
-  for _, ext in ipairs(DL:GetAvailableExtensions()) do
+local function GetExtensionName(code, locale)
+  for _, ext in ipairs(DL:GetAvailableExtensions(locale)) do
     if ext.code == code then
       return ext.name
     end
@@ -142,8 +149,8 @@ local function GetExtensionName(code)
   return code or ""
 end
 
-local function GetZoneTypeName(code)
-  for _, zoneType in ipairs(DL:GetAvailableZoneTypes()) do
+local function GetZoneTypeName(code, locale)
+  for _, zoneType in ipairs(DL:GetAvailableZoneTypes(locale)) do
     if zoneType.code == code then
       return zoneType.name
     end
@@ -151,14 +158,29 @@ local function GetZoneTypeName(code)
   return code or ""
 end
 
-local function AddTooltipEntry(tooltip, entry, abbr)
+local function NormalizeExtensionToCode(raw)
+  if not raw or raw == "" then
+    return nil
+  end
+  local u = (raw):upper()
+  if u == "VANILLA" then
+    return "VANILLA"
+  end
+  if u == "TBC" or u:find("BURNING") or u:find("CRUSADE") then
+    return "TBC"
+  end
+  return u
+end
+
+local function AddTooltipEntry(tooltip, entry, abbr, langCode)
+  local locale = (langCode == "FR" and "FR") or (langCode == "DE" and "DE") or "EN"
   local factionIcons = GetFactionIcons(entry.faction)
   if tooltip.SetPadding then
     tooltip:SetPadding(20, 00)
   end
   tooltip:SetMinimumWidth(160)
   tooltip:AddDoubleLine(
-    string.format("|cffffff00%s|r", entry.name),
+    string.format("|cffffff00%s|r", entry.name or "?"),
     string.format("|cffffffff(%s)|r", abbr),
     1, 1, 0,
     1, 1, 1
@@ -170,13 +192,25 @@ local function AddTooltipEntry(tooltip, entry, abbr)
     abbrText:ClearAllPoints()
     abbrText:SetJustifyH("RIGHT")
   end
-  if entry.extension then
-    tooltip:AddLine(string.format("|cffffffff%s %s|r", L.TOOLTIP_EXTENSION, GetExtensionName(entry.extension)), 1, 1, 1, true)
+  if entry.zoneType or entry.extension then
+    local typeCode = entry.zoneType and (entry.zoneType):upper()
+    local typeName = (typeCode and GetZoneTypeName(typeCode, locale)) or entry.zoneType or ""
+    local extCode = NormalizeExtensionToCode(entry.extension)
+    local extName = (extCode and GetExtensionName(extCode, locale)) or entry.extension or ""
+    if typeName ~= "" or extName ~= "" then
+      local extColor = (extCode == "TBC") and "|cff00cc00" or "|cffffffff"
+      local line
+      if typeName ~= "" and extName ~= "" then
+        line = string.format("|cffffffff%s|r (%s%s|r|cffffffff)|r", typeName, extColor, extName)
+      elseif typeName ~= "" then
+        line = string.format("|cffffffff%s|r", typeName)
+      else
+        line = string.format("%s%s|r", extColor, extName)
+      end
+      tooltip:AddLine(line, 1, 1, 1, true)
+    end
   end
-  if entry.zoneType then
-    tooltip:AddLine(string.format("|cffffffff%s %s|r", L.TOOLTIP_TYPE, GetZoneTypeName(entry.zoneType)), 1, 1, 1, true)
-  end
-  if entry.zone then
+  if entry.zone and entry.zone ~= "" then
     local zone = entry.zone
     if factionIcons ~= "" then
       tooltip:AddLine(string.format("|cffffffff%s|r %s", zone, factionIcons), 1, 1, 1, true)
@@ -184,7 +218,7 @@ local function AddTooltipEntry(tooltip, entry, abbr)
       tooltip:AddLine(string.format("|cffffffff%s|r", zone), 1, 1, 1, true)
     end
   end
-  if entry.level then
+  if entry.level and entry.level ~= "" then
     tooltip:AddDoubleLine(string.format("|cffffff00lvl. %s|r", entry.level), "|cffffffffDuolingwow|r", 1, 1, 0, 1, 1, 1)
     SetLastTooltipLineFonts(tooltip, GameFontHighlight, GameFontDisableSmall)
   else
@@ -195,15 +229,16 @@ end
 
 local function GetAbbreviationEntries(abbr)
   local normalized = abbr and abbr:upper() or abbr
+  if not normalized or normalized == "" or not DuolingwowDB then
+    return {}
+  end
+  local dictKey = (DL.AbbrLookup and DL.AbbrLookup[normalized]) or normalized
   local entries = {}
   for _, langCode in ipairs(GetEnabledLanguages()) do
     local langDict = DL.Dictionary[langCode]
-    if langDict and normalized and langDict[normalized] then
-      local data = langDict[normalized]
-      if data.extension and DuolingwowDB.enabledExtensions[data.extension]
-        and data.zoneType and DuolingwowDB.enabledZoneTypes[data.zoneType] then
-        table.insert(entries, { lang = langCode, data = data })
-      end
+    local data = langDict and (langDict[dictKey] or langDict[normalized])
+    if data and data.name then
+      table.insert(entries, { lang = langCode, data = data })
     end
   end
   return entries
@@ -271,7 +306,7 @@ local function OnItemRef(linkData)
     ItemRefTooltip:AddLine(L.TOOLTIP_EMPTY, 1, 0.5, 0.5)
   else
     for _, entry in ipairs(entries) do
-      AddTooltipEntry(ItemRefTooltip, entry.data, normalized)
+      AddTooltipEntry(ItemRefTooltip, entry.data, normalized, entry.lang)
     end
   end
 

@@ -3,9 +3,12 @@ local ADDON_NAME, DL = ...
 local function GetDefaultEnabledLanguages()
   local locale = GetLocale()
   if locale == "frFR" then
-    return { EN = false, FR = true }
+    return { EN = false, FR = true, DE = false }
   end
-  return { EN = true, FR = false }
+  if locale == "deDE" then
+    return { EN = false, FR = false, DE = true }
+  end
+  return { EN = true, FR = false, DE = false }
 end
 
 local function GetDefaultEnabledExtensions()
@@ -65,6 +68,34 @@ local function ToggleLanguage(langCode, isEnabled)
   DuolingwowDB.enabledLanguages[langCode] = isEnabled
 end
 
+local DROPDOWN_WIDTH = 260
+local DROPDOWN_CAPTION_MAX_WIDTH = 230
+local DROPDOWN_CAPTION_MAX_CHARS = 42
+
+local function TruncateLabel(label)
+  if #label <= DROPDOWN_CAPTION_MAX_CHARS then
+    return label
+  end
+  return label:sub(1, DROPDOWN_CAPTION_MAX_CHARS - 3) .. "..."
+end
+
+local function GetDropdownCaption(dropdown)
+  local caption = dropdown.Caption or dropdown.Text
+  if not caption and dropdown:GetName() then
+    caption = _G[dropdown:GetName() .. "Caption"] or _G[dropdown:GetName() .. "Text"]
+  end
+  if not caption then
+    for i = 1, dropdown:GetNumChildren() do
+      local child = select(i, dropdown:GetChildren())
+      if child and child.SetText and child:GetObjectType() == "FontString" then
+        caption = child
+        break
+      end
+    end
+  end
+  return caption
+end
+
 local function GetLogoPath()
   return "Interface\\AddOns\\DuoLingWoW\\logo.tga"
 end
@@ -101,29 +132,30 @@ local function CreateOptionsPanel()
     return #names > 0 and table.concat(names, ", ") or ""
   end
 
-  local langDropdown = CreateFrame("Button", nil, panel, "UIDropDownMenuTemplate")
+  local langDropdown = CreateFrame("Button", "DuolingwowLangDropdown", panel, "UIDropDownMenuTemplate")
   langDropdown:SetPoint("TOPLEFT", langHeader, "BOTTOMLEFT", 0, -8)
+  if UIDropDownMenu_SetWidth then
+    UIDropDownMenu_SetWidth(langDropdown, DROPDOWN_WIDTH)
+  end
 
   local function UpdateLangDropdownDisplay()
     local label = GetLangDropdownLabel()
     if label == "" then
       label = " "
+    else
+      label = TruncateLabel(label)
     end
-    local caption = langDropdown.Caption or langDropdown.Text
-    if not caption and langDropdown:GetName() then
-      caption = _G[langDropdown:GetName() .. "Caption"] or _G[langDropdown:GetName() .. "Text"]
-    end
-    if not caption then
-      for i = 1, langDropdown:GetNumChildren() do
-        local child = select(i, langDropdown:GetChildren())
-        if child and child.SetText and child:GetObjectType() == "FontString" then
-          caption = child
-          break
-        end
+    local caption = GetDropdownCaption(langDropdown)
+    if caption then
+      if caption.SetWidth then
+        caption:SetWidth(DROPDOWN_CAPTION_MAX_WIDTH)
       end
-    end
-    if caption and caption.SetText then
-      caption:SetText(label)
+      if caption.SetWordWrap then
+        caption:SetWordWrap(false)
+      end
+      if caption.SetText then
+        caption:SetText(label)
+      end
     end
   end
 
@@ -165,29 +197,30 @@ local function CreateOptionsPanel()
     return #names > 0 and table.concat(names, ", ") or ""
   end
 
-  local extensionDropdown = CreateFrame("Button", nil, panel, "UIDropDownMenuTemplate")
+  local extensionDropdown = CreateFrame("Button", "DuolingwowExtensionDropdown", panel, "UIDropDownMenuTemplate")
   extensionDropdown:SetPoint("TOPLEFT", extensionHeader, "BOTTOMLEFT", 0, -8)
+  if UIDropDownMenu_SetWidth then
+    UIDropDownMenu_SetWidth(extensionDropdown, DROPDOWN_WIDTH)
+  end
 
   local function UpdateExtensionDropdownDisplay()
     local label = GetExtensionDropdownLabel()
     if label == "" then
       label = " "
+    else
+      label = TruncateLabel(label)
     end
-    local caption = extensionDropdown.Caption or extensionDropdown.Text
-    if not caption and extensionDropdown:GetName() then
-      caption = _G[extensionDropdown:GetName() .. "Caption"] or _G[extensionDropdown:GetName() .. "Text"]
-    end
-    if not caption then
-      for i = 1, extensionDropdown:GetNumChildren() do
-        local child = select(i, extensionDropdown:GetChildren())
-        if child and child.SetText and child:GetObjectType() == "FontString" then
-          caption = child
-          break
-        end
+    local caption = GetDropdownCaption(extensionDropdown)
+    if caption then
+      if caption.SetWidth then
+        caption:SetWidth(DROPDOWN_CAPTION_MAX_WIDTH)
       end
-    end
-    if caption and caption.SetText then
-      caption:SetText(label)
+      if caption.SetWordWrap then
+        caption:SetWordWrap(false)
+      end
+      if caption.SetText then
+        caption:SetText(label)
+      end
     end
   end
 
@@ -229,29 +262,30 @@ local function CreateOptionsPanel()
     return #names > 0 and table.concat(names, ", ") or ""
   end
 
-  local typeDropdown = CreateFrame("Button", nil, panel, "UIDropDownMenuTemplate")
+  local typeDropdown = CreateFrame("Button", "DuolingwowTypeDropdown", panel, "UIDropDownMenuTemplate")
   typeDropdown:SetPoint("TOPLEFT", typeHeader, "BOTTOMLEFT", 0, -8)
+  if UIDropDownMenu_SetWidth then
+    UIDropDownMenu_SetWidth(typeDropdown, DROPDOWN_WIDTH)
+  end
 
   local function UpdateTypeDropdownDisplay()
     local label = GetTypeDropdownLabel()
     if label == "" then
       label = " "
+    else
+      label = TruncateLabel(label)
     end
-    local caption = typeDropdown.Caption or typeDropdown.Text
-    if not caption and typeDropdown:GetName() then
-      caption = _G[typeDropdown:GetName() .. "Caption"] or _G[typeDropdown:GetName() .. "Text"]
-    end
-    if not caption then
-      for i = 1, typeDropdown:GetNumChildren() do
-        local child = select(i, typeDropdown:GetChildren())
-        if child and child.SetText and child:GetObjectType() == "FontString" then
-          caption = child
-          break
-        end
+    local caption = GetDropdownCaption(typeDropdown)
+    if caption then
+      if caption.SetWidth then
+        caption:SetWidth(DROPDOWN_CAPTION_MAX_WIDTH)
       end
-    end
-    if caption and caption.SetText then
-      caption:SetText(label)
+      if caption.SetWordWrap then
+        caption:SetWordWrap(false)
+      end
+      if caption.SetText then
+        caption:SetText(label)
+      end
     end
   end
 
@@ -292,21 +326,24 @@ local function CreateOptionsPanel()
     colorPreview:SetColorTexture(c.r, c.g, c.b)
   end
 
+  local function RefreshAllDropdownDisplays()
+    UpdateLangDropdownDisplay()
+    UpdateExtensionDropdownDisplay()
+    UpdateTypeDropdownDisplay()
+  end
+
   panel:SetScript("OnShow", function()
     EnsureDB()
-    UpdateLangDropdownDisplay()
     if UIDropDownMenu_Refresh then
       UIDropDownMenu_Refresh(langDropdown)
-    end
-    UpdateExtensionDropdownDisplay()
-    if UIDropDownMenu_Refresh then
       UIDropDownMenu_Refresh(extensionDropdown)
-    end
-    UpdateTypeDropdownDisplay()
-    if UIDropDownMenu_Refresh then
       UIDropDownMenu_Refresh(typeDropdown)
     end
+    RefreshAllDropdownDisplays()
     UpdateColorPreview()
+    if C_Timer and C_Timer.After then
+      C_Timer.After(0, RefreshAllDropdownDisplays)
+    end
   end)
 
   local colorPicker = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
