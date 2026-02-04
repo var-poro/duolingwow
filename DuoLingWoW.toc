@@ -1,0 +1,13 @@
+## Interface: 100207
+## Title: Duolingwow
+## Notes: Recognizes WoW-specific abbreviations in chat and shows explanatory tooltips.
+## Author: Poro
+## Version: 1.0.0
+## IconTexture:Interface\AddOns\DuoLingWoW\logo.tga
+## SavedVariables: DuolingwowDB
+
+localization.lua
+dictionary_en.lua
+dictionary_fr.lua
+core.lua
+options.lua
