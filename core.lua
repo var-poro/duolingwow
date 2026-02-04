@@ -437,6 +437,13 @@ local function HookMapTooltip(tooltip)
   end)
 end
 
+local function HookWorldMapTooltip()
+  if not WorldMapTooltip then
+    return
+  end
+  HookMapTooltip(WorldMapTooltip)
+end
+
 local function Initialize()
   L = DL:GetStrings()
   if not DuolingwowDB and DuoLingWoWDB then
@@ -477,7 +484,7 @@ local function Initialize()
 
   RegisterItemRefHook()
   HookMapTooltip(GameTooltip)
-  HookMapTooltip(WorldMapTooltip)
+  HookWorldMapTooltip()
 end
 
 local function NormalizeLanguage(lang)
@@ -672,6 +679,10 @@ frame:RegisterEvent("ADDON_LOADED")
 frame:SetScript("OnEvent", function(_, event, addonName)
   if event == "ADDON_LOADED" and addonName == ADDON_NAME then
     Initialize()
+    return
+  end
+  if event == "ADDON_LOADED" and addonName == "Blizzard_WorldMap" then
+    HookWorldMapTooltip()
   end
 end)
 
