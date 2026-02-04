@@ -32,6 +32,7 @@ local function GetDefaultDB()
     enabledLanguages = GetDefaultEnabledLanguages(),
     enabledExtensions = GetDefaultEnabledExtensions(),
     enabledZoneTypes = GetDefaultEnabledZoneTypes(),
+    showMapAbbreviations = true,
     linkColor = {
       r = 1,
       g = 0.82,
@@ -56,6 +57,9 @@ local function EnsureDB()
     end
     if not DuolingwowDB.enabledZoneTypes then
       DuolingwowDB.enabledZoneTypes = GetDefaultEnabledZoneTypes()
+    end
+    if DuolingwowDB.showMapAbbreviations == nil then
+      DuolingwowDB.showMapAbbreviations = true
     end
     if not DuolingwowDB.linkColor then
       DuolingwowDB.linkColor = GetDefaultDB().linkColor
@@ -117,8 +121,24 @@ local function CreateOptionsPanel()
   desc:SetWidth(500)
   desc:SetJustifyH("LEFT")
 
+  local mapHeader = panel:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+  mapHeader:SetPoint("TOPLEFT", desc, "BOTTOMLEFT", 0, -16)
+  mapHeader:SetText(L.OPTIONS_MAP_HEADER)
+
+  local mapToggle = CreateFrame("CheckButton", "DuolingwowMapToggle", panel, "InterfaceOptionsCheckButtonTemplate")
+  mapToggle:SetPoint("TOPLEFT", mapHeader, "BOTTOMLEFT", -2, -6)
+  mapToggle.Text:SetText(L.OPTIONS_MAP_TOGGLE)
+  mapToggle:SetScript("OnClick", function(self)
+    EnsureDB()
+    DuolingwowDB.showMapAbbreviations = self:GetChecked()
+  end)
+  mapToggle:SetScript("OnShow", function(self)
+    EnsureDB()
+    self:SetChecked(DuolingwowDB.showMapAbbreviations)
+  end)
+
   local langHeader = panel:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-  langHeader:SetPoint("TOPLEFT", desc, "BOTTOMLEFT", 0, -16)
+  langHeader:SetPoint("TOPLEFT", mapToggle, "BOTTOMLEFT", 2, -12)
   langHeader:SetText(L.OPTIONS_LANG_HEADER)
 
   local function GetLangDropdownLabel()

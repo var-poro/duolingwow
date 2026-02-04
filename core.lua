@@ -34,6 +34,7 @@ local function GetDefaultDB()
     enabledLanguages = GetDefaultEnabledLanguages(),
     enabledExtensions = GetDefaultEnabledExtensions(),
     enabledZoneTypes = GetDefaultEnabledZoneTypes(),
+    showMapAbbreviations = true,
   }
 end
 
@@ -263,6 +264,36 @@ local function GetAbbreviationEntries(abbr)
   return entries
 end
 
+local function GetMapAbbreviations(name)
+  local normalized = name and name:upper() or name
+  if not normalized or normalized == "" or not DuolingwowDB or not DuolingwowDB.showMapAbbreviations then
+    return {}
+  end
+  local candidates = DL.NameLookup and DL.NameLookup[normalized]
+  if not candidates then
+    return {}
+  end
+  local enabledLangs = {}
+  for _, lang in ipairs(GetEnabledLanguages()) do
+    enabledLangs[lang] = true
+  end
+  local abbrs = {}
+  local seen = {}
+  for _, entry in ipairs(candidates) do
+    local abbr = entry.abbr
+    if abbr and enabledLangs[entry.lang] and IsEntryAllowedByFilters(entry.data) then
+      if abbr:upper() ~= normalized then
+        local key = abbr:upper()
+        if not seen[key] then
+          table.insert(abbrs, abbr)
+          seen[key] = true
+        end
+      end
+    end
+  end
+  return abbrs
+end
+
 local function ReplaceAbbreviations(segment)
   return segment:gsub("%f[%w]([%w]+)%f[%W]", function(word)
     local key = word:upper()
@@ -352,6 +383,67 @@ local function RegisterItemRefHook()
   end
 end
 
+local function IsWorldMapOwner(owner)
+  if not owner or not WorldMapFrame then
+    return false
+  end
+  local current = owner
+  for _ = 1, 6 do
+    if current == WorldMapFrame then
+      return true
+    end
+    if not current.GetParent then
+      return false
+    end
+    current = current:GetParent()
+    if not current then
+      return false
+    end
+  end
+  return false
+end
+
+local function HookMapTooltip(tooltip)
+  if not tooltip or tooltip.__dlwowMapHooked then
+    return
+  end
+  tooltip.__dlwowMapHooked = true
+  tooltip:HookScript("OnTooltipSetText", function(tip)
+    if not DuolingwowDB or not DuolingwowDB.showMapAbbreviations then
+      return
+    end
+    local owner = tip:GetOwner()
+    if not IsWorldMapOwner(owner) then
+      return
+    end
+    local left = _G[tip:GetName() .. "TextLeft1"]
+    if not left then
+      return
+    end
+    local text = left:GetText()
+    if not text or text == "" then
+      return
+    end
+    if tip.__dlwowMapLastOriginal == text then
+      return
+    end
+    tip.__dlwowMapLastOriginal = text
+    local abbrs = GetMapAbbreviations(text)
+    if #abbrs == 0 then
+      return
+    end
+    left:SetText(string.format("%s (%s)", text, table.concat(abbrs, ", ")))
+    tip:Show()
+  end)
+end
+
+local function HookWorldMapTooltip()
+  if not WorldMapTooltip then
+    return
+  end
+  HookMapTooltip(WorldMapTooltip)
+end
+
 local function Initialize()
   L = DL:GetStrings()
   if not DuolingwowDB and DuoLingWoWDB then
@@ -368,12 +460,31 @@ local function Initialize()
       end
     end
   end
+  DL.NameLookup = {}
+  for _, lang in ipairs(DL:GetAvailableLanguages()) do
+    local dict = DL.Dictionary[lang.code]
+    if dict then
+      for abbr, data in pairs(dict) do
+        if type(data) == "table" and data.name then
+          local nameKey = data.name:upper()
+          DL.NameLookup[nameKey] = DL.NameLookup[nameKey] or {}
+          table.insert(DL.NameLookup[nameKey], {
+            abbr = abbr,
+            lang = lang.code,
+            data = data,
+          })
+        end
+      end
+    end
+  end
 
   for _, event in ipairs(CHAT_EVENTS) do
     ChatFrame_AddMessageEventFilter(event, ChatFilter)
   end
 
   RegisterItemRefHook()
+  HookMapTooltip(GameTooltip)
+  HookWorldMapTooltip()
 end
 
 local function NormalizeLanguage(lang)
@@ -426,6 +537,8 @@ local function PrintHelp()
   Print(L.COMMAND_EXTENSION_DISABLE)
   Print(L.COMMAND_TYPE_ENABLE)
   Print(L.COMMAND_TYPE_DISABLE)
+  Print(L.COMMAND_MAP_ENABLE)
+  Print(L.COMMAND_MAP_DISABLE)
   Print(L.COMMAND_STATUS)
 end
 
@@ -533,6 +646,19 @@ local function HandleSlashCommand(input)
     return
   end
 
+  if command == "map" then
+    local action = (args[2] or ""):lower()
+    if action ~= "enable" and action ~= "disable" then
+      Print(L.COMMAND_UNKNOWN)
+      return
+    end
+    local isEnabled = (action == "enable")
+    DuolingwowDB.showMapAbbreviations = isEnabled
+    local status = isEnabled and "enabled" or "disabled"
+    Print(string.format(L.COMMAND_MAP_UPDATED, status))
+    return
+  end
+
   if command == "status" then
     local enabled = table.concat(GetEnabledLanguageList(), ", ")
     Print(string.format(L.COMMAND_STATUS_LINE, enabled ~= "" and enabled or "-"))
@@ -540,6 +666,8 @@ local function HandleSlashCommand(input)
     Print(string.format(L.COMMAND_STATUS_EXTENSIONS_LINE, extensions ~= "" and extensions or "-"))
     local zoneTypes = table.concat(GetEnabledZoneTypeList(), ", ")
     Print(string.format(L.COMMAND_STATUS_TYPES_LINE, zoneTypes ~= "" and zoneTypes or "-"))
+    local mapStatus = DuolingwowDB.showMapAbbreviations and "enabled" or "disabled"
+    Print(string.format(L.COMMAND_STATUS_MAP_LINE, mapStatus))
     return
   end
 
@@ -551,6 +679,10 @@ frame:RegisterEvent("ADDON_LOADED")
 frame:SetScript("OnEvent", function(_, event, addonName)
   if event == "ADDON_LOADED" and addonName == ADDON_NAME then
     Initialize()
+    return
+  end
+  if event == "ADDON_LOADED" and addonName == "Blizzard_WorldMap" then
+    HookWorldMapTooltip()
   end
 end)
 
