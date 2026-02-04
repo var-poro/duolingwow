@@ -5,14 +5,35 @@ local L = nil
 local function GetDefaultEnabledLanguages()
   local locale = GetLocale()
   if locale == "frFR" then
-    return { EN = false, FR = true }
+    return { EN = false, FR = true, DE = false }
   end
-  return { EN = true, FR = false }
+  if locale == "deDE" then
+    return { EN = false, FR = false, DE = true }
+  end
+  return { EN = true, FR = false, DE = false }
+end
+
+local function GetDefaultEnabledExtensions()
+  local enabled = {}
+  for _, ext in ipairs(DL:GetAvailableExtensions()) do
+    enabled[ext.code] = true
+  end
+  return enabled
+end
+
+local function GetDefaultEnabledZoneTypes()
+  local enabled = {}
+  for _, zoneType in ipairs(DL:GetAvailableZoneTypes()) do
+    enabled[zoneType.code] = true
+  end
+  return enabled
 end
 
 local function GetDefaultDB()
   return {
     enabledLanguages = GetDefaultEnabledLanguages(),
+    enabledExtensions = GetDefaultEnabledExtensions(),
+    enabledZoneTypes = GetDefaultEnabledZoneTypes(),
   }
 end
 
@@ -48,10 +69,34 @@ local function DeepCopyDefaults(src, dest)
 end
 
 local function GetEnabledLanguages()
+  if not DuolingwowDB or not DuolingwowDB.enabledLanguages then
+    return {}
+  end
   local enabled = {}
   for _, lang in ipairs(DL:GetAvailableLanguages()) do
-    if DuolingwowDB.enabledLanguages[lang.code] then
-      table.insert(enabled, lang.code)
+    local code = lang.code
+    if DuolingwowDB.enabledLanguages[code] or DuolingwowDB.enabledLanguages[code:upper()] then
+      table.insert(enabled, code)
+    end
+  end
+  return enabled
+end
+
+local function GetEnabledExtensions()
+  local enabled = {}
+  for _, ext in ipairs(DL:GetAvailableExtensions()) do
+    if DuolingwowDB.enabledExtensions[ext.code] then
+      table.insert(enabled, ext.code)
+    end
+  end
+  return enabled
+end
+
+local function GetEnabledZoneTypes()
+  local enabled = {}
+  for _, zoneType in ipairs(DL:GetAvailableZoneTypes()) do
+    if DuolingwowDB.enabledZoneTypes[zoneType.code] then
+      table.insert(enabled, zoneType.code)
     end
   end
   return enabled
@@ -95,14 +140,47 @@ local function GetFactionIcons(faction)
   return ""
 end
 
-local function AddTooltipEntry(tooltip, entry, abbr)
+local function GetExtensionName(code, locale)
+  for _, ext in ipairs(DL:GetAvailableExtensions(locale)) do
+    if ext.code == code then
+      return ext.name
+    end
+  end
+  return code or ""
+end
+
+local function GetZoneTypeName(code, locale)
+  for _, zoneType in ipairs(DL:GetAvailableZoneTypes(locale)) do
+    if zoneType.code == code then
+      return zoneType.name
+    end
+  end
+  return code or ""
+end
+
+local function NormalizeExtensionToCode(raw)
+  if not raw or raw == "" then
+    return nil
+  end
+  local u = (raw):upper()
+  if u == "VANILLA" or u == "CLASSIC" then
+    return "VANILLA"
+  end
+  if u == "TBC" or u:find("BURNING") or u:find("CRUSADE") then
+    return "TBC"
+  end
+  return u
+end
+
+local function AddTooltipEntry(tooltip, entry, abbr, langCode)
+  local locale = (langCode == "FR" and "FR") or (langCode == "DE" and "DE") or "EN"
   local factionIcons = GetFactionIcons(entry.faction)
   if tooltip.SetPadding then
     tooltip:SetPadding(20, 00)
   end
   tooltip:SetMinimumWidth(160)
   tooltip:AddDoubleLine(
-    string.format("|cffffff00%s|r", entry.name),
+    string.format("|cffffff00%s|r", entry.name or "?"),
     string.format("|cffffffff(%s)|r", abbr),
     1, 1, 0,
     1, 1, 1
@@ -114,7 +192,25 @@ local function AddTooltipEntry(tooltip, entry, abbr)
     abbrText:ClearAllPoints()
     abbrText:SetJustifyH("RIGHT")
   end
-  if entry.zone then
+  if entry.zoneType or entry.extension then
+    local typeCode = entry.zoneType and (entry.zoneType):upper()
+    local typeName = (typeCode and GetZoneTypeName(typeCode, locale)) or entry.zoneType or ""
+    local extCode = NormalizeExtensionToCode(entry.extension)
+    local extName = (extCode and GetExtensionName(extCode, locale)) or entry.extension or ""
+    if typeName ~= "" or extName ~= "" then
+      local extColor = (extCode == "TBC") and "|cff00cc00" or "|cffffffff"
+      local line
+      if typeName ~= "" and extName ~= "" then
+        line = string.format("|cffffffff%s|r (%s%s|r|cffffffff)|r", typeName, extColor, extName)
+      elseif typeName ~= "" then
+        line = string.format("|cffffffff%s|r", typeName)
+      else
+        line = string.format("%s%s|r", extColor, extName)
+      end
+      tooltip:AddLine(line, 1, 1, 1, true)
+    end
+  end
+  if entry.zone and entry.zone ~= "" then
     local zone = entry.zone
     if factionIcons ~= "" then
       tooltip:AddLine(string.format("|cffffffff%s|r %s", zone, factionIcons), 1, 1, 1, true)
@@ -122,7 +218,7 @@ local function AddTooltipEntry(tooltip, entry, abbr)
       tooltip:AddLine(string.format("|cffffffff%s|r", zone), 1, 1, 1, true)
     end
   end
-  if entry.level then
+  if entry.level and entry.level ~= "" then
     tooltip:AddDoubleLine(string.format("|cffffff00lvl. %s|r", entry.level), "|cffffffffDuolingwow|r", 1, 1, 0, 1, 1, 1)
     SetLastTooltipLineFonts(tooltip, GameFontHighlight, GameFontDisableSmall)
   else
@@ -131,13 +227,37 @@ local function AddTooltipEntry(tooltip, entry, abbr)
   end
 end
 
+local function IsEntryAllowedByFilters(data)
+  if not DuolingwowDB or not data then
+    return true
+  end
+  if data.extension then
+    local extCode = NormalizeExtensionToCode(data.extension)
+    if extCode and not DuolingwowDB.enabledExtensions[extCode] then
+      return false
+    end
+  end
+  if data.zoneType then
+    local typeCode = (data.zoneType):upper()
+    if not DuolingwowDB.enabledZoneTypes[typeCode] then
+      return false
+    end
+  end
+  return true
+end
+
 local function GetAbbreviationEntries(abbr)
   local normalized = abbr and abbr:upper() or abbr
+  if not normalized or normalized == "" or not DuolingwowDB then
+    return {}
+  end
+  local dictKey = (DL.AbbrLookup and DL.AbbrLookup[normalized]) or normalized
   local entries = {}
   for _, langCode in ipairs(GetEnabledLanguages()) do
     local langDict = DL.Dictionary[langCode]
-    if langDict and normalized and langDict[normalized] then
-      table.insert(entries, { lang = langCode, data = langDict[normalized] })
+    local data = langDict and (langDict[dictKey] or langDict[normalized])
+    if data and data.name and IsEntryAllowedByFilters(data) then
+      table.insert(entries, { lang = langCode, data = data })
     end
   end
   return entries
@@ -148,7 +268,10 @@ local function ReplaceAbbreviations(segment)
     local key = word:upper()
     if DL.AbbrLookup and DL.AbbrLookup[key] then
       local abbr = DL.AbbrLookup[key]
-      return string.format("|Hdlwow:%s|h%s|h", abbr, ColorizeLinkText(string.format("[%s]", word)))
+      local entries = GetAbbreviationEntries(abbr)
+      if #entries > 0 then
+        return string.format("|Hdlwow:%s|h%s|h", abbr, ColorizeLinkText(string.format("[%s]", word)))
+      end
     end
     return word
   end)
@@ -205,7 +328,7 @@ local function OnItemRef(linkData)
     ItemRefTooltip:AddLine(L.TOOLTIP_EMPTY, 1, 0.5, 0.5)
   else
     for _, entry in ipairs(entries) do
-      AddTooltipEntry(ItemRefTooltip, entry.data, normalized)
+      AddTooltipEntry(ItemRefTooltip, entry.data, normalized, entry.lang)
     end
   end
 
@@ -270,6 +393,26 @@ local function GetEnabledLanguageList()
   return enabled
 end
 
+local function GetEnabledExtensionList()
+  local enabled = {}
+  for _, ext in ipairs(DL:GetAvailableExtensions()) do
+    if DuolingwowDB.enabledExtensions[ext.code] then
+      table.insert(enabled, ext.name)
+    end
+  end
+  return enabled
+end
+
+local function GetEnabledZoneTypeList()
+  local enabled = {}
+  for _, zoneType in ipairs(DL:GetAvailableZoneTypes()) do
+    if DuolingwowDB.enabledZoneTypes[zoneType.code] then
+      table.insert(enabled, zoneType.name)
+    end
+  end
+  return enabled
+end
+
 local function Print(msg)
   DEFAULT_CHAT_FRAME:AddMessage(msg)
 end
@@ -279,16 +422,36 @@ local function PrintHelp()
   Print(L.COMMAND_HELP)
   Print(L.COMMAND_ENABLE)
   Print(L.COMMAND_DISABLE)
+  Print(L.COMMAND_EXTENSION_ENABLE)
+  Print(L.COMMAND_EXTENSION_DISABLE)
+  Print(L.COMMAND_TYPE_ENABLE)
+  Print(L.COMMAND_TYPE_DISABLE)
   Print(L.COMMAND_STATUS)
+end
+
+local function NormalizeOption(option)
+  if not option or option == "" then
+    return nil
+  end
+  return option:upper()
+end
+
+local function UpdateOptionSetting(options, code, value)
+  for _, info in ipairs(options) do
+    local normalizedName = info.name and info.name:upper()
+    if info.code == code or normalizedName == code then
+      value(info.code)
+      return info.name
+    end
+  end
+  return nil
 end
 
 local function HandleSlashCommand(input)
   if not L then
     L = DL:GetStrings()
   end
-  if not DuolingwowDB then
-    DuolingwowDB = DeepCopyDefaults(GetDefaultDB(), DuolingwowDB or {})
-  end
+  DuolingwowDB = DeepCopyDefaults(GetDefaultDB(), DuolingwowDB or {})
   local args = {}
   for token in string.gmatch(input or "", "%S+") do
     table.insert(args, token)
@@ -300,20 +463,72 @@ local function HandleSlashCommand(input)
     return
   end
 
-  if command == "enable" or command == "disable" then
-    local lang = NormalizeLanguage(args[2])
+  if command == "lang" then
+    local action = (args[2] or ""):lower()
+    local rawLang = args[3] or ""
+    if action ~= "enable" and action ~= "disable" then
+      Print(L.COMMAND_UNKNOWN)
+      return
+    end
+    local lang = NormalizeLanguage(rawLang)
     local found = false
     for _, info in ipairs(DL:GetAvailableLanguages()) do
       if info.code == lang then
         found = true
-        DuolingwowDB.enabledLanguages[lang] = (command == "enable")
-        local status = (command == "enable") and "enabled" or "disabled"
+        DuolingwowDB.enabledLanguages[lang] = (action == "enable")
+        local status = (action == "enable") and "enabled" or "disabled"
         Print(string.format(L.COMMAND_LANG_UPDATED, lang, status))
         return
       end
     end
     if not found then
-      Print(string.format(L.COMMAND_LANG_UNKNOWN, lang or ""))
+      Print(string.format(L.COMMAND_LANG_UNKNOWN, rawLang or ""))
+    end
+    return
+  end
+
+  if command == "extension" or command == "type" then
+    local action = (args[2] or ""):lower()
+    local rawValue = args[3] or ""
+    if action ~= "enable" and action ~= "disable" then
+      Print(L.COMMAND_UNKNOWN)
+      return
+    end
+    local normalized = NormalizeOption(rawValue)
+    local isEnabled = (action == "enable")
+    if command == "extension" then
+      local extensionCode = NormalizeExtensionToCode(rawValue)
+      local matched = nil
+      if extensionCode then
+        for _, info in ipairs(DL:GetAvailableExtensions()) do
+          if info.code == extensionCode then
+            DuolingwowDB.enabledExtensions[extensionCode] = isEnabled
+            matched = info.name
+            break
+          end
+        end
+      end
+      if not matched then
+        matched = UpdateOptionSetting(DL:GetAvailableExtensions(), normalized, function(code)
+          DuolingwowDB.enabledExtensions[code] = isEnabled
+        end)
+      end
+      if matched then
+        local status = isEnabled and "enabled" or "disabled"
+        Print(string.format(L.COMMAND_EXTENSION_UPDATED, matched, status))
+      else
+        Print(string.format(L.COMMAND_EXTENSION_UNKNOWN, rawValue))
+      end
+      return
+    end
+    local matched = UpdateOptionSetting(DL:GetAvailableZoneTypes(), normalized, function(code)
+      DuolingwowDB.enabledZoneTypes[code] = isEnabled
+    end)
+    if matched then
+      local status = isEnabled and "enabled" or "disabled"
+      Print(string.format(L.COMMAND_TYPE_UPDATED, matched, status))
+    else
+      Print(string.format(L.COMMAND_TYPE_UNKNOWN, rawValue))
     end
     return
   end
@@ -321,6 +536,10 @@ local function HandleSlashCommand(input)
   if command == "status" then
     local enabled = table.concat(GetEnabledLanguageList(), ", ")
     Print(string.format(L.COMMAND_STATUS_LINE, enabled ~= "" and enabled or "-"))
+    local extensions = table.concat(GetEnabledExtensionList(), ", ")
+    Print(string.format(L.COMMAND_STATUS_EXTENSIONS_LINE, extensions ~= "" and extensions or "-"))
+    local zoneTypes = table.concat(GetEnabledZoneTypeList(), ", ")
+    Print(string.format(L.COMMAND_STATUS_TYPES_LINE, zoneTypes ~= "" and zoneTypes or "-"))
     return
   end
 

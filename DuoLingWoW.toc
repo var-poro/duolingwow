@@ -9,5 +9,6 @@
 localization.lua
 dictionary_en.lua
 dictionary_fr.lua
+dictionary_de.lua
 core.lua
 options.lua
