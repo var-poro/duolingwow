@@ -142,8 +142,52 @@ local function CreateOptionsPanel()
   desc:SetWidth(500)
   desc:SetJustifyH("LEFT")
 
+  local colorHeader = panel:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+  colorHeader:SetPoint("TOPLEFT", desc, "BOTTOMLEFT", 0, -16)
+  colorHeader:SetText(L.OPTIONS_COLOR_HEADER)
+
+  local colorPreview = panel:CreateTexture(nil, "ARTWORK")
+  colorPreview:SetSize(22, 22)
+  colorPreview:SetPoint("TOPLEFT", colorHeader, "BOTTOMLEFT", 0, -8)
+
+  local function UpdateColorPreview()
+    EnsureDB()
+    local c = DuolingwowDB.linkColor
+    local r = (c and c.r ~= nil) and c.r or 1
+    local g = (c and c.g ~= nil) and c.g or 0.82
+    local b = (c and c.b ~= nil) and c.b or 0
+    colorPreview:SetColorTexture(r, g, b)
+  end
+
+  local colorPicker = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
+  colorPicker:SetSize(180, 22)
+  colorPicker:SetPoint("TOPLEFT", colorPreview, "TOPRIGHT", 8, 0)
+  colorPicker:SetText(L.OPTIONS_COLOR_PICKER)
+  colorPicker:SetScript("OnClick", function()
+    local r, g, b = DuolingwowDB.linkColor.r, DuolingwowDB.linkColor.g, DuolingwowDB.linkColor.b
+    ColorPickerFrame.hasOpacity = false
+    ColorPickerFrame.previousValues = { r = r, g = g, b = b }
+    ColorPickerFrame.func = function()
+      local cr, cg, cb = ColorPickerFrame:GetColorRGB()
+      DuolingwowDB.linkColor = { r = cr, g = cg, b = cb }
+      UpdateColorPreview()
+    end
+    ColorPickerFrame.swatchFunc = ColorPickerFrame.func
+    ColorPickerFrame.cancelFunc = function()
+      local prev = ColorPickerFrame.previousValues
+      if prev then
+        DuolingwowDB.linkColor = { r = prev.r, g = prev.g, b = prev.b }
+      end
+      UpdateColorPreview()
+    end
+    ColorPickerFrame:SetColorRGB(r, g, b)
+    ColorPickerFrame:Show()
+  end)
+
+  UpdateColorPreview()
+
   local langHeader = panel:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-  langHeader:SetPoint("TOPLEFT", desc, "BOTTOMLEFT", 0, -16)
+  langHeader:SetPoint("TOPLEFT", colorPicker, "BOTTOMLEFT", -(22 + 8), -16)
   langHeader:SetText(L.OPTIONS_LANG_HEADER)
 
   local function GetLangDropdownLabel()
@@ -337,58 +381,14 @@ local function CreateOptionsPanel()
   end)
   UpdateTypeDropdownDisplay()
 
-  local colorHeader = panel:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-  colorHeader:SetPoint("TOPLEFT", typeDropdown, "BOTTOMLEFT", 0, -16)
-  colorHeader:SetText(L.OPTIONS_COLOR_HEADER)
-
-  local colorPreview = panel:CreateTexture(nil, "ARTWORK")
-  colorPreview:SetSize(22, 22)
-  colorPreview:SetPoint("TOPLEFT", colorHeader, "BOTTOMLEFT", 0, -8)
-
-  local function UpdateColorPreview()
-    EnsureDB()
-    local c = DuolingwowDB.linkColor
-    local r = (c and c.r ~= nil) and c.r or 1
-    local g = (c and c.g ~= nil) and c.g or 0.82
-    local b = (c and c.b ~= nil) and c.b or 0
-    colorPreview:SetColorTexture(r, g, b)
-  end
-
   local function RefreshAllDropdownDisplays()
     UpdateLangDropdownDisplay()
     UpdateExtensionDropdownDisplay()
     UpdateTypeDropdownDisplay()
   end
 
-  local colorPicker = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
-  colorPicker:SetSize(180, 22)
-  colorPicker:SetPoint("TOPLEFT", colorPreview, "TOPRIGHT", 8, 0)
-  colorPicker:SetText(L.OPTIONS_COLOR_PICKER)
-  colorPicker:SetScript("OnClick", function()
-    local r, g, b = DuolingwowDB.linkColor.r, DuolingwowDB.linkColor.g, DuolingwowDB.linkColor.b
-    ColorPickerFrame.hasOpacity = false
-    ColorPickerFrame.previousValues = { r = r, g = g, b = b }
-    ColorPickerFrame.func = function()
-      local cr, cg, cb = ColorPickerFrame:GetColorRGB()
-      DuolingwowDB.linkColor = { r = cr, g = cg, b = cb }
-      UpdateColorPreview()
-    end
-    ColorPickerFrame.swatchFunc = ColorPickerFrame.func
-    ColorPickerFrame.cancelFunc = function()
-      local prev = ColorPickerFrame.previousValues
-      if prev then
-        DuolingwowDB.linkColor = { r = prev.r, g = prev.g, b = prev.b }
-      end
-      UpdateColorPreview()
-    end
-    ColorPickerFrame:SetColorRGB(r, g, b)
-    ColorPickerFrame:Show()
-  end)
-
-  UpdateColorPreview()
-
   local blocklistHeader = panel:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-  blocklistHeader:SetPoint("TOPLEFT", colorPicker, "BOTTOMLEFT", -8, -16)
+  blocklistHeader:SetPoint("TOPLEFT", typeDropdown, "BOTTOMLEFT", 0, -16)
   blocklistHeader:SetText(L.OPTIONS_BLOCKLIST_HEADER)
 
   local blocklistDesc = panel:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
@@ -484,7 +484,7 @@ local function CreateOptionsPanel()
 
   local logo = panel:CreateTexture(nil, "ARTWORK")
   logo:SetSize(48, 48)
-  logo:SetPoint("TOPLEFT", blocklistDisplay, "BOTTOMLEFT", -30, -16)
+  logo:SetPoint("TOPLEFT", blocklistDisplay, "BOTTOMLEFT", 0, -16)
   logo:SetTexture(GetLogoPath())
 
   local creditsHeader = panel:CreateFontString(nil, "ARTWORK", "GameFontNormal")
