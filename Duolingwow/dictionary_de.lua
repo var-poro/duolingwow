@@ -738,7 +738,7 @@ DL.Dictionary.DE = {
   
   -- Old Hillsbrad Foothills
   OHB = {
-    name = "Vorgebirge des Hügellands",
+    name = "Flucht von Durnholde",
     level = "64-68",
     zone = "Kalimdor",
     extension = "The Burning Crusade",
@@ -746,7 +746,7 @@ DL.Dictionary.DE = {
     faction = "Both",
   },
   OHF = {
-    name = "Vorgebirge des Hügellands",
+    name = "Flucht von Durnholde",
     level = "64-68",
     zone = "Kalimdor",
     extension = "The Burning Crusade",
@@ -754,7 +754,7 @@ DL.Dictionary.DE = {
     faction = "Both",
   },
   Escape = {
-    name = "Vorgebirge des Hügellands",
+    name = "Flucht von Durnholde",
     level = "64-68",
     zone = "Kalimdor",
     extension = "The Burning Crusade",
@@ -762,7 +762,7 @@ DL.Dictionary.DE = {
     faction = "Both",
   },
   Durnholde = {
-    name = "Vorgebirge des Hügellands",
+    name = "Flucht von Durnholde",
     level = "64-68",
     zone = "Kalimdor",
     extension = "The Burning Crusade",
@@ -770,7 +770,7 @@ DL.Dictionary.DE = {
     faction = "Both",
   },
   OldHillsbrad = {
-    name = "Vorgebirge des Hügellands",
+    name = "Flucht von Durnholde",
     level = "64-68",
     zone = "Kalimdor",
     extension = "The Burning Crusade",
@@ -1235,7 +1235,7 @@ DL.Dictionary.DE = {
     zoneType = "RAID",
     faction = "Both",
   },
-  Eye = {
+  EyeTK = {
     name = "Festung der Stürme: Das Auge",
     level = "70",
     zone = "Scherbenwelt",
@@ -1736,7 +1736,7 @@ DL.Dictionary.DE = {
   
   -- Ratchet
   Ratchet = {
-    name = "Ratchet",
+    name = "Ratschet",
     level = "1-70",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -1746,7 +1746,7 @@ DL.Dictionary.DE = {
   
   -- Everlook
   Everlook = {
-    name = "Everlook",
+    name = "Ewige Warte",
     level = "1-70",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -1808,7 +1808,7 @@ DL.Dictionary.DE = {
   
   -- Coilfang Reservoir
   CR = {
-    name = "Reservoir der Skitterflosse",
+    name = "Echsenkessel",
     level = "60-70",
     zone = "Scherbenwelt",
     extension = "The Burning Crusade",
@@ -1816,7 +1816,7 @@ DL.Dictionary.DE = {
     faction = "Both",
   },
   Coilfang = {
-    name = "Reservoir der Skitterflosse",
+    name = "Echsenkessel",
     level = "60-70",
     zone = "Scherbenwelt",
     extension = "The Burning Crusade",
@@ -2430,7 +2430,7 @@ DL.Dictionary.DE = {
   
   -- Ghostlands
   Ghostlands = {
-    name = "Ghostlands",
+    name = "Geisterlande",
     level = "10-20",
     zone = "Östliche Königreiche",
     extension = "The Burning Crusade",
@@ -2455,7 +2455,7 @@ DL.Dictionary.DE = {
     zoneType = "ZONE",
     faction = "Both",
   },
-  Sunwell = {
+  SunwellIsle = {
     name = "Insel von Quel'Danas",
     level = "70",
     zone = "Östliche Königreiche",
