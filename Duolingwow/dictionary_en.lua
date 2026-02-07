@@ -1235,7 +1235,7 @@ DL.Dictionary.EN = {
     zoneType = "RAID",
     faction = "Both",
   },
-  Eye = {
+  EyeTK = {
     name = "Tempest Keep: The Eye",
     level = "70",
     zone = "Outland",
@@ -2455,7 +2455,7 @@ DL.Dictionary.EN = {
     zoneType = "ZONE",
     faction = "Both",
   },
-  Sunwell = {
+  SunwellIsle = {
     name = "Isle of Quel'Danas",
     level = "70",
     zone = "Eastern Kingdoms",

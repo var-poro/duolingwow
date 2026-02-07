@@ -287,13 +287,23 @@ local function GetAbbreviationEntries(abbr)
   if IsBlocklistedKey(normalized) then
     return {}
   end
-  local dictKey = (DL.AbbrLookup and DL.AbbrLookup[normalized]) or normalized
+  local dictKeys = DL.AbbrLookup and DL.AbbrLookup[normalized]
+  if not dictKeys then
+    dictKeys = { normalized }
+  end
   local entries = {}
+  local seen = {}
   for _, langCode in ipairs(GetEnabledLanguages()) do
     local langDict = DL.Dictionary[langCode]
-    local data = langDict and (langDict[dictKey] or langDict[normalized])
-    if data and data.name and IsEntryAllowedByFilters(data) then
-      table.insert(entries, { lang = langCode, data = data })
+    if langDict then
+      for _, dictKey in ipairs(dictKeys) do
+        local data = langDict[dictKey]
+        local uid = langCode .. ":" .. (data and data.name or dictKey)
+        if data and data.name and not seen[uid] and IsEntryAllowedByFilters(data) then
+          seen[uid] = true
+          table.insert(entries, { lang = langCode, data = data })
+        end
+      end
     end
   end
   return entries
@@ -302,11 +312,10 @@ end
 local function ReplaceAbbreviations(segment)
   return segment:gsub("%f[%w]([%w]+)%f[%W]", function(word)
     local key = word:upper()
-    if DL.AbbrLookup and DL.AbbrLookup[key] then
-      local abbr = DL.AbbrLookup[key]
-      local entries = GetAbbreviationEntries(abbr)
+    if DL.AbbrLookup and DL.AbbrLookup[key] and #DL.AbbrLookup[key] > 0 then
+      local entries = GetAbbreviationEntries(key)
       if #entries > 0 then
-        return string.format("|Hdlwow:%s|h%s|h", abbr, ColorizeLinkText(string.format("[%s]", word)))
+        return string.format("|Hdlwow:%s|h%s|h", key, ColorizeLinkText(string.format("[%s]", word)))
       end
     end
     return word
@@ -391,6 +400,14 @@ local function RegisterItemRefHook()
   end
 end
 
+-- Shared abbreviations: maps an uppercase abbreviation to additional dictionary keys.
+-- This allows a single typed word (e.g. "Eye") to match multiple entries
+-- (e.g. both the TK raid "EyeTK" and the battleground "Eye").
+DL.SharedAbbreviations = {
+  EYE = { "EyeTK" },
+  SUNWELL = { "SunwellIsle" },
+}
+
 local function Initialize()
   L = DL:GetStrings()
   if not DuolingwowDB and DuoLingWoWDB then
@@ -403,7 +420,28 @@ local function Initialize()
     local dict = DL.Dictionary[lang.code]
     if dict then
       for abbr in pairs(dict) do
-        DL.AbbrLookup[abbr:upper()] = abbr
+        local key = abbr:upper()
+        if not DL.AbbrLookup[key] then
+          DL.AbbrLookup[key] = {}
+        end
+        local found = false
+        for _, existing in ipairs(DL.AbbrLookup[key]) do
+          if existing == abbr then found = true; break end
+        end
+        if not found then
+          table.insert(DL.AbbrLookup[key], abbr)
+        end
+      end
+    end
+  end
+
+  if DL.SharedAbbreviations then
+    for upperAbbr, extraKeys in pairs(DL.SharedAbbreviations) do
+      if not DL.AbbrLookup[upperAbbr] then
+        DL.AbbrLookup[upperAbbr] = {}
+      end
+      for _, key in ipairs(extraKeys) do
+        table.insert(DL.AbbrLookup[upperAbbr], key)
       end
     end
   end
