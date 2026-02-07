@@ -126,7 +126,7 @@ DL.Dictionary.FR = {
   
   -- Razorfen Kraul
   RFK = {
-    name = "Kraul des Tussebois",
+    name = "Kraal de Tranchebauge",
     level = "29-38",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -234,7 +234,7 @@ DL.Dictionary.FR = {
   
   -- Razorfen Downs
   RFD = {
-    name = "Souilles des Tussebois",
+    name = "Souilles de Tranchebauge",
     level = "37-46",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -658,7 +658,7 @@ DL.Dictionary.FR = {
   
   -- Slave Pens
   SP = {
-    name = "Les enclos aux esclaves",
+    name = "Les Enclos des esclaves",
     level = "60-64",
     zone = "Outreterre",
     extension = "The Burning Crusade",
@@ -666,7 +666,7 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   Pens = {
-    name = "Les enclos aux esclaves",
+    name = "Les Enclos des esclaves",
     level = "60-64",
     zone = "Outreterre",
     extension = "The Burning Crusade",
@@ -1235,7 +1235,7 @@ DL.Dictionary.FR = {
     zoneType = "RAID",
     faction = "Both",
   },
-  Eye = {
+  EyeTK = {
     name = "Donjon de la Tempête : l'Œil",
     level = "70",
     zone = "Outreterre",
@@ -1616,7 +1616,7 @@ DL.Dictionary.FR = {
   
   -- Stonard
   Stonard = {
-    name = "Stonard",
+    name = "Pierrêche",
     level = "1-70",
     zone = "Royaumes de l'Est",
     extension = "Vanilla",
@@ -1736,7 +1736,7 @@ DL.Dictionary.FR = {
   
   -- Ratchet
   Ratchet = {
-    name = "Ratchet",
+    name = "Cabestan",
     level = "1-70",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -1790,7 +1790,7 @@ DL.Dictionary.FR = {
   
   -- Caverns of Time
   COT = {
-    name = "Grottes du temps",
+    name = "Grottes du Temps",
     level = "64-70",
     zone = "Kalimdor",
     extension = "The Burning Crusade",
@@ -1798,7 +1798,7 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   CoT = {
-    name = "Grottes du temps",
+    name = "Grottes du Temps",
     level = "64-70",
     zone = "Kalimdor",
     extension = "The Burning Crusade",
@@ -1944,7 +1944,7 @@ DL.Dictionary.FR = {
   
   -- Redridge Mountains
   Redridge = {
-    name = "Montagnes de Crête-de-l'Orge",
+    name = "Les Carmines",
     level = "15-25",
     zone = "Royaumes de l'Est",
     extension = "Vanilla",
@@ -2274,7 +2274,7 @@ DL.Dictionary.FR = {
   
   -- Desolace
   Desolace = {
-    name = "Desolace",
+    name = "Désolace",
     level = "30-40",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -2455,7 +2455,7 @@ DL.Dictionary.FR = {
     zoneType = "ZONE",
     faction = "Both",
   },
-  Sunwell = {
+  SunwellIsle = {
     name = "Île de Quel'Danas",
     level = "70",
     zone = "Royaumes de l'Est",
