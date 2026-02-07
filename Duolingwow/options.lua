@@ -32,6 +32,7 @@ local function GetDefaultDB()
     enabledLanguages = GetDefaultEnabledLanguages(),
     enabledExtensions = GetDefaultEnabledExtensions(),
     enabledZoneTypes = GetDefaultEnabledZoneTypes(),
+    blocklist = {},
     linkColor = {
       r = 1,
       g = 0.82,
@@ -57,6 +58,9 @@ local function EnsureDB()
     if not DuolingwowDB.enabledZoneTypes then
       DuolingwowDB.enabledZoneTypes = GetDefaultEnabledZoneTypes()
     end
+    if not DuolingwowDB.blocklist then
+      DuolingwowDB.blocklist = {}
+    end
     if not DuolingwowDB.linkColor then
       DuolingwowDB.linkColor = GetDefaultDB().linkColor
     end
@@ -77,6 +81,27 @@ local function TruncateLabel(label)
     return label
   end
   return label:sub(1, DROPDOWN_CAPTION_MAX_CHARS - 3) .. "..."
+end
+
+local function NormalizeBlocklistKey(raw)
+  if not raw or raw == "" then
+    return nil
+  end
+  local trimmed = raw:match("^%s*(.-)%s*$")
+  if trimmed == "" then
+    return nil
+  end
+  return trimmed:upper()
+end
+
+local function GetSortedBlocklist()
+  EnsureDB()
+  local entries = {}
+  for key in pairs(DuolingwowDB.blocklist or {}) do
+    table.insert(entries, key)
+  end
+  table.sort(entries)
+  return entries
 end
 
 local function GetDropdownCaption(dropdown)
@@ -335,23 +360,6 @@ local function CreateOptionsPanel()
     UpdateTypeDropdownDisplay()
   end
 
-  panel:SetScript("OnShow", function()
-    EnsureDB()
-    if UIDropDownMenu_Refresh then
-      UIDropDownMenu_Refresh(langDropdown)
-      UIDropDownMenu_Refresh(extensionDropdown)
-      UIDropDownMenu_Refresh(typeDropdown)
-    end
-    RefreshAllDropdownDisplays()
-    UpdateColorPreview()
-    if C_Timer and C_Timer.After then
-      C_Timer.After(0, function()
-        RefreshAllDropdownDisplays()
-        UpdateColorPreview()
-      end)
-    end
-  end)
-
   local colorPicker = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
   colorPicker:SetSize(180, 22)
   colorPicker:SetPoint("TOPLEFT", colorPreview, "TOPRIGHT", 8, 0)
@@ -379,9 +387,104 @@ local function CreateOptionsPanel()
 
   UpdateColorPreview()
 
+  local blocklistHeader = panel:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+  blocklistHeader:SetPoint("TOPLEFT", colorPicker, "BOTTOMLEFT", -8, -16)
+  blocklistHeader:SetText(L.OPTIONS_BLOCKLIST_HEADER)
+
+  local blocklistDesc = panel:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
+  blocklistDesc:SetPoint("TOPLEFT", blocklistHeader, "BOTTOMLEFT", 0, -8)
+  blocklistDesc:SetText(L.OPTIONS_BLOCKLIST_DESC)
+  blocklistDesc:SetWidth(500)
+  blocklistDesc:SetJustifyH("LEFT")
+
+  local blocklistInput = CreateFrame("EditBox", nil, panel, "InputBoxTemplate")
+  blocklistInput:SetSize(180, 20)
+  blocklistInput:SetPoint("TOPLEFT", blocklistDesc, "BOTTOMLEFT", 0, -8)
+  blocklistInput:SetAutoFocus(false)
+  blocklistInput:SetScript("OnEscapePressed", function(self)
+    self:ClearFocus()
+  end)
+  blocklistInput:SetText("")
+
+  local function GetBlocklistDisplay()
+    local entries = GetSortedBlocklist()
+    if #entries == 0 then
+      return L.OPTIONS_BLOCKLIST_EMPTY
+    end
+    return table.concat(entries, ", ")
+  end
+
+  local blocklistDisplay = panel:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
+  blocklistDisplay:SetPoint("TOPLEFT", blocklistInput, "BOTTOMLEFT", 0, -8)
+  blocklistDisplay:SetWidth(500)
+  blocklistDisplay:SetJustifyH("LEFT")
+
+  local function UpdateBlocklistDisplay()
+    blocklistDisplay:SetText(string.format(L.OPTIONS_BLOCKLIST_LIST, GetBlocklistDisplay()))
+  end
+
+  local blocklistAdd = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
+  blocklistAdd:SetSize(90, 22)
+  blocklistAdd:SetPoint("LEFT", blocklistInput, "RIGHT", 8, 0)
+  blocklistAdd:SetText(L.OPTIONS_BLOCKLIST_ADD)
+  blocklistAdd:SetScript("OnClick", function()
+    EnsureDB()
+    local normalized = NormalizeBlocklistKey(blocklistInput:GetText())
+    if normalized then
+      DuolingwowDB.blocklist[normalized] = true
+      blocklistInput:SetText("")
+      UpdateBlocklistDisplay()
+    end
+  end)
+
+  local blocklistRemove = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
+  blocklistRemove:SetSize(90, 22)
+  blocklistRemove:SetPoint("LEFT", blocklistAdd, "RIGHT", 8, 0)
+  blocklistRemove:SetText(L.OPTIONS_BLOCKLIST_REMOVE)
+  blocklistRemove:SetScript("OnClick", function()
+    EnsureDB()
+    local normalized = NormalizeBlocklistKey(blocklistInput:GetText())
+    if normalized then
+      DuolingwowDB.blocklist[normalized] = nil
+      blocklistInput:SetText("")
+      UpdateBlocklistDisplay()
+    end
+  end)
+
+  local blocklistClear = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
+  blocklistClear:SetSize(90, 22)
+  blocklistClear:SetPoint("LEFT", blocklistRemove, "RIGHT", 8, 0)
+  blocklistClear:SetText(L.OPTIONS_BLOCKLIST_CLEAR)
+  blocklistClear:SetScript("OnClick", function()
+    EnsureDB()
+    for key in pairs(DuolingwowDB.blocklist or {}) do
+      DuolingwowDB.blocklist[key] = nil
+    end
+    UpdateBlocklistDisplay()
+  end)
+
+  panel:SetScript("OnShow", function()
+    EnsureDB()
+    if UIDropDownMenu_Refresh then
+      UIDropDownMenu_Refresh(langDropdown)
+      UIDropDownMenu_Refresh(extensionDropdown)
+      UIDropDownMenu_Refresh(typeDropdown)
+    end
+    RefreshAllDropdownDisplays()
+    UpdateColorPreview()
+    UpdateBlocklistDisplay()
+    if C_Timer and C_Timer.After then
+      C_Timer.After(0, function()
+        RefreshAllDropdownDisplays()
+        UpdateColorPreview()
+        UpdateBlocklistDisplay()
+      end)
+    end
+  end)
+
   local logo = panel:CreateTexture(nil, "ARTWORK")
   logo:SetSize(48, 48)
-  logo:SetPoint("TOPLEFT", colorPicker, "BOTTOMLEFT", -30, -16)
+  logo:SetPoint("TOPLEFT", blocklistDisplay, "BOTTOMLEFT", -30, -16)
   logo:SetTexture(GetLogoPath())
 
   local creditsHeader = panel:CreateFontString(nil, "ARTWORK", "GameFontNormal")
