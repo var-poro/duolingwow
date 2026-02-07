@@ -1859,6 +1859,14 @@ DL.Dictionary.EN = {
     zoneType = "ZONE",
     faction = "Both",
   },
+  HFC = {
+    name = "Hellfire Citadel",
+    level = "58-70",
+    zone = "Outland",
+    extension = "The Burning Crusade",
+    zoneType = "ZONE",
+    faction = "Both",
+  },
   
   -- Tempest Keep (complex)
   TempestKeep = {

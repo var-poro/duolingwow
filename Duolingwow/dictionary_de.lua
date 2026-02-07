@@ -1859,6 +1859,14 @@ DL.Dictionary.DE = {
     zoneType = "ZONE",
     faction = "Both",
   },
+  HFC = {
+    name = "Höllenfeuerzitadelle",
+    level = "58-70",
+    zone = "Scherbenwelt",
+    extension = "The Burning Crusade",
+    zoneType = "ZONE",
+    faction = "Both",
+  },
   
   -- Tempest Keep (complex)
   TempestKeep = {
