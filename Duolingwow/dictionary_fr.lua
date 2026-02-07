@@ -1859,6 +1859,14 @@ DL.Dictionary.FR = {
     zoneType = "ZONE",
     faction = "Both",
   },
+  HFC = {
+    name = "Citadelle des Flammes infernales",
+    level = "58-70",
+    zone = "Outreterre",
+    extension = "The Burning Crusade",
+    zoneType = "ZONE",
+    faction = "Both",
+  },
   
   -- Tempest Keep (complex)
   TempestKeep = {
