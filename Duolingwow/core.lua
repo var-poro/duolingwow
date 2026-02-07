@@ -34,6 +34,7 @@ local function GetDefaultDB()
     enabledLanguages = GetDefaultEnabledLanguages(),
     enabledExtensions = GetDefaultEnabledExtensions(),
     enabledZoneTypes = GetDefaultEnabledZoneTypes(),
+    blocklist = {},
   }
 end
 
@@ -100,6 +101,38 @@ local function GetEnabledZoneTypes()
     end
   end
   return enabled
+end
+
+local function GetBlocklist()
+  return DuolingwowDB.blocklist or {}
+end
+
+local function NormalizeBlocklistKey(raw)
+  if not raw or raw == "" then
+    return nil
+  end
+  local trimmed = raw:match("^%s*(.-)%s*$")
+  if trimmed == "" then
+    return nil
+  end
+  return trimmed:upper()
+end
+
+local function IsBlocklistedKey(key)
+  local normalized = NormalizeBlocklistKey(key)
+  if not normalized then
+    return false
+  end
+  return GetBlocklist()[normalized] == true
+end
+
+local function GetBlocklistList()
+  local items = {}
+  for key in pairs(GetBlocklist()) do
+    table.insert(items, key)
+  end
+  table.sort(items)
+  return items
 end
 
 local function GetLinkColor()
@@ -251,6 +284,9 @@ local function GetAbbreviationEntries(abbr)
   if not normalized or normalized == "" or not DuolingwowDB then
     return {}
   end
+  if IsBlocklistedKey(normalized) then
+    return {}
+  end
   local dictKeys = DL.AbbrLookup and DL.AbbrLookup[normalized]
   if not dictKeys then
     dictKeys = { normalized }
@@ -329,6 +365,9 @@ local function OnItemRef(linkData)
   end
 
   local normalized = abbr:upper()
+  if IsBlocklistedKey(normalized) then
+    return true
+  end
   local entries = GetAbbreviationEntries(normalized)
   ItemRefTooltip:SetOwner(UIParent, "ANCHOR_PRESERVE")
   ItemRefTooltip:ClearLines()
@@ -451,6 +490,14 @@ local function GetEnabledZoneTypeList()
   return enabled
 end
 
+local function GetBlocklistDisplay()
+  local items = GetBlocklistList()
+  if #items == 0 then
+    return ""
+  end
+  return table.concat(items, ", ")
+end
+
 local function Print(msg)
   DEFAULT_CHAT_FRAME:AddMessage(msg)
 end
@@ -464,6 +511,7 @@ local function PrintHelp()
   Print(L.COMMAND_EXTENSION_DISABLE)
   Print(L.COMMAND_TYPE_ENABLE)
   Print(L.COMMAND_TYPE_DISABLE)
+  Print(L.COMMAND_BLOCKLIST_HELP)
   Print(L.COMMAND_STATUS)
 end
 
@@ -571,6 +619,40 @@ local function HandleSlashCommand(input)
     return
   end
 
+  if command == "blocklist" then
+    local action = (args[2] or "list"):lower()
+    if action == "add" or action == "remove" then
+      local rawKey = args[3] or ""
+      local normalized = NormalizeBlocklistKey(rawKey)
+      if not normalized then
+        Print(L.COMMAND_BLOCKLIST_MISSING)
+        return
+      end
+      if action == "add" then
+        DuolingwowDB.blocklist[normalized] = true
+        Print(string.format(L.COMMAND_BLOCKLIST_ADDED, normalized))
+      else
+        DuolingwowDB.blocklist[normalized] = nil
+        Print(string.format(L.COMMAND_BLOCKLIST_REMOVED, normalized))
+      end
+      return
+    end
+    if action == "clear" then
+      for key in pairs(DuolingwowDB.blocklist or {}) do
+        DuolingwowDB.blocklist[key] = nil
+      end
+      Print(L.COMMAND_BLOCKLIST_CLEARED)
+      return
+    end
+    if action == "list" then
+      local list = GetBlocklistDisplay()
+      Print(string.format(L.COMMAND_BLOCKLIST_LIST, list ~= "" and list or "-"))
+      return
+    end
+    Print(L.COMMAND_UNKNOWN)
+    return
+  end
+
   if command == "status" then
     local enabled = table.concat(GetEnabledLanguageList(), ", ")
     Print(string.format(L.COMMAND_STATUS_LINE, enabled ~= "" and enabled or "-"))
@@ -578,6 +660,8 @@ local function HandleSlashCommand(input)
     Print(string.format(L.COMMAND_STATUS_EXTENSIONS_LINE, extensions ~= "" and extensions or "-"))
     local zoneTypes = table.concat(GetEnabledZoneTypeList(), ", ")
     Print(string.format(L.COMMAND_STATUS_TYPES_LINE, zoneTypes ~= "" and zoneTypes or "-"))
+    local blocklisted = GetBlocklistDisplay()
+    Print(string.format(L.COMMAND_STATUS_BLOCKLIST_LINE, blocklisted ~= "" and blocklisted or "-"))
     return
   end
 
