@@ -4,13 +4,15 @@ World of Warcraft addon that detects common chat abbreviations (zones, dungeons,
 
 Supports **WoW Classic Anniversary (TBC)** and **World of Warcraft: Forever**.
 
-![Anniversary](https://img.shields.io/badge/Anniversary-20506-blue) ![Forever](https://img.shields.io/badge/Forever-16001-4fc3f7) ![Version](https://img.shields.io/badge/version-1.1.0-green)
+![Anniversary](https://img.shields.io/badge/Anniversary-20506-blue) ![Forever](https://img.shields.io/badge/Forever-16001-4fc3f7) ![Version](https://img.shields.io/badge/version-1.1.1-green)
 
 ---
 
 ## Installation
 
 **With [WoWUp](https://wowup.io/)** (recommended): *Get Addons* → *Install from URL* → paste `https://github.com/var-poro/duolingwow`. WoWUp picks the right version for your client (Anniversary or Forever) and keeps it updated.
+
+**With the [CurseForge app](https://www.curseforge.com/wow/addons/duolingwow)**: search for *Duolingwow*.
 
 **Manually**: download `Duolingwow-x.y.z.zip` from the [latest release](https://github.com/var-poro/duolingwow/releases/latest) and extract it into `World of Warcraft/_anniversary_/Interface/AddOns/` or `World of Warcraft/_forever_/Interface/AddOns/`.
 
@@ -105,7 +107,7 @@ tools/                           # dictionary generator + offline tests (see too
 
 ## Releasing
 
-Bump `## Version` in both TOC files and add a section to `CHANGES.md` (used as the release notes), then push a tag: `git tag v1.2.0 && git push origin v1.2.0`. The workflow runs the tests, builds `Duolingwow-v1.2.0.zip` and publishes a GitHub release with a `release.json` file, which WoWUp uses to offer the update.
+Bump `## Version` in both TOC files and add a section to `CHANGES.md` (used as the release notes), then push a tag: `git tag v1.2.0 && git push origin v1.2.0`. The workflow runs the tests, builds `Duolingwow-v1.2.0.zip`, publishes a GitHub release with a `release.json` file (which WoWUp uses to offer the update) and uploads the same zip to [CurseForge](https://www.curseforge.com/wow/addons/duolingwow) (project 1453777, needs the `CF_API_TOKEN` repository secret).
 
 ## Future ideas
 
