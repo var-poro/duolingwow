@@ -158,8 +158,15 @@ local function SetLastTooltipLineFonts(tooltip, leftFont, rightFont)
 end
 
 local function GetFactionIcons(faction)
-  local alliance = "|TInterface\\PVPFrame\\PVP-Currency-Alliance:14:14:0:0|t"
-  local horde = "|TInterface\\PVPFrame\\PVP-Currency-Horde:14:14:0:0|t"
+  local alliance, horde
+  if DL:IsForever() then
+    -- The Forever client uses the modern (Mainline) art set; these icons exist in every client.
+    alliance = "|TInterface\\Icons\\PVPCurrency-Honor-Alliance:14:14:0:0|t"
+    horde = "|TInterface\\Icons\\PVPCurrency-Honor-Horde:14:14:0:0|t"
+  else
+    alliance = "|TInterface\\PVPFrame\\PVP-Currency-Alliance:14:14:0:0|t"
+    horde = "|TInterface\\PVPFrame\\PVP-Currency-Horde:14:14:0:0|t"
+  end
 
   if faction == "Alliance" then
     return alliance
@@ -202,8 +209,16 @@ local function NormalizeExtensionToCode(raw)
   if u == "TBC" or u:find("BURNING") or u:find("CRUSADE") then
     return "TBC"
   end
+  if u:find("FOREVER") then
+    return "FOREVER"
+  end
   return u
 end
+
+local EXTENSION_COLORS = {
+  TBC = "|cff00cc00",
+  FOREVER = "|cff4fc3f7",
+}
 
 local function AddTooltipEntry(tooltip, entry, abbr, langCode)
   local locale = (langCode == "FR" and "FR") or (langCode == "DE" and "DE") or "EN"
@@ -231,7 +246,7 @@ local function AddTooltipEntry(tooltip, entry, abbr, langCode)
     local extCode = NormalizeExtensionToCode(entry.extension)
     local extName = (extCode and GetExtensionName(extCode, locale)) or entry.extension or ""
     if typeName ~= "" or extName ~= "" then
-      local extColor = (extCode == "TBC") and "|cff00cc00" or "|cffffffff"
+      local extColor = EXTENSION_COLORS[extCode] or "|cffffffff"
       local line
       if typeName ~= "" and extName ~= "" then
         line = string.format("|cffffffff%s|r (%s%s|r|cffffffff)|r", typeName, extColor, extName)
@@ -279,17 +294,34 @@ local function IsEntryAllowedByFilters(data)
   return true
 end
 
-local function GetAbbreviationEntries(abbr)
-  local normalized = abbr and abbr:upper() or abbr
-  if not normalized or normalized == "" or not DuolingwowDB then
+-- Returns the dictionary keys a typed word can refer to.
+-- Most keys match case-insensitively ("sfk" -> SFK). Keys flagged `strict = true`
+-- only match when typed with the exact same case ("IF" -> Ironforge, but not "if").
+local function GetDictKeysForWord(word)
+  if not word or word == "" then
+    return nil
+  end
+  local loose = DL.AbbrLookup and DL.AbbrLookup[word:upper()]
+  local exact = DL.ExactLookup and DL.ExactLookup[word]
+  if loose and exact then
+    local merged = {}
+    for _, key in ipairs(loose) do table.insert(merged, key) end
+    for _, key in ipairs(exact) do table.insert(merged, key) end
+    return merged
+  end
+  return loose or exact
+end
+
+local function GetAbbreviationEntries(word)
+  if not word or word == "" or not DuolingwowDB then
     return {}
   end
-  if IsBlocklistedKey(normalized) then
+  if IsBlocklistedKey(word) then
     return {}
   end
-  local dictKeys = DL.AbbrLookup and DL.AbbrLookup[normalized]
-  if not dictKeys then
-    dictKeys = { normalized }
+  local dictKeys = GetDictKeysForWord(word)
+  if not dictKeys or #dictKeys == 0 then
+    return {}
   end
   local entries = {}
   local seen = {}
@@ -309,13 +341,28 @@ local function GetAbbreviationEntries(abbr)
   return entries
 end
 
+-- Chat links. Current clients (Anniversary, Forever, Mainline) route the official
+-- "addon" hyperlink type to EventRegistry's "SetItemRef" event. This avoids replacing
+-- the global SetItemRef, which would taint every chat link click.
+local ADDON_LINK_PREFIX = "addon:" .. ADDON_NAME .. ":"
+local LEGACY_LINK_PREFIX = "dlwow:"
+
+local function UseAddonLinks()
+  return LinkTypes and LinkTypes.AddOn == "addon"
+    and EventRegistry and EventRegistry.RegisterCallback and true or false
+end
+
+local function BuildLink(word)
+  local prefix = UseAddonLinks() and ADDON_LINK_PREFIX or LEGACY_LINK_PREFIX
+  return string.format("|H%s%s|h%s|h", prefix, word, ColorizeLinkText(string.format("[%s]", word)))
+end
+
 local function ReplaceAbbreviations(segment)
   return segment:gsub("%f[%w]([%w]+)%f[%W]", function(word)
-    local key = word:upper()
-    if DL.AbbrLookup and DL.AbbrLookup[key] and #DL.AbbrLookup[key] > 0 then
-      local entries = GetAbbreviationEntries(key)
+    if GetDictKeysForWord(word) then
+      local entries = GetAbbreviationEntries(word)
       if #entries > 0 then
-        return string.format("|Hdlwow:%s|h%s|h", key, ColorizeLinkText(string.format("[%s]", word)))
+        return BuildLink(word)
       end
     end
     return word
@@ -351,24 +398,42 @@ local function ProcessMessage(message)
 end
 
 local function ChatFilter(self, event, message, author, ...)
+  -- In instances, modern clients may pass chat text to addons as "secret" values
+  -- that cannot be inspected. Leave those messages untouched.
+  if type(message) ~= "string" or (issecretvalue and issecretvalue(message)) then
+    return false
+  end
   local updated = ProcessMessage(message)
   if updated ~= message then
     return false, updated, author, ...
   end
-  return false, message, author, ...
+  return false
+end
+
+local function ExtractLinkWord(linkData)
+  if type(linkData) ~= "string" then
+    return nil
+  end
+  if linkData:sub(1, #ADDON_LINK_PREFIX) == ADDON_LINK_PREFIX then
+    return linkData:sub(#ADDON_LINK_PREFIX + 1)
+  end
+  if linkData:sub(1, #LEGACY_LINK_PREFIX) == LEGACY_LINK_PREFIX then
+    return linkData:sub(#LEGACY_LINK_PREFIX + 1)
+  end
+  return nil
 end
 
 local function OnItemRef(linkData)
-  local linkType, abbr = string.split(":", linkData)
-  if linkType ~= "dlwow" or not abbr then
+  local word = ExtractLinkWord(linkData)
+  if not word or word == "" then
     return false
   end
 
-  local normalized = abbr:upper()
-  if IsBlocklistedKey(normalized) then
+  if IsBlocklistedKey(word) then
     return true
   end
-  local entries = GetAbbreviationEntries(normalized)
+  local entries = GetAbbreviationEntries(word)
+  local displayKey = word:upper()
   ItemRefTooltip:SetOwner(UIParent, "ANCHOR_PRESERVE")
   ItemRefTooltip:ClearLines()
 
@@ -376,7 +441,7 @@ local function OnItemRef(linkData)
     ItemRefTooltip:AddLine(L.TOOLTIP_EMPTY, 1, 0.5, 0.5)
   else
     for _, entry in ipairs(entries) do
-      AddTooltipEntry(ItemRefTooltip, entry.data, normalized, entry.lang)
+      AddTooltipEntry(ItemRefTooltip, entry.data, displayKey, entry.lang)
     end
   end
 
@@ -385,6 +450,17 @@ local function OnItemRef(linkData)
 end
 
 local function RegisterItemRefHook()
+  if UseAddonLinks() then
+    if not DL.ItemRefCallbackRegistered then
+      DL.ItemRefCallbackRegistered = true
+      EventRegistry:RegisterCallback("SetItemRef", function(_, link)
+        OnItemRef(link)
+      end, DL)
+    end
+    return
+  end
+
+  -- Fallback for older clients without the "addon" link type.
   if type(SetItemRef) ~= "function" then
     return
   end
@@ -400,13 +476,90 @@ local function RegisterItemRefHook()
   end
 end
 
+local function AddChatFilter(event, filter)
+  if ChatFrameUtil and ChatFrameUtil.AddMessageEventFilter then
+    ChatFrameUtil.AddMessageEventFilter(event, filter)
+  elseif ChatFrame_AddMessageEventFilter then
+    ChatFrame_AddMessageEventFilter(event, filter)
+  end
+end
+
 -- Shared abbreviations: maps an uppercase abbreviation to additional dictionary keys.
 -- This allows a single typed word (e.g. "Eye") to match multiple entries
 -- (e.g. both the TK raid "EyeTK" and the battleground "Eye").
-DL.SharedAbbreviations = {
-  EYE = { "EyeTK" },
-  SUNWELL = { "SunwellIsle" },
-}
+local function GetSharedAbbreviations()
+  if DL:IsForever() then
+    return {
+      HYJAL = { "MountHyjal" },
+      DALARAN = { "CoD" },
+    }
+  end
+  return {
+    EYE = { "EyeTK" },
+    SUNWELL = { "SunwellIsle" },
+  }
+end
+
+local function AddUnique(map, mapKey, value)
+  local list = map[mapKey]
+  if not list then
+    list = {}
+    map[mapKey] = list
+  end
+  for _, existing in ipairs(list) do
+    if existing == value then
+      return
+    end
+  end
+  table.insert(list, value)
+end
+
+local function BuildLookups()
+  DL.AbbrLookup = {}
+  DL.ExactLookup = {}
+  local strictKeys = {}
+  for _, lang in ipairs(DL:GetAvailableLanguages()) do
+    local dict = DL.Dictionary[lang.code]
+    if dict then
+      for abbr, data in pairs(dict) do
+        if type(data) == "table" and data.strict then
+          strictKeys[abbr] = true
+        end
+      end
+    end
+  end
+  for _, lang in ipairs(DL:GetAvailableLanguages()) do
+    local dict = DL.Dictionary[lang.code]
+    if dict then
+      for abbr in pairs(dict) do
+        if strictKeys[abbr] then
+          AddUnique(DL.ExactLookup, abbr, abbr)
+        else
+          AddUnique(DL.AbbrLookup, abbr:upper(), abbr)
+        end
+      end
+    end
+  end
+
+  -- A shared abbreviation follows the case rule of the strict key it extends
+  -- (e.g. "Eye" is strict, so "eye" must not pull in the TK raid either).
+  local strictByUpper = {}
+  for key in pairs(strictKeys) do
+    strictByUpper[key:upper()] = key
+  end
+
+  DL.SharedAbbreviations = GetSharedAbbreviations()
+  for upperAbbr, extraKeys in pairs(DL.SharedAbbreviations) do
+    for _, key in ipairs(extraKeys) do
+      local strictKey = strictByUpper[upperAbbr]
+      if strictKey then
+        AddUnique(DL.ExactLookup, strictKey, key)
+      else
+        AddUnique(DL.AbbrLookup, upperAbbr, key)
+      end
+    end
+  end
+end
 
 local function Initialize()
   L = DL:GetStrings()
@@ -415,39 +568,10 @@ local function Initialize()
     DuoLingWoWDB = nil
   end
   DuolingwowDB = DeepCopyDefaults(GetDefaultDB(), DuolingwowDB or {})
-  DL.AbbrLookup = {}
-  for _, lang in ipairs(DL:GetAvailableLanguages()) do
-    local dict = DL.Dictionary[lang.code]
-    if dict then
-      for abbr in pairs(dict) do
-        local key = abbr:upper()
-        if not DL.AbbrLookup[key] then
-          DL.AbbrLookup[key] = {}
-        end
-        local found = false
-        for _, existing in ipairs(DL.AbbrLookup[key]) do
-          if existing == abbr then found = true; break end
-        end
-        if not found then
-          table.insert(DL.AbbrLookup[key], abbr)
-        end
-      end
-    end
-  end
-
-  if DL.SharedAbbreviations then
-    for upperAbbr, extraKeys in pairs(DL.SharedAbbreviations) do
-      if not DL.AbbrLookup[upperAbbr] then
-        DL.AbbrLookup[upperAbbr] = {}
-      end
-      for _, key in ipairs(extraKeys) do
-        table.insert(DL.AbbrLookup[upperAbbr], key)
-      end
-    end
-  end
+  BuildLookups()
 
   for _, event in ipairs(CHAT_EVENTS) do
-    ChatFrame_AddMessageEventFilter(event, ChatFilter)
+    AddChatFilter(event, ChatFilter)
   end
 
   RegisterItemRefHook()
@@ -507,8 +631,15 @@ local function PrintHelp()
   Print(L.COMMAND_HELP)
   Print(L.COMMAND_ENABLE)
   Print(L.COMMAND_DISABLE)
-  Print(L.COMMAND_EXTENSION_ENABLE)
-  Print(L.COMMAND_EXTENSION_DISABLE)
+  local extensionNames = {}
+  for _, ext in ipairs(DL:GetAvailableExtensions()) do
+    -- Short, single-word names so they can be typed as a command argument.
+    local short = (ext.code == "TBC" and "TBC") or (ext.code == "FOREVER" and "Forever") or ext.name
+    table.insert(extensionNames, short)
+  end
+  local extensionList = table.concat(extensionNames, "/")
+  Print(string.format(L.COMMAND_EXTENSION_ENABLE, extensionList))
+  Print(string.format(L.COMMAND_EXTENSION_DISABLE, extensionList))
   Print(L.COMMAND_TYPE_ENABLE)
   Print(L.COMMAND_TYPE_DISABLE)
   Print(L.COMMAND_BLOCKLIST_HELP)

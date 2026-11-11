@@ -1,0 +1,17 @@
+# BigWigs packager configuration (https://github.com/BigWigsMods/packager)
+# The addon lives in the Duolingwow/ subfolder: move it to the root of the zip.
+package-as: Duolingwow
+
+# Release notes shown on GitHub and in WoWUp (instead of the raw commit log).
+manual-changelog:
+  filename: CHANGES.md
+  markup-type: markdown
+
+move-folders:
+  Duolingwow/Duolingwow: Duolingwow
+
+ignore:
+  - README.md
+  - logo.png
+  - tools
+  - .gitkeep

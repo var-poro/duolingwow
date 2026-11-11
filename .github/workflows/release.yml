@@ -1,0 +1,65 @@
+name: Test and release
+
+# Push a tag like "v1.1.0" to publish a GitHub release (zip + release.json),
+# which is what WoWUp reads to install and update the addon.
+# Pull requests and manual runs ("Run workflow") do a dry run: the zip is built and
+# attached to the run as an artifact, nothing is published.
+on:
+  push:
+    tags:
+      - "v*"
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Lua runtime for tests
+        run: pip install lupa
+
+      - name: Check Forever dictionaries are up to date
+        run: |
+          mkdir -p /tmp/gen
+          python tools/gen_forever.py Duolingwow /tmp/gen
+          for l in en fr de; do
+            diff -u "Duolingwow/dictionary_forever_$l.lua" "/tmp/gen/dictionary_forever_$l.lua"
+          done
+
+      - name: Run addon tests (Anniversary + Forever, simulated WoW API)
+        run: python tools/run_tests.py Duolingwow tools/harness.lua
+
+  package:
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Package (dry run, no upload)
+        if: "!startsWith(github.ref, 'refs/tags/v')"
+        uses: BigWigsMods/packager@v2
+        with:
+          args: -d
+
+      - name: Package and publish GitHub release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: BigWigsMods/packager@v2
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Duolingwow-package
+          path: .release/*.zip
+          # .release is a dot-directory, which upload-artifact skips by default
+          include-hidden-files: true

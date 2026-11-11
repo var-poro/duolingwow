@@ -80,6 +80,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Alliance",
+    strict = true,
   },
   Stock = {
     name = "La Prison",
@@ -88,6 +89,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Alliance",
+    strict = true,
   },
   Stockade = {
     name = "La Prison",
@@ -114,6 +116,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   Gnomeregan = {
     name = "Gnomeregan",
@@ -166,6 +169,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   SMLib = {
     name = "Monastère écarlate : Bibliothèque",
@@ -182,6 +186,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   Arm = {
     name = "Monastère écarlate : Armerie",
@@ -190,6 +195,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   SMArm = {
     name = "Monastère écarlate : Armerie",
@@ -206,6 +212,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   Cath = {
     name = "Monastère écarlate : Cathédrale",
@@ -230,6 +237,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   
   -- Razorfen Downs
@@ -294,6 +302,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   Orange = {
     name = "Maraudon : Orange",
@@ -302,6 +311,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   Princess = {
     name = "Maraudon : Princesse",
@@ -310,6 +320,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   
   -- Temple of Atal'Hakkar (Sunken Temple)
@@ -346,6 +357,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   Angerforge = {
     name = "Profondeurs de Rochenoire : Forge-Furie",
@@ -388,6 +400,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   
   -- Upper Blackrock Spire
@@ -406,6 +419,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   
   -- Blackrock Spire (generic)
@@ -442,6 +456,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   DMW = {
     name = "Hache-Tripes ouest",
@@ -458,6 +473,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   DMN = {
     name = "Hache-Tripes nord",
@@ -474,6 +490,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   Tribute = {
     name = "Hache-Tripes nord : Hommage",
@@ -532,6 +549,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   Scarlet = {
     name = "Stratholme : Vivant",
@@ -540,6 +558,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   StratUD = {
     name = "Stratholme : Mort-vivant",
@@ -564,6 +583,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   Baron = {
     name = "Stratholme : Mort-vivant",
@@ -572,6 +592,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   
   -- Scholomance
@@ -612,6 +633,7 @@ DL.Dictionary.FR = {
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   Ramp = {
     name = "Remparts des Flammes infernales",
@@ -620,6 +642,7 @@ DL.Dictionary.FR = {
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   HFR = {
     name = "Remparts des Flammes infernales",
@@ -630,6 +653,14 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   Ramparts = {
+    name = "Remparts des Flammes infernales",
+    level = "58-62",
+    zone = "Outreterre",
+    extension = "The Burning Crusade",
+    zoneType = "DUNGEON",
+    faction = "Both",
+  },
+  HR = {
     name = "Remparts des Flammes infernales",
     level = "58-62",
     zone = "Outreterre",
@@ -654,11 +685,12 @@ DL.Dictionary.FR = {
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   
   -- Slave Pens
   SP = {
-    name = "Les Enclos des esclaves",
+    name = "Les enclos aux esclaves",
     level = "60-64",
     zone = "Outreterre",
     extension = "The Burning Crusade",
@@ -666,12 +698,13 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   Pens = {
-    name = "Les Enclos des esclaves",
+    name = "Les enclos aux esclaves",
     level = "60-64",
     zone = "Outreterre",
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   
   -- Underbog
@@ -708,6 +741,7 @@ DL.Dictionary.FR = {
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   ManaTombs = {
     name = "Tombes-mana",
@@ -734,6 +768,7 @@ DL.Dictionary.FR = {
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   
   -- Old Hillsbrad Foothills
@@ -760,6 +795,7 @@ DL.Dictionary.FR = {
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   Durnholde = {
     name = "Contreforts de Hautebrande d'antan",
@@ -770,6 +806,14 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   OldHillsbrad = {
+    name = "Contreforts de Hautebrande d'antan",
+    level = "64-68",
+    zone = "Kalimdor",
+    extension = "The Burning Crusade",
+    zoneType = "DUNGEON",
+    faction = "Both",
+  },
+  OH = {
     name = "Contreforts de Hautebrande d'antan",
     level = "64-68",
     zone = "Kalimdor",
@@ -794,6 +838,7 @@ DL.Dictionary.FR = {
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   Sethekk = {
     name = "Salles des Sethekk",
@@ -854,6 +899,7 @@ DL.Dictionary.FR = {
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   Shadow = {
     name = "Labyrinthe des Ombres",
@@ -862,6 +908,7 @@ DL.Dictionary.FR = {
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   
   -- Shattered Halls
@@ -880,11 +927,12 @@ DL.Dictionary.FR = {
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   
   -- The Mechanar
   Mech = {
-    name = "Le Mécanar",
+    name = "Le Méchanar",
     level = "67-70",
     zone = "Outreterre",
     extension = "The Burning Crusade",
@@ -892,7 +940,7 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   MECH = {
-    name = "Le Mécanar",
+    name = "Le Méchanar",
     level = "67-70",
     zone = "Outreterre",
     extension = "The Burning Crusade",
@@ -900,7 +948,7 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   Mechanar = {
-    name = "Le Mécanar",
+    name = "Le Méchanar",
     level = "67-70",
     zone = "Outreterre",
     extension = "The Burning Crusade",
@@ -916,6 +964,7 @@ DL.Dictionary.FR = {
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   BOT = {
     name = "La Botanica",
@@ -942,6 +991,7 @@ DL.Dictionary.FR = {
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   ARC = {
     name = "L'Arcatraz",
@@ -962,7 +1012,7 @@ DL.Dictionary.FR = {
   
   -- Black Morass
   BM = {
-    name = "Le Marécage noir",
+    name = "Le Noir Marécage",
     level = "68-70",
     zone = "Kalimdor",
     extension = "The Burning Crusade",
@@ -970,7 +1020,7 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   Morass = {
-    name = "Le Marécage noir",
+    name = "Le Noir Marécage",
     level = "68-70",
     zone = "Kalimdor",
     extension = "The Burning Crusade",
@@ -1010,6 +1060,7 @@ DL.Dictionary.FR = {
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   
   -- ============================================================================
@@ -1182,6 +1233,7 @@ DL.Dictionary.FR = {
     extension = "The Burning Crusade",
     zoneType = "RAID",
     faction = "Both",
+    strict = true,
   },
   Mags = {
     name = "Repaire de Magtheridon",
@@ -1268,6 +1320,7 @@ DL.Dictionary.FR = {
     extension = "The Burning Crusade",
     zoneType = "RAID",
     faction = "Both",
+    strict = true,
   },
   MountHyjal = {
     name = "Sommet d'Hyjal",
@@ -1294,6 +1347,7 @@ DL.Dictionary.FR = {
     extension = "The Burning Crusade",
     zoneType = "RAID",
     faction = "Both",
+    strict = true,
   },
   BlackTemple = {
     name = "Temple noir",
@@ -1360,6 +1414,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "BATTLEGROUND",
     faction = "Both",
+    strict = true,
   },
   
   -- Arathi Basin
@@ -1378,6 +1433,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "BATTLEGROUND",
     faction = "Both",
+    strict = true,
   },
   
   -- Alterac Valley
@@ -1396,11 +1452,12 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "BATTLEGROUND",
     faction = "Both",
+    strict = true,
   },
   
   -- Eye of the Storm
   EOTS = {
-    name = "Œil du cyclone",
+    name = "L'Œil du cyclone",
     level = "61-70",
     zone = "Outreterre",
     extension = "The Burning Crusade",
@@ -1408,7 +1465,7 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   EotS = {
-    name = "Œil du cyclone",
+    name = "L'Œil du cyclone",
     level = "61-70",
     zone = "Outreterre",
     extension = "The Burning Crusade",
@@ -1416,20 +1473,22 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   Eye = {
-    name = "Œil du cyclone",
+    name = "L'Œil du cyclone",
     level = "61-70",
     zone = "Outreterre",
     extension = "The Burning Crusade",
     zoneType = "BATTLEGROUND",
     faction = "Both",
+    strict = true,
   },
   Storm = {
-    name = "Œil du cyclone",
+    name = "L'Œil du cyclone",
     level = "61-70",
     zone = "Outreterre",
     extension = "The Burning Crusade",
     zoneType = "BATTLEGROUND",
     faction = "Both",
+    strict = true,
   },
   
   -- ============================================================================
@@ -1496,6 +1555,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "CITY",
     faction = "Alliance",
+    strict = true,
   },
   
   -- Darnassus
@@ -1506,6 +1566,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "CITY",
     faction = "Alliance",
+    strict = true,
   },
   Darna = {
     name = "Darnassus",
@@ -1596,6 +1657,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "CITY",
     faction = "Horde",
+    strict = true,
   },
   Unter = {
     name = "Fossoyeuse",
@@ -1604,6 +1666,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "CITY",
     faction = "Horde",
+    strict = true,
   },
   Undercity = {
     name = "Fossoyeuse",
@@ -1640,6 +1703,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "CITY",
     faction = "Horde",
+    strict = true,
   },
   ThunderBluff = {
     name = "Les Pitons du Tonnerre",
@@ -1666,6 +1730,7 @@ DL.Dictionary.FR = {
     extension = "The Burning Crusade",
     zoneType = "CITY",
     faction = "Horde",
+    strict = true,
   },
   Silvermoon = {
     name = "Lune-d'Argent",
@@ -1746,7 +1811,7 @@ DL.Dictionary.FR = {
   
   -- Everlook
   Everlook = {
-    name = "Longuetête",
+    name = "Long-Guet",
     level = "1-70",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -2046,6 +2111,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Both",
+    strict = true,
   },
   SoS = {
     name = "Marais des Chagrins",
@@ -2072,6 +2138,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Both",
+    strict = true,
   },
   
   -- Searing Gorge
@@ -2082,6 +2149,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Both",
+    strict = true,
   },
   Gorge = {
     name = "Gorge des Vents brûlants",
@@ -2090,6 +2158,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Both",
+    strict = true,
   },
   SearingGorge = {
     name = "Gorge des Vents brûlants",
@@ -2108,6 +2177,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Both",
+    strict = true,
   },
   BlastedLands = {
     name = "Terres foudroyées",
@@ -2126,6 +2196,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Both",
+    strict = true,
   },
   Steppes = {
     name = "Steppes ardentes",
@@ -2134,6 +2205,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Both",
+    strict = true,
   },
   BurningSteppes = {
     name = "Steppes ardentes",
@@ -2168,6 +2240,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Both",
+    strict = true,
   },
   Plaguelands = {
     name = "Maleterres de l'ouest",
@@ -2292,15 +2365,16 @@ DL.Dictionary.FR = {
   
   -- Thousand Needles
   Needles = {
-    name = "Mille Aiguilles",
+    name = "Mille pointes",
     level = "25-35",
     zone = "Kalimdor",
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Both",
+    strict = true,
   },
   ThousandNeedles = {
-    name = "Mille Aiguilles",
+    name = "Mille pointes",
     level = "25-35",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -2324,11 +2398,12 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Both",
+    strict = true,
   },
   
   -- Feralas
   Feralas = {
-    name = "Feralas",
+    name = "Féralas",
     level = "40-50",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -2370,6 +2445,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "ZONE",
     faction = "Both",
+    strict = true,
   },
   
   -- Felwood
@@ -2404,7 +2480,7 @@ DL.Dictionary.FR = {
   
   -- Winterspring
   Winterspring = {
-    name = "Berceau de l'Hiver",
+    name = "Berceau-de-l'Hiver",
     level = "55-60",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -2414,7 +2490,7 @@ DL.Dictionary.FR = {
   
   -- Moonglade
   Moonglade = {
-    name = "Reflet de Lune",
+    name = "Reflet-de-Lune",
     level = "1-70",
     zone = "Kalimdor",
     extension = "Vanilla",
@@ -2572,6 +2648,7 @@ DL.Dictionary.FR = {
     extension = "The Burning Crusade",
     zoneType = "ZONE",
     faction = "Both",
+    strict = true,
   },
   Blades = {
     name = "Les Tranchantes",
@@ -2580,6 +2657,7 @@ DL.Dictionary.FR = {
     extension = "The Burning Crusade",
     zoneType = "ZONE",
     faction = "Both",
+    strict = true,
   },
   BladesEdge = {
     name = "Les Tranchantes",
@@ -2614,6 +2692,7 @@ DL.Dictionary.FR = {
     extension = "The Burning Crusade",
     zoneType = "ZONE",
     faction = "Both",
+    strict = true,
   },
   
   -- Shadowmoon Valley

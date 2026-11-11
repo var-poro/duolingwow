@@ -10,7 +10,7 @@ DL.Locale = {
     OPTIONS_TYPE_HEADER = "Zone types",
     OPTIONS_CREDITS_HEADER = "Credits",
     OPTIONS_CREDITS = "Author: Poro",
-    OPTIONS_GITHUB = "GitHub: https://github.com/poro/duolingwow",
+    OPTIONS_GITHUB = "GitHub: https://github.com/var-poro/duolingwow",
     OPTIONS_COLOR_HEADER = "Chat Link Color",
     OPTIONS_COLOR_PICKER = "Choose link color",
     OPTIONS_BLOCKLIST_HEADER = "Tooltip blocklist",
@@ -27,6 +27,7 @@ DL.Locale = {
     TOOLTIP_TYPE = "Type:",
     EXTENSION_VANILLA = "Vanilla",
     EXTENSION_TBC = "The Burning Crusade",
+    EXTENSION_FOREVER = "WoW Forever",
     ZONE_TYPE_RAID = "Raid",
     ZONE_TYPE_DUNGEON = "Dungeon",
     ZONE_TYPE_ZONE = "Zone",
@@ -37,8 +38,8 @@ DL.Locale = {
     COMMAND_HELP = "/dl help - show this help",
     COMMAND_ENABLE = "/dl lang enable <lang> - enable a language (EN/FR/DE)",
     COMMAND_DISABLE = "/dl lang disable <lang> - disable a language (EN/FR/DE)",
-    COMMAND_EXTENSION_ENABLE = "/dl extension enable <extension> - enable an extension (Vanilla/TBC)",
-    COMMAND_EXTENSION_DISABLE = "/dl extension disable <extension> - disable an extension (Vanilla/TBC)",
+    COMMAND_EXTENSION_ENABLE = "/dl extension enable <extension> - enable an extension (%s)",
+    COMMAND_EXTENSION_DISABLE = "/dl extension disable <extension> - disable an extension (%s)",
     COMMAND_TYPE_ENABLE = "/dl type enable <type> - enable a zone type (Raid/Dungeon/Zone/Battleground/City/Arena)",
     COMMAND_TYPE_DISABLE = "/dl type disable <type> - disable a zone type (Raid/Dungeon/Zone/Battleground/City/Arena)",
     COMMAND_BLOCKLIST_HELP = "/dl blocklist <add/remove/list/clear> <key> - manage tooltip blocklist",
@@ -69,7 +70,7 @@ DL.Locale = {
     OPTIONS_TYPE_HEADER = "Types de zone",
     OPTIONS_CREDITS_HEADER = "Crédits",
     OPTIONS_CREDITS = "Auteur : Poro",
-    OPTIONS_GITHUB = "GitHub : https://github.com/poro/duolingwow",
+    OPTIONS_GITHUB = "GitHub : https://github.com/var-poro/duolingwow",
     OPTIONS_COLOR_HEADER = "Couleur du lien de chat",
     OPTIONS_COLOR_PICKER = "Choisir la couleur",
     OPTIONS_BLOCKLIST_HEADER = "Blocklist des tooltips",
@@ -86,6 +87,7 @@ DL.Locale = {
     TOOLTIP_TYPE = "Type :",
     EXTENSION_VANILLA = "Vanilla",
     EXTENSION_TBC = "The Burning Crusade",
+    EXTENSION_FOREVER = "WoW Forever",
     ZONE_TYPE_RAID = "Raid",
     ZONE_TYPE_DUNGEON = "Donjon",
     ZONE_TYPE_ZONE = "Zone",
@@ -96,8 +98,8 @@ DL.Locale = {
     COMMAND_HELP = "/dl help - afficher cette aide",
     COMMAND_ENABLE = "/dl lang enable <lang> - activer une langue (EN/FR/DE)",
     COMMAND_DISABLE = "/dl lang disable <lang> - désactiver une langue (EN/FR/DE)",
-    COMMAND_EXTENSION_ENABLE = "/dl extension enable <extension> - activer une extension (Vanilla/TBC)",
-    COMMAND_EXTENSION_DISABLE = "/dl extension disable <extension> - désactiver une extension (Vanilla/TBC)",
+    COMMAND_EXTENSION_ENABLE = "/dl extension enable <extension> - activer une extension (%s)",
+    COMMAND_EXTENSION_DISABLE = "/dl extension disable <extension> - désactiver une extension (%s)",
     COMMAND_TYPE_ENABLE = "/dl type enable <type> - activer un type de zone (Raid/Donjon/Zone/Champ de bataille/Ville/Arène)",
     COMMAND_TYPE_DISABLE = "/dl type disable <type> - désactiver un type de zone (Raid/Donjon/Zone/Champ de bataille/Ville/Arène)",
     COMMAND_BLOCKLIST_HELP = "/dl blocklist <add/remove/list/clear> <clé> - gérer la blocklist des tooltips",
@@ -128,7 +130,7 @@ DL.Locale = {
     OPTIONS_TYPE_HEADER = "Zonentypen",
     OPTIONS_CREDITS_HEADER = "Credits",
     OPTIONS_CREDITS = "Autor: Poro",
-    OPTIONS_GITHUB = "GitHub: https://github.com/poro/duolingwow",
+    OPTIONS_GITHUB = "GitHub: https://github.com/var-poro/duolingwow",
     OPTIONS_COLOR_HEADER = "Chat-Link-Farbe",
     OPTIONS_COLOR_PICKER = "Linkfarbe wählen",
     OPTIONS_BLOCKLIST_HEADER = "Tooltip-Blockliste",
@@ -145,6 +147,7 @@ DL.Locale = {
     TOOLTIP_TYPE = "Typ:",
     EXTENSION_VANILLA = "Vanilla",
     EXTENSION_TBC = "The Burning Crusade",
+    EXTENSION_FOREVER = "WoW Forever",
     ZONE_TYPE_RAID = "Raid",
     ZONE_TYPE_DUNGEON = "Dungeon",
     ZONE_TYPE_ZONE = "Zone",
@@ -155,8 +158,8 @@ DL.Locale = {
     COMMAND_HELP = "/dl help - diese Hilfe anzeigen",
     COMMAND_ENABLE = "/dl lang enable <lang> - Sprache aktivieren (EN/FR/DE)",
     COMMAND_DISABLE = "/dl lang disable <lang> - Sprache deaktivieren (EN/FR/DE)",
-    COMMAND_EXTENSION_ENABLE = "/dl extension enable <extension> - Erweiterung aktivieren (Vanilla/TBC)",
-    COMMAND_EXTENSION_DISABLE = "/dl extension disable <extension> - Erweiterung deaktivieren (Vanilla/TBC)",
+    COMMAND_EXTENSION_ENABLE = "/dl extension enable <extension> - Erweiterung aktivieren (%s)",
+    COMMAND_EXTENSION_DISABLE = "/dl extension disable <extension> - Erweiterung deaktivieren (%s)",
     COMMAND_TYPE_ENABLE = "/dl type enable <type> - Zonentyp aktivieren (Raid/Dungeon/Zone/Schlachtfeld/Stadt/Arena)",
     COMMAND_TYPE_DISABLE = "/dl type disable <type> - Zonentyp deaktivieren (Raid/Dungeon/Zone/Schlachtfeld/Stadt/Arena)",
     COMMAND_BLOCKLIST_HELP = "/dl blocklist <add/remove/list/clear> <key> - Tooltip-Blockliste verwalten",
@@ -202,8 +205,18 @@ function DL:GetStrings(locale)
   return self.Locale.EN
 end
 
+function DL:IsForever()
+  return self.Flavor == "FOREVER"
+end
+
 function DL:GetAvailableExtensions(locale)
   local L = self:GetStrings(locale or nil)
+  if self:IsForever() then
+    return {
+      { code = "VANILLA", name = L.EXTENSION_VANILLA },
+      { code = "FOREVER", name = L.EXTENSION_FOREVER },
+    }
+  end
   return {
     { code = "VANILLA", name = L.EXTENSION_VANILLA },
     { code = "TBC", name = L.EXTENSION_TBC },

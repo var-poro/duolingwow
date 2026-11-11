@@ -1,3 +1,5 @@
 CHANGELOG.md
 Duolingwow.zip
 logo.png
+.release/
+__pycache__/

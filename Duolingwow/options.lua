@@ -122,7 +122,7 @@ local function GetDropdownCaption(dropdown)
 end
 
 local function GetLogoPath()
-  return "Interface\\AddOns\\DuoLingWoW\\logo.tga"
+  return "Interface\\AddOns\\" .. ADDON_NAME .. "\\logo.tga"
 end
 
 local function CreateOptionsPanel()
@@ -164,24 +164,41 @@ local function CreateOptionsPanel()
   colorPicker:SetPoint("TOPLEFT", colorPreview, "TOPRIGHT", 8, 0)
   colorPicker:SetText(L.OPTIONS_COLOR_PICKER)
   colorPicker:SetScript("OnClick", function()
+    EnsureDB()
     local r, g, b = DuolingwowDB.linkColor.r, DuolingwowDB.linkColor.g, DuolingwowDB.linkColor.b
-    ColorPickerFrame.hasOpacity = false
-    ColorPickerFrame.previousValues = { r = r, g = g, b = b }
-    ColorPickerFrame.func = function()
+    local previous = { r = r, g = g, b = b }
+
+    local function OnColorChanged()
       local cr, cg, cb = ColorPickerFrame:GetColorRGB()
       DuolingwowDB.linkColor = { r = cr, g = cg, b = cb }
       UpdateColorPreview()
     end
-    ColorPickerFrame.swatchFunc = ColorPickerFrame.func
-    ColorPickerFrame.cancelFunc = function()
-      local prev = ColorPickerFrame.previousValues
-      if prev then
-        DuolingwowDB.linkColor = { r = prev.r, g = prev.g, b = prev.b }
-      end
+
+    local function OnColorCancelled()
+      DuolingwowDB.linkColor = { r = previous.r, g = previous.g, b = previous.b }
       UpdateColorPreview()
     end
-    ColorPickerFrame:SetColorRGB(r, g, b)
-    ColorPickerFrame:Show()
+
+    if ColorPickerFrame.SetupColorPickerAndShow then
+      -- Current API (Anniversary, Forever, Mainline).
+      ColorPickerFrame:SetupColorPickerAndShow({
+        r = r,
+        g = g,
+        b = b,
+        hasOpacity = false,
+        swatchFunc = OnColorChanged,
+        cancelFunc = OnColorCancelled,
+      })
+    else
+      -- Legacy API.
+      ColorPickerFrame.hasOpacity = false
+      ColorPickerFrame.previousValues = previous
+      ColorPickerFrame.func = OnColorChanged
+      ColorPickerFrame.swatchFunc = OnColorChanged
+      ColorPickerFrame.cancelFunc = OnColorCancelled
+      ColorPickerFrame:SetColorRGB(r, g, b)
+      ColorPickerFrame:Show()
+    end
   end)
 
   UpdateColorPreview()
