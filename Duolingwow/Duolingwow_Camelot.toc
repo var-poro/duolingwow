@@ -1,0 +1,26 @@
+## Interface: 16001
+## Title: Duolingwow
+## Notes: Recognizes WoW-specific abbreviations in chat and shows explanatory tooltips.
+## Author: Poro
+## Category-enUS: Chat
+## Category-deDE: Chat
+## Category-esES: Chat
+## Category-esMX: Chat
+## Category-frFR: Discussion
+## Category-itIT: Chat
+## Category-koKR: 대화
+## Category-ptBR: Bate-papo
+## Category-ruRU: Чат
+## Category-zhCN: 聊天
+## Category-zhTW: 對話
+## Version: 1.1.0
+## IconTexture:Interface\AddOns\Duolingwow\logo.tga
+## SavedVariables: DuolingwowDB
+
+flavor_forever.lua
+localization.lua
+dictionary_forever_en.lua
+dictionary_forever_fr.lua
+dictionary_forever_de.lua
+core.lua
+options.lua
