@@ -24,6 +24,7 @@ DL.Dictionary.EN = {
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   
   -- Deadmines
@@ -148,15 +149,16 @@ DL.Dictionary.EN = {
   },
   GY = {
     name = "Scarlet Monastery: Graveyard",
-    level = "26-32",
+    level = "26-36",
     zone = "Eastern Kingdoms",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   SMGY = {
     name = "Scarlet Monastery: Graveyard",
-    level = "26-32",
+    level = "26-36",
     zone = "Eastern Kingdoms",
     extension = "Vanilla",
     zoneType = "DUNGEON",
@@ -349,15 +351,6 @@ DL.Dictionary.EN = {
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
-  },
-  Arena = {
-    name = "Blackrock Depths: Arena",
-    level = "52-55",
-    zone = "Eastern Kingdoms",
-    extension = "Vanilla",
-    zoneType = "DUNGEON",
-    faction = "Both",
-    strict = true,
   },
   Angerforge = {
     name = "Blackrock Depths: Angerforge",
@@ -552,8 +545,8 @@ DL.Dictionary.EN = {
     strict = true,
   },
   Scarlet = {
-    name = "Stratholme: Live",
-    level = "58-60",
+    name = "Scarlet Monastery",
+    level = "26-45",
     zone = "Eastern Kingdoms",
     extension = "Vanilla",
     zoneType = "DUNGEON",
@@ -575,6 +568,7 @@ DL.Dictionary.EN = {
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   Undead = {
     name = "Stratholme: Undead",
@@ -667,6 +661,7 @@ DL.Dictionary.EN = {
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   
   -- Blood Furnace
@@ -696,6 +691,7 @@ DL.Dictionary.EN = {
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   Pens = {
     name = "The Slave Pens",
@@ -733,6 +729,7 @@ DL.Dictionary.EN = {
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   Tombs = {
     name = "Mana-Tombs",
@@ -806,14 +803,6 @@ DL.Dictionary.EN = {
     faction = "Both",
   },
   OldHillsbrad = {
-    name = "Old Hillsbrad Foothills",
-    level = "64-68",
-    zone = "Kalimdor",
-    extension = "The Burning Crusade",
-    zoneType = "DUNGEON",
-    faction = "Both",
-  },
-  OH = {
     name = "Old Hillsbrad Foothills",
     level = "64-68",
     zone = "Kalimdor",
@@ -973,6 +962,7 @@ DL.Dictionary.EN = {
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   Botanica = {
     name = "The Botanica",
@@ -1000,6 +990,7 @@ DL.Dictionary.EN = {
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   Arcatraz = {
     name = "The Arcatraz",
@@ -1018,6 +1009,7 @@ DL.Dictionary.EN = {
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   Morass = {
     name = "The Black Morass",
@@ -1208,14 +1200,6 @@ DL.Dictionary.EN = {
     zoneType = "RAID",
     faction = "Both",
   },
-  GL = {
-    name = "Gruul's Lair",
-    level = "70",
-    zone = "Outland",
-    extension = "The Burning Crusade",
-    zoneType = "RAID",
-    faction = "Both",
-  },
   Gruuls = {
     name = "Gruul's Lair",
     level = "70",
@@ -1250,6 +1234,7 @@ DL.Dictionary.EN = {
     extension = "The Burning Crusade",
     zoneType = "RAID",
     faction = "Both",
+    strict = true,
   },
   Magtheridon = {
     name = "Magtheridon's Lair",
@@ -1312,14 +1297,6 @@ DL.Dictionary.EN = {
     extension = "The Burning Crusade",
     zoneType = "RAID",
     faction = "Both",
-  },
-  Mount = {
-    name = "Hyjal Summit",
-    level = "70",
-    zone = "Kalimdor",
-    extension = "The Burning Crusade",
-    zoneType = "RAID",
-    faction = "Both",
     strict = true,
   },
   MountHyjal = {
@@ -1339,15 +1316,6 @@ DL.Dictionary.EN = {
     extension = "The Burning Crusade",
     zoneType = "RAID",
     faction = "Both",
-  },
-  Temple = {
-    name = "Black Temple",
-    level = "70",
-    zone = "Outland",
-    extension = "The Burning Crusade",
-    zoneType = "RAID",
-    faction = "Both",
-    strict = true,
   },
   BlackTemple = {
     name = "Black Temple",
@@ -1425,6 +1393,7 @@ DL.Dictionary.EN = {
     extension = "Vanilla",
     zoneType = "BATTLEGROUND",
     faction = "Both",
+    strict = true,
   },
   Basin = {
     name = "Arathi Basin",
@@ -1779,6 +1748,7 @@ DL.Dictionary.EN = {
     extension = "Vanilla",
     zoneType = "CITY",
     faction = "Both",
+    strict = true,
   },
   
   -- Gadgetzan
@@ -1827,6 +1797,7 @@ DL.Dictionary.EN = {
     extension = "Vanilla",
     zoneType = "CITY",
     faction = "Both",
+    strict = true,
   },
   
   -- Area 52
@@ -1916,14 +1887,6 @@ DL.Dictionary.EN = {
   },
   
   -- Hellfire Citadel
-  HC = {
-    name = "Hellfire Citadel",
-    level = "58-70",
-    zone = "Outland",
-    extension = "The Burning Crusade",
-    zoneType = "ZONE",
-    faction = "Both",
-  },
   HFC = {
     name = "Hellfire Citadel",
     level = "58-70",
@@ -2684,6 +2647,7 @@ DL.Dictionary.EN = {
     extension = "The Burning Crusade",
     zoneType = "ZONE",
     faction = "Both",
+    strict = true,
   },
   Nether = {
     name = "Netherstorm",

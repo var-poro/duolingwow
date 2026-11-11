@@ -52,7 +52,9 @@ local CHAT_EVENTS = {
   "CHAT_MSG_WHISPER_INFORM",
   "CHAT_MSG_CHANNEL",
   "CHAT_MSG_EMOTE",
-  "CHAT_MSG_TEXT_EMOTE",
+  -- CHAT_MSG_TEXT_EMOTE (/wave, /bow...) is deliberately not filtered: the game replaces
+  -- the sender's name inside the text after the filters run, so a player named after an
+  -- abbreviation (e.g. "Kara") would have that replacement land inside our link.
 }
 
 local function DeepCopyDefaults(src, dest)
@@ -256,6 +258,7 @@ local function AddTooltipEntry(tooltip, entry, abbr, langCode)
         line = string.format("%s%s|r", extColor, extName)
       end
       tooltip:AddLine(line, 1, 1, 1, true)
+      SetLastTooltipLineFonts(tooltip, GameTooltipText, GameTooltipText)
     end
   end
   if entry.zone and entry.zone ~= "" then
@@ -265,9 +268,11 @@ local function AddTooltipEntry(tooltip, entry, abbr, langCode)
     else
       tooltip:AddLine(string.format("|cffffffff%s|r", zone), 1, 1, 1, true)
     end
+    SetLastTooltipLineFonts(tooltip, GameTooltipText, GameTooltipText)
   end
   if entry.level and entry.level ~= "" then
-    tooltip:AddDoubleLine(string.format("|cffffff00lvl. %s|r", entry.level), "|cffffffffDuolingwow|r", 1, 1, 0, 1, 1, 1)
+    local levelText = string.format(DL:GetStrings(locale).TOOLTIP_LEVEL, entry.level)
+    tooltip:AddDoubleLine(string.format("|cffffff00%s|r", levelText), "|cffffffffDuolingwow|r", 1, 1, 0, 1, 1, 1)
     SetLastTooltipLineFonts(tooltip, GameFontHighlight, GameFontDisableSmall)
   else
     tooltip:AddLine("|cffffffffDuolingwow|r", 1, 1, 1, true)
@@ -357,8 +362,12 @@ local function BuildLink(word)
   return string.format("|H%s%s|h%s|h", prefix, word, ColorizeLinkText(string.format("[%s]", word)))
 end
 
+-- A word is a run of ASCII letters/digits and UTF-8 bytes (\128-\255), so accented
+-- words stay whole: "später" or "château" must not be split into "sp" + "äter".
+local WORD_PATTERN = "%f[%w\128-\255]([%w\128-\255]+)%f[^%w\128-\255]"
+
 local function ReplaceAbbreviations(segment)
-  return segment:gsub("%f[%w]([%w]+)%f[%W]", function(word)
+  return segment:gsub(WORD_PATTERN, function(word)
     if GetDictKeysForWord(word) then
       local entries = GetAbbreviationEntries(word)
       if #entries > 0 then
@@ -423,6 +432,33 @@ local function ExtractLinkWord(linkData)
   return nil
 end
 
+-- The addon's own tooltip, set up like the game's item link tooltip (ItemRefTooltip:
+-- same position, movable, close button, closes with Escape). Reusing ItemRefTooltip
+-- carried our fonts and tooltip state over to the next item link the player opened.
+local tooltipFrame
+local function GetTooltip()
+  if tooltipFrame then
+    return tooltipFrame
+  end
+  local tooltip = CreateFrame("GameTooltip", "DuolingwowTooltip", UIParent, "GameTooltipTemplate")
+  tooltip:SetFrameStrata("TOOLTIP")
+  tooltip:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 80)
+  tooltip:SetClampedToScreen(true)
+  tooltip:EnableMouse(true)
+  tooltip:SetMovable(true)
+  tooltip:RegisterForDrag("LeftButton")
+  tooltip:SetScript("OnDragStart", function(self) self:StartMoving() end)
+  tooltip:SetScript("OnDragStop", function(self) self:StopMovingOrSizing() end)
+  local close = CreateFrame("Button", nil, tooltip, "UIPanelCloseButton")
+  close:SetPoint("TOPRIGHT", tooltip, "TOPRIGHT", 1, 0)
+  close:SetScript("OnClick", function() tooltip:Hide() end)
+  if UISpecialFrames then
+    table.insert(UISpecialFrames, "DuolingwowTooltip")
+  end
+  tooltipFrame = tooltip
+  return tooltip
+end
+
 local function OnItemRef(linkData)
   local word = ExtractLinkWord(linkData)
   if not word or word == "" then
@@ -432,20 +468,29 @@ local function OnItemRef(linkData)
   if IsBlocklistedKey(word) then
     return true
   end
+  local tooltip = GetTooltip()
+  -- Clicking the same abbreviation again closes the tooltip, like item links do.
+  if tooltip:IsShown() and tooltip.word == word then
+    tooltip:Hide()
+    return true
+  end
+
   local entries = GetAbbreviationEntries(word)
   local displayKey = word:upper()
-  ItemRefTooltip:SetOwner(UIParent, "ANCHOR_PRESERVE")
-  ItemRefTooltip:ClearLines()
+  tooltip:SetOwner(UIParent, "ANCHOR_PRESERVE")
+  tooltip:ClearLines()
 
   if #entries == 0 then
-    ItemRefTooltip:AddLine(L.TOOLTIP_EMPTY, 1, 0.5, 0.5)
+    tooltip:AddLine(L.TOOLTIP_EMPTY, 1, 0.5, 0.5)
+    SetLastTooltipLineFonts(tooltip, GameTooltipText, GameTooltipText)
   else
     for _, entry in ipairs(entries) do
-      AddTooltipEntry(ItemRefTooltip, entry.data, displayKey, entry.lang)
+      AddTooltipEntry(tooltip, entry.data, displayKey, entry.lang)
     end
   end
 
-  ItemRefTooltip:Show()
+  tooltip.word = word
+  tooltip:Show()
   return true
 end
 
@@ -693,8 +738,8 @@ local function HandleSlashCommand(input)
       if info.code == lang then
         found = true
         DuolingwowDB.enabledLanguages[lang] = (action == "enable")
-        local status = (action == "enable") and "enabled" or "disabled"
-        Print(string.format(L.COMMAND_LANG_UPDATED, lang, status))
+        local message = (action == "enable") and L.COMMAND_LANG_ENABLED or L.COMMAND_LANG_DISABLED
+        Print(string.format(message, lang))
         return
       end
     end
@@ -706,7 +751,8 @@ local function HandleSlashCommand(input)
 
   if command == "extension" or command == "type" then
     local action = (args[2] or ""):lower()
-    local rawValue = args[3] or ""
+    -- The value may be several words ("Champ de bataille", "The Burning Crusade").
+    local rawValue = table.concat(args, " ", 3)
     if action ~= "enable" and action ~= "disable" then
       Print(L.COMMAND_UNKNOWN)
       return
@@ -731,8 +777,7 @@ local function HandleSlashCommand(input)
         end)
       end
       if matched then
-        local status = isEnabled and "enabled" or "disabled"
-        Print(string.format(L.COMMAND_EXTENSION_UPDATED, matched, status))
+        Print(string.format(isEnabled and L.COMMAND_EXTENSION_ENABLED or L.COMMAND_EXTENSION_DISABLED, matched))
       else
         Print(string.format(L.COMMAND_EXTENSION_UNKNOWN, rawValue))
       end
@@ -742,8 +787,7 @@ local function HandleSlashCommand(input)
       DuolingwowDB.enabledZoneTypes[code] = isEnabled
     end)
     if matched then
-      local status = isEnabled and "enabled" or "disabled"
-      Print(string.format(L.COMMAND_TYPE_UPDATED, matched, status))
+      Print(string.format(isEnabled and L.COMMAND_TYPE_ENABLED or L.COMMAND_TYPE_DISABLED, matched))
     else
       Print(string.format(L.COMMAND_TYPE_UNKNOWN, rawValue))
     end

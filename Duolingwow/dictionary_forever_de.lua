@@ -52,6 +52,7 @@ DL.Dictionary.DE = {
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
 
   -- Shadowfang Keep
@@ -148,6 +149,15 @@ DL.Dictionary.DE = {
     zoneType = "DUNGEON",
     faction = "Both",
   },
+  Scarlet = {
+    name = "Scharlachrotes Kloster",
+    level = "31-45",
+    zone = "Östliche Königreiche",
+    extension = "Vanilla",
+    zoneType = "DUNGEON",
+    faction = "Both",
+    strict = true,
+  },
 
   -- Scarlet Monastery: Graveyard
   GY = {
@@ -157,6 +167,7 @@ DL.Dictionary.DE = {
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   SMGY = {
     name = "Scharlachrotes Kloster: Friedhof",
@@ -372,19 +383,9 @@ DL.Dictionary.DE = {
     faction = "Both",
   },
 
-  -- Blackrock Depths: Arena
-  Arena = {
-    name = "Schwarzfelstiefen: Arena",
-    zone = "Östliche Königreiche",
-    extension = "Vanilla",
-    zoneType = "DUNGEON",
-    faction = "Both",
-    strict = true,
-  },
-
   -- Blackrock Depths: Angerforge
   Angerforge = {
-    name = "Schwarzfelstiefen: Zorneshitze",
+    name = "Schwarzfelstiefen: Zornesschmied",
     zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
@@ -610,15 +611,6 @@ DL.Dictionary.DE = {
     faction = "Both",
     strict = true,
   },
-  Scarlet = {
-    name = "Stratholme: Lebendig",
-    level = "58-60",
-    zone = "Östliche Königreiche",
-    extension = "Vanilla",
-    zoneType = "DUNGEON",
-    faction = "Both",
-    strict = true,
-  },
 
   -- Stratholme: Undead
   StratUD = {
@@ -636,6 +628,7 @@ DL.Dictionary.DE = {
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   Undead = {
     name = "Stratholme: Untote",
@@ -1057,6 +1050,7 @@ DL.Dictionary.DE = {
     extension = "Vanilla",
     zoneType = "BATTLEGROUND",
     faction = "Both",
+    strict = true,
   },
   Basin = {
     name = "Arathibecken",
@@ -1272,6 +1266,7 @@ DL.Dictionary.DE = {
     extension = "Vanilla",
     zoneType = "CITY",
     faction = "Both",
+    strict = true,
   },
 
   -- Gadgetzan
@@ -1320,6 +1315,7 @@ DL.Dictionary.DE = {
     extension = "Vanilla",
     zoneType = "CITY",
     faction = "Both",
+    strict = true,
   },
 
   -- ============================================================================

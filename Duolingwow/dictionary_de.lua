@@ -24,6 +24,7 @@ DL.Dictionary.DE = {
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   
   -- Deadmines
@@ -148,15 +149,16 @@ DL.Dictionary.DE = {
   },
   GY = {
     name = "Scharlachrotes Kloster: Friedhof",
-    level = "26-32",
+    level = "26-36",
     zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   SMGY = {
     name = "Scharlachrotes Kloster: Friedhof",
-    level = "26-32",
+    level = "26-36",
     zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
@@ -350,17 +352,8 @@ DL.Dictionary.DE = {
     zoneType = "DUNGEON",
     faction = "Both",
   },
-  Arena = {
-    name = "Schwarzfelstiefen: Arena",
-    level = "52-55",
-    zone = "Östliche Königreiche",
-    extension = "Vanilla",
-    zoneType = "DUNGEON",
-    faction = "Both",
-    strict = true,
-  },
   Angerforge = {
-    name = "Schwarzfelstiefen: Zorneshitze",
+    name = "Schwarzfelstiefen: Zornesschmied",
     level = "54-57",
     zone = "Östliche Königreiche",
     extension = "Vanilla",
@@ -552,8 +545,8 @@ DL.Dictionary.DE = {
     strict = true,
   },
   Scarlet = {
-    name = "Stratholme: Lebendig",
-    level = "58-60",
+    name = "Scharlachrotes Kloster",
+    level = "26-45",
     zone = "Östliche Königreiche",
     extension = "Vanilla",
     zoneType = "DUNGEON",
@@ -575,6 +568,7 @@ DL.Dictionary.DE = {
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   Undead = {
     name = "Stratholme: Untote",
@@ -667,6 +661,7 @@ DL.Dictionary.DE = {
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   
   -- Blood Furnace
@@ -696,6 +691,7 @@ DL.Dictionary.DE = {
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   Pens = {
     name = "Die Sklavenunterkünfte",
@@ -733,6 +729,7 @@ DL.Dictionary.DE = {
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   Tombs = {
     name = "Managruft",
@@ -806,14 +803,6 @@ DL.Dictionary.DE = {
     faction = "Both",
   },
   OldHillsbrad = {
-    name = "Vorgebirge des Alten Hügellands",
-    level = "64-68",
-    zone = "Kalimdor",
-    extension = "The Burning Crusade",
-    zoneType = "DUNGEON",
-    faction = "Both",
-  },
-  OH = {
     name = "Vorgebirge des Alten Hügellands",
     level = "64-68",
     zone = "Kalimdor",
@@ -973,6 +962,7 @@ DL.Dictionary.DE = {
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   Botanica = {
     name = "Die Botanika",
@@ -1000,6 +990,7 @@ DL.Dictionary.DE = {
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   Arcatraz = {
     name = "Die Arkatraz",
@@ -1018,6 +1009,7 @@ DL.Dictionary.DE = {
     extension = "The Burning Crusade",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   Morass = {
     name = "Der Schwarze Morast",
@@ -1208,14 +1200,6 @@ DL.Dictionary.DE = {
     zoneType = "RAID",
     faction = "Both",
   },
-  GL = {
-    name = "Gruuls Unterschlupf",
-    level = "70",
-    zone = "Scherbenwelt",
-    extension = "The Burning Crusade",
-    zoneType = "RAID",
-    faction = "Both",
-  },
   Gruuls = {
     name = "Gruuls Unterschlupf",
     level = "70",
@@ -1250,6 +1234,7 @@ DL.Dictionary.DE = {
     extension = "The Burning Crusade",
     zoneType = "RAID",
     faction = "Both",
+    strict = true,
   },
   Magtheridon = {
     name = "Magtheridons Kammer",
@@ -1312,14 +1297,6 @@ DL.Dictionary.DE = {
     extension = "The Burning Crusade",
     zoneType = "RAID",
     faction = "Both",
-  },
-  Mount = {
-    name = "Hyjalgipfel",
-    level = "70",
-    zone = "Kalimdor",
-    extension = "The Burning Crusade",
-    zoneType = "RAID",
-    faction = "Both",
     strict = true,
   },
   MountHyjal = {
@@ -1339,15 +1316,6 @@ DL.Dictionary.DE = {
     extension = "The Burning Crusade",
     zoneType = "RAID",
     faction = "Both",
-  },
-  Temple = {
-    name = "Der Schwarze Tempel",
-    level = "70",
-    zone = "Scherbenwelt",
-    extension = "The Burning Crusade",
-    zoneType = "RAID",
-    faction = "Both",
-    strict = true,
   },
   BlackTemple = {
     name = "Der Schwarze Tempel",
@@ -1425,6 +1393,7 @@ DL.Dictionary.DE = {
     extension = "Vanilla",
     zoneType = "BATTLEGROUND",
     faction = "Both",
+    strict = true,
   },
   Basin = {
     name = "Arathibecken",
@@ -1779,6 +1748,7 @@ DL.Dictionary.DE = {
     extension = "Vanilla",
     zoneType = "CITY",
     faction = "Both",
+    strict = true,
   },
   
   -- Gadgetzan
@@ -1827,6 +1797,7 @@ DL.Dictionary.DE = {
     extension = "Vanilla",
     zoneType = "CITY",
     faction = "Both",
+    strict = true,
   },
   
   -- Area 52
@@ -1916,14 +1887,6 @@ DL.Dictionary.DE = {
   },
   
   -- Hellfire Citadel
-  HC = {
-    name = "Höllenfeuerzitadelle",
-    level = "58-70",
-    zone = "Scherbenwelt",
-    extension = "The Burning Crusade",
-    zoneType = "ZONE",
-    faction = "Both",
-  },
   HFC = {
     name = "Höllenfeuerzitadelle",
     level = "58-70",
@@ -2684,6 +2647,7 @@ DL.Dictionary.DE = {
     extension = "The Burning Crusade",
     zoneType = "ZONE",
     faction = "Both",
+    strict = true,
   },
   Nether = {
     name = "Nethersturm",

@@ -44,25 +44,34 @@ local function NewObject(kind)
   o.SetText = function(self, t) self.text = t end
   return o
 end
+-- Tooltip ---------------------------------------------------------------
+local function MakeTooltip(o)
+  o.lines = {}
+  o.ClearLines = function(self) self.lines = {} end
+  o.AddLine = function(self, t) table.insert(self.lines, t) end
+  o.AddDoubleLine = function(self, a, b) table.insert(self.lines, a .. " || " .. b) end
+  o.NumLines = function(self) return #self.lines end
+  o.Show = function(self) self.shown = true end
+  o.Hide = function(self) self.shown = false end
+  o.IsShown = function(self) return self.shown == true end
+  return o
+end
+
 function CreateFrame(kind, name, parent, template)
   local f = NewObject(kind)
   f.name = name
+  f.template = template
+  if kind == "GameTooltip" then MakeTooltip(f) end
   table.insert(frames, f)
   if name then _G[name] = f end
   return f
 end
 UIParent = NewObject("Frame")
-GameFontNormalLarge, GameFontHighlight, GameFontDisableSmall = {}, {}, {}
+GameFontNormalLarge, GameFontHighlight, GameFontDisableSmall, GameTooltipText = {}, {}, {}, {}
+UISpecialFrames = {}
 
--- Tooltip ---------------------------------------------------------------
-ItemRefTooltip = NewObject("GameTooltip")
+ItemRefTooltip = MakeTooltip(NewObject("GameTooltip"))
 ItemRefTooltip.name = "ItemRefTooltip"
-ItemRefTooltip.lines = {}
-ItemRefTooltip.ClearLines = function(self) self.lines = {} end
-ItemRefTooltip.AddLine = function(self, t) table.insert(self.lines, t) end
-ItemRefTooltip.AddDoubleLine = function(self, a, b) table.insert(self.lines, a .. " || " .. b) end
-ItemRefTooltip.NumLines = function(self) return #self.lines end
-ItemRefTooltip.Show = function(self) self.shown = true end
 
 -- Chat filters ----------------------------------------------------------
 local chatFilters = {}
@@ -161,11 +170,14 @@ local function links(msg)
   for payload, text in msg:gmatch("|H(.-)|h(.-)|h") do table.insert(out, payload) end
   return out
 end
+-- Clicks a link and returns the lines of the addon tooltip (empty if it is hidden).
 local function click(payload)
   ItemRefTooltip.lines = {}
   ItemRefTooltip.fallback = nil
   SetItemRef(payload, "", "LeftButton", nil)
-  return ItemRefTooltip.lines
+  local tip = _G.DuolingwowTooltip
+  if tip and tip:IsShown() then return tip.lines end
+  return {}
 end
 DL_TEST = { DL = DL, filterMessage = filterMessage, links = links, click = click, check = check, log = log,
   printed = printed, results = results, registeredCategory = function() return registeredCategory end,

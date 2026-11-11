@@ -70,7 +70,7 @@ sections.append(("DUNGEONS - RETURNING (levels revised for Forever)", [
     classic_entry(["Stocks", "Stock", "Stockade"], "26-32"),
     classic_entry(["RFK"], "30-36"),
     classic_entry(["Gnomer", "Gnome", "Gnomeregan"], "31-37"),
-    classic_entry(["SM"], "31-45"),
+    classic_entry(["SM", "Scarlet"], "31-45"),
     classic_entry(["GY", "SMGY"], "31-37"),
     classic_entry(["Lib", "SMLib", "Library"], "34-40"),
     classic_entry(["Arm", "SMArm", "Armory"], "37-43"),
@@ -84,7 +84,6 @@ sections.append(("DUNGEONS - RETURNING (levels revised for Forever)", [
     classic_entry(["Princess"], None),
     classic_entry(["ST", "Sunken"], "52-58"),
     classic_entry(["BRD"], "52-60"),
-    classic_entry(["Arena"], None),
     classic_entry(["Angerforge"], None),
     classic_entry(["Emperor", "Emp"], None),
     classic_entry(["DireMaul"], "55-60"),
@@ -97,7 +96,7 @@ sections.append(("DUNGEONS - RETURNING (levels revised for Forever)", [
     classic_entry(["Tribute", "Trib"], "58-60"),
     classic_entry(["Scholo", "Schol", "Scholomance"], "58-60"),
     classic_entry(["Strat", "Strath", "Stratholme"], "58-60"),
-    classic_entry(["StratLive", "Live", "Scarlet"], "58-60"),
+    classic_entry(["StratLive", "Live"], "58-60"),
     classic_entry(["StratUD", "UD", "Undead", "Baron"], "58-60"),
 ]))
 

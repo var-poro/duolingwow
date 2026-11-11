@@ -52,6 +52,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
 
   -- Shadowfang Keep
@@ -148,6 +149,15 @@ DL.Dictionary.FR = {
     zoneType = "DUNGEON",
     faction = "Both",
   },
+  Scarlet = {
+    name = "Monastère écarlate",
+    level = "31-45",
+    zone = "Royaumes de l'Est",
+    extension = "Vanilla",
+    zoneType = "DUNGEON",
+    faction = "Both",
+    strict = true,
+  },
 
   -- Scarlet Monastery: Graveyard
   GY = {
@@ -157,6 +167,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   SMGY = {
     name = "Monastère écarlate : Cimetière",
@@ -197,7 +208,7 @@ DL.Dictionary.FR = {
 
   -- Scarlet Monastery: Armory
   Arm = {
-    name = "Monastère écarlate : Armerie",
+    name = "Monastère écarlate : Armurerie",
     level = "37-43",
     zone = "Royaumes de l'Est",
     extension = "Vanilla",
@@ -206,7 +217,7 @@ DL.Dictionary.FR = {
     strict = true,
   },
   SMArm = {
-    name = "Monastère écarlate : Armerie",
+    name = "Monastère écarlate : Armurerie",
     level = "37-43",
     zone = "Royaumes de l'Est",
     extension = "Vanilla",
@@ -214,7 +225,7 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
   Armory = {
-    name = "Monastère écarlate : Armerie",
+    name = "Monastère écarlate : Armurerie",
     level = "37-43",
     zone = "Royaumes de l'Est",
     extension = "Vanilla",
@@ -372,19 +383,9 @@ DL.Dictionary.FR = {
     faction = "Both",
   },
 
-  -- Blackrock Depths: Arena
-  Arena = {
-    name = "Profondeurs de Rochenoire : Arène",
-    zone = "Royaumes de l'Est",
-    extension = "Vanilla",
-    zoneType = "DUNGEON",
-    faction = "Both",
-    strict = true,
-  },
-
   -- Blackrock Depths: Angerforge
   Angerforge = {
-    name = "Profondeurs de Rochenoire : Forge-Furie",
+    name = "Profondeurs de Rochenoire : Forgehargne",
     zone = "Royaumes de l'Est",
     extension = "Vanilla",
     zoneType = "DUNGEON",
@@ -610,15 +611,6 @@ DL.Dictionary.FR = {
     faction = "Both",
     strict = true,
   },
-  Scarlet = {
-    name = "Stratholme : Vivant",
-    level = "58-60",
-    zone = "Royaumes de l'Est",
-    extension = "Vanilla",
-    zoneType = "DUNGEON",
-    faction = "Both",
-    strict = true,
-  },
 
   -- Stratholme: Undead
   StratUD = {
@@ -636,6 +628,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   Undead = {
     name = "Stratholme : Mort-vivant",
@@ -1057,6 +1050,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "BATTLEGROUND",
     faction = "Both",
+    strict = true,
   },
   Basin = {
     name = "Bassin d'Arathi",
@@ -1272,6 +1266,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "CITY",
     faction = "Both",
+    strict = true,
   },
 
   -- Gadgetzan
@@ -1320,6 +1315,7 @@ DL.Dictionary.FR = {
     extension = "Vanilla",
     zoneType = "CITY",
     faction = "Both",
+    strict = true,
   },
 
   -- ============================================================================
