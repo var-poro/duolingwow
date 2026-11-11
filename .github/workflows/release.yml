@@ -2,7 +2,8 @@ name: Test and release
 
 # Push a tag like "v1.1.0" to publish a GitHub release (zip + release.json),
 # which is what WoWUp reads to install and update the addon.
-# Run it manually ("Run workflow") for a dry run: it builds the zip without publishing.
+# Pull requests and manual runs ("Run workflow") do a dry run: the zip is built and
+# attached to the run as an artifact, nothing is published.
 on:
   push:
     tags:
@@ -36,7 +37,6 @@ jobs:
 
   package:
     needs: test
-    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -48,7 +48,7 @@ jobs:
           fetch-depth: 0
 
       - name: Package (dry run, no upload)
-        if: github.event_name == 'workflow_dispatch'
+        if: "!startsWith(github.ref, 'refs/tags/v')"
         uses: BigWigsMods/packager@v2
         with:
           args: -d
