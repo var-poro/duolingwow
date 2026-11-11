@@ -61,3 +61,5 @@ jobs:
         with:
           name: Duolingwow-package
           path: .release/*.zip
+          # .release is a dot-directory, which upload-artifact skips by default
+          include-hidden-files: true

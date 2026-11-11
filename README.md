@@ -105,7 +105,7 @@ tools/                           # dictionary generator + offline tests (see too
 
 ## Releasing
 
-Bump `## Version` in both TOC files, then push a tag: `git tag v1.2.0 && git push origin v1.2.0`. The workflow runs the tests, builds `Duolingwow-v1.2.0.zip` and publishes a GitHub release with a `release.json` file, which WoWUp uses to offer the update.
+Bump `## Version` in both TOC files and add a section to `CHANGES.md` (used as the release notes), then push a tag: `git tag v1.2.0 && git push origin v1.2.0`. The workflow runs the tests, builds `Duolingwow-v1.2.0.zip` and publishes a GitHub release with a `release.json` file, which WoWUp uses to offer the update.
 
 ## Future ideas
 
