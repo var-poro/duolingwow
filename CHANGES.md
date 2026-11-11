@@ -1,5 +1,9 @@
 # Duolingwow
 
+## 1.1.1
+
+- Now also published on CurseForge, for both Anniversary and WoW Forever. No changes in game.
+
 ## 1.1.0
 
 ### New: World of Warcraft: Forever
