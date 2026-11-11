@@ -4,7 +4,7 @@ World of Warcraft addon that detects common chat abbreviations (zones, dungeons,
 
 Supports **WoW Classic Anniversary (TBC)** and **World of Warcraft: Forever**.
 
-![Anniversary](https://img.shields.io/badge/Anniversary-20506-blue) ![Forever](https://img.shields.io/badge/Forever-16001-4fc3f7) ![Version](https://img.shields.io/badge/version-1.1.1-green)
+![Anniversary](https://img.shields.io/badge/Anniversary-20506-blue) ![Forever](https://img.shields.io/badge/Forever-16001-4fc3f7) ![Version](https://img.shields.io/badge/version-1.1.2-green)
 
 ---
 
@@ -24,7 +24,7 @@ Supports **WoW Classic Anniversary (TBC)** and **World of Warcraft: Forever**.
 - **Zone type filter** : enable or disable Raid, Dungeon, Zone, Battleground, City, Arena.
 - **Custom link color** : set the color of clickable abbreviation links in chat (options).
 - **Tooltip blocklist** : disable tooltips for specific abbreviations (`/dl blocklist add <key>` or in the options).
-- **Case-aware matching** : abbreviations that are also everyday words (`if`, `live`, `mount`, `under`, `DC`, `HoT`...) only become links when typed with the exact case (`IF`, `Live`, `Mount`...).
+- **Case-aware matching** : abbreviations that are also everyday words (`if`, `live`, `bot`, `mt`, `wc`, `under`, `DC`, `HoT`...) only become links when typed with the exact case (`IF`, `Live`, `Bot`, `MT`, `WC`...).
 - **Commands** : `/dl help`, `/dl status`, `/dl lang`, `/dl extension`, `/dl type`, `/dl blocklist` to manage languages, extensions, zone types and blocked keys.
 
 ## Configuration

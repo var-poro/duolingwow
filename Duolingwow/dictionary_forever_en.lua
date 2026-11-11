@@ -52,6 +52,7 @@ DL.Dictionary.EN = {
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
 
   -- Shadowfang Keep
@@ -148,6 +149,15 @@ DL.Dictionary.EN = {
     zoneType = "DUNGEON",
     faction = "Both",
   },
+  Scarlet = {
+    name = "Scarlet Monastery",
+    level = "31-45",
+    zone = "Eastern Kingdoms",
+    extension = "Vanilla",
+    zoneType = "DUNGEON",
+    faction = "Both",
+    strict = true,
+  },
 
   -- Scarlet Monastery: Graveyard
   GY = {
@@ -157,6 +167,7 @@ DL.Dictionary.EN = {
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   SMGY = {
     name = "Scarlet Monastery: Graveyard",
@@ -370,16 +381,6 @@ DL.Dictionary.EN = {
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
-  },
-
-  -- Blackrock Depths: Arena
-  Arena = {
-    name = "Blackrock Depths: Arena",
-    zone = "Eastern Kingdoms",
-    extension = "Vanilla",
-    zoneType = "DUNGEON",
-    faction = "Both",
-    strict = true,
   },
 
   -- Blackrock Depths: Angerforge
@@ -610,15 +611,6 @@ DL.Dictionary.EN = {
     faction = "Both",
     strict = true,
   },
-  Scarlet = {
-    name = "Stratholme: Live",
-    level = "58-60",
-    zone = "Eastern Kingdoms",
-    extension = "Vanilla",
-    zoneType = "DUNGEON",
-    faction = "Both",
-    strict = true,
-  },
 
   -- Stratholme: Undead
   StratUD = {
@@ -636,6 +628,7 @@ DL.Dictionary.EN = {
     extension = "Vanilla",
     zoneType = "DUNGEON",
     faction = "Both",
+    strict = true,
   },
   Undead = {
     name = "Stratholme: Undead",
@@ -1057,6 +1050,7 @@ DL.Dictionary.EN = {
     extension = "Vanilla",
     zoneType = "BATTLEGROUND",
     faction = "Both",
+    strict = true,
   },
   Basin = {
     name = "Arathi Basin",
@@ -1272,6 +1266,7 @@ DL.Dictionary.EN = {
     extension = "Vanilla",
     zoneType = "CITY",
     faction = "Both",
+    strict = true,
   },
 
   -- Gadgetzan
@@ -1320,6 +1315,7 @@ DL.Dictionary.EN = {
     extension = "Vanilla",
     zoneType = "CITY",
     faction = "Both",
+    strict = true,
   },
 
   -- ============================================================================

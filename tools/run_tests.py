@@ -108,6 +108,59 @@ else
   check(n == 6, "Eye -> TK + EotS x3 langs (" .. n .. ")")
 end
 
+-- 1.1.2: accented words stay whole (no "[sp]äter", "[St]ärke", "[ch]âteau")
+check(#links(filterMessage("CHAT_MSG_SAY", "später, Stärke, Stück, château, chêne")) == 0, "accented words not split")
+check(#links(filterMessage("CHAT_MSG_SAY", "LFM BRD später")) == 1, "BRD still linked next to an accented word")
+check(#links(filterMessage("CHAT_MSG_SAY", "BRD, später")) == 1, "punctuation still separates words")
+
+-- 1.1.2: short keys that are everyday chat words only link in capitals
+check(#links(filterMessage("CHAT_MSG_SAY", "oh ok gl hf, need mt, bm hunter, +sp, hc, afk wc, ab 20 uhr, ud rogue")) == 0,
+  "lowercase short words not linked")
+check(#links(filterMessage("CHAT_MSG_SAY", "LF WC")) == 1, "'WC' in capitals still links")
+check(T.chatFilters.CHAT_MSG_TEXT_EMOTE == nil, "text emotes (/wave) are not filtered")
+check(#links(filterMessage("CHAT_MSG_SAY", "LF3s Arena partner")) == 0, "'Arena' is PvP, not BRD")
+if not forever then
+  check(#links(filterMessage("CHAT_MSG_SAY", "reported that bot, vends arc")) == 0, "'bot'/'arc' not linked")
+  check(#links(filterMessage("CHAT_MSG_SAY", "LFM BOT then Bot")) == 2, "'BOT'/'Bot' linked")
+  check(#links(filterMessage("CHAT_MSG_SAY", "LFM SP")) == 1, "'SP' in capitals links")
+  check(#links(filterMessage("CHAT_MSG_SAY", "LF HC SH")) == 1, "'HC' (heroic) not linked, SH linked")
+  check(#links(filterMessage("CHAT_MSG_SAY", "WTS Swift Mount")) == 0, "'Mount' not linked")
+  check(#links(filterMessage("CHAT_MSG_SAY", "LFM Sunken Temple")) == 1, "only 'Sunken' linked in Sunken Temple")
+  check(DL.Dictionary.EN.GY.level == "26-36", "SM Graveyard level 26-36")
+end
+check(DL.Dictionary.EN.Scarlet.name == "Scarlet Monastery", "'Scarlet' is Scarlet Monastery")
+check(DL.Dictionary.FR.Arm.name:find("Armurerie", 1, true) ~= nil, "FR Armurerie")
+check(DL.Dictionary.FR.Angerforge.name:find("Forgehargne", 1, true) ~= nil, "FR Forgehargne")
+check(DL.Dictionary.DE.Angerforge.name:find("Zornesschmied", 1, true) ~= nil, "DE Zornesschmied")
+
+-- 1.1.2: the addon has its own tooltip; ItemRefTooltip (item links) is never touched
+local sfk = click(prefix .. "SFK")
+check(#sfk >= 3 and #ItemRefTooltip.lines == 0, "SFK shown in DuolingwowTooltip, not ItemRefTooltip")
+local levelWords = table.concat(sfk, " ")
+check(levelWords:find("Level ", 1, true) and levelWords:find("Niveau ", 1, true) and levelWords:find("Stufe ", 1, true),
+  "level label in each tooltip language")
+check(not levelWords:find("lvl.", 1, true), "no hardcoded 'lvl.'")
+check(#click(prefix .. "SFK") == 0, "clicking the same link again closes the tooltip")
+check(#click(prefix .. "SFK") > 0, "and a third click opens it again")
+local tipFound = false
+for _, name in ipairs(UISpecialFrames) do if name == "DuolingwowTooltip" then tipFound = true end end
+check(tipFound, "tooltip closes with Escape")
+
+-- 1.1.2: command feedback is fully translated, multi-word values work
+local before = #T.printed
+SlashCmdList.DUOLINGWOW("lang disable DE")
+local feedback = T.printed[#T.printed]
+check(#T.printed == before + 1, "one feedback line")
+if LOCALE ~= "enUS" then
+  check(not feedback:find("abled"), "no English status word: " .. tostring(feedback))
+end
+SlashCmdList.DUOLINGWOW("lang enable DE")
+local bgName = DL:GetStrings().ZONE_TYPE_BATTLEGROUND
+SlashCmdList.DUOLINGWOW("type disable " .. bgName)
+check(DuolingwowDB.enabledZoneTypes.BATTLEGROUND == false, "multi-word type '" .. bgName .. "' accepted")
+SlashCmdList.DUOLINGWOW("type enable " .. bgName)
+check(DuolingwowDB.enabledZoneTypes.BATTLEGROUND == true, "type re-enabled")
+
 -- extension filter
 SlashCmdList.DUOLINGWOW("extension disable " .. (forever and "forever" or "tbc"))
 local key = forever and "BMH" or "Kara"
